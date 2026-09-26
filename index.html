@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Speed Drill</title>
+<style>
+  :root {
+    --bg: #0f1419;
+    --card: #1a2332;
+    --text: #f0f4f8;
+    --muted: #8b9bb4;
+    --accent: #3d9cf0;
+    --good: #3dd68c;
+    --bad: #f07178;
+    --warn: #ffcc66;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100dvh;
+    padding: env(safe-area-inset-top) 16px env(safe-area-inset-bottom);
+  }
+  header {
+    padding: 16px 0 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+  header h1 { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; }
+  .stats {
+    display: flex;
+    gap: 12px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .stats strong { color: var(--text); font-weight: 600; }
+  #timer-track {
+    height: 6px;
+    background: #243044;
+    border-radius: 99px;
+    overflow: hidden;
+    margin: 8px 0 20px;
+  }
+  #timer-bar {
+    height: 100%;
+    width: 100%;
+    background: var(--accent);
+    border-radius: 99px;
+    transform-origin: left center;
+    transition: background 0.15s;
+  }
+  #timer-bar.warn { background: var(--warn); }
+  #timer-bar.danger { background: var(--bad); }
+  main { flex: 1; display: flex; flex-direction: column; }
+  #screen-home, #screen-drill, #screen-result {
+    flex: 1; display: none; flex-direction: column;
+    min-height: 0;
+  }
+  #screen-result {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 12px;
+  }
+  .active { display: flex !important; }
+  .prompt-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 28px 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+  }
+  .prompt-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  #prompt {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+  }
+  #prompt.vertical {
+    white-space: pre;
+    font-family: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, monospace;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    margin: 0 auto;
+    line-height: 1.35;
+    font-size: 1.55rem;
+    letter-spacing: 0;
+  }
+  .choices {
+    display: grid;
+    gap: 10px;
+    margin-top: auto;
+  }
+  .choice {
+    appearance: none;
+    border: 2px solid #2a3a52;
+    background: var(--card);
+    color: var(--text);
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 16px 14px;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.08s, border-color 0.1s, background 0.1s;
+  }
+  .choice:active { transform: scale(0.98); }
+  .choice.correct {
+    border-color: var(--good);
+    background: rgba(61, 214, 140, 0.15);
+  }
+  .choice.wrong {
+    border-color: var(--bad);
+    background: rgba(240, 113, 120, 0.15);
+  }
+  .choice:disabled { opacity: 0.85; cursor: default; }
+  .btn {
+    appearance: none;
+    border: none;
+    background: var(--accent);
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    padding: 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 12px;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn.secondary {
+    background: transparent;
+    border: 2px solid #2a3a52;
+    color: var(--text);
+  }
+  .home-copy {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px 0 24px;
+  }
+  .home-copy h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+  .home-copy p { color: var(--muted); line-height: 1.45; font-size: 0.95rem; }
+  .setting {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-top: 8px;
+  }
+  .setting label { font-size: 0.9rem; color: var(--muted); }
+  .setting select, .setting input {
+    background: #243044;
+    color: var(--text);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+  .result-big {
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    text-align: center;
+    margin: 24px 0 8px;
+  }
+  .result-sub {
+    text-align: center;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+  .result-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .result-tile {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .result-tile span {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .result-tile strong {
+    font-size: 1.35rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .review-heading {
+    margin: 16px 0 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+  #review {
+    margin: 0 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 180px;
+  }
+  .review-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 12px 14px;
+    border-left: 4px solid #2a3a52;
+  }
+  .review-card.ok { border-left-color: var(--good); }
+  .review-card.bad { border-left-color: var(--bad); }
+  .review-q {
+    font-weight: 700;
+    font-size: 0.95rem;
+    white-space: pre-wrap;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .review-row {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.35;
+  }
+  .review-row strong { color: var(--text); font-weight: 600; }
+  .review-row.wrong strong { color: var(--bad); }
+  .review-row.right strong { color: var(--good); }
+  .footnote {
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--muted);
+    opacity: 0.7;
+    margin: 10px 0 4px;
+  }
+  .feedback {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--muted);
+    min-height: 1.2em;
+    margin-bottom: 8px;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Speed Drill</h1>
+    <div class="stats">
+      <div>Streak <strong id="streak">0</strong></div>
+      <div>Score <strong id="score">0</strong>/<span id="asked">0</span></div>
+    </div>
+  </header>
+  <div id="timer-track"><div id="timer-bar"></div></div>
+
+  <main>
+    <section id="screen-home" class="active">
+      <div class="home-copy">
+        <h2>Timed transform drills</h2>
+        <p>See it one way. Tap the match before the clock runs out. Levels start at bare basics (L1), then go deeper when you’re ready.</p>
+        <div class="setting">
+          <label for="deck">Deck</label>
+          <select id="deck">
+            <option value="levin" selected>Michael Levin (rotated)</option>
+            <option value="math_2digit">Multiply: 2-digit × 2-digit</option>
+            <option value="add_3mix">Add: 3-digit + 2-digit + 2-digit</option>
+          </select>
+        </div>
+        <div class="setting">
+          <label for="seconds">Seconds per card</label>
+          <select id="seconds">
+            <option value="3">3s</option>
+            <option value="5" selected>5s</option>
+            <option value="8">8s</option>
+            <option value="12">12s</option>
+            <option value="20">20s</option>
+          </select>
+        </div>
+        <div class="setting">
+          <label for="rounds">Cards this round</label>
+          <select id="rounds">
+            <option value="8" selected>8</option>
+            <option value="12">12</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn" id="btn-start">Start drill</button>
+      <div class="footnote">Questions refresh automatically each round</div>
+    </section>
+
+    <section id="screen-drill">
+      <div class="prompt-card">
+        <div class="prompt-label" id="prompt-label">Match</div>
+        <div id="prompt">—</div>
+      </div>
+      <div class="feedback" id="feedback"></div>
+      <div class="choices" id="choices"></div>
+    </section>
+
+    <section id="screen-result">
+      <div class="result-big" id="result-pct">—</div>
+      <div class="result-sub" id="result-sub">Round complete</div>
+      <div class="result-grid">
+        <div class="result-tile"><span>Correct</span><strong id="r-correct">0</strong></div>
+        <div class="result-tile"><span>Best streak</span><strong id="r-streak">0</strong></div>
+        <div class="result-tile"><span>Avg sec/q</span><strong id="r-avg">—</strong></div>
+        <div class="result-tile"><span>Timeouts</span><strong id="r-timeout">0</strong></div>
+      </div>
+      <div class="review-heading">Round review — scroll for each card</div>
+      <div id="review"></div>
+      <button class="btn" id="btn-again">Drill again</button>
+      <button class="btn secondary" id="btn-home">Change settings</button>
+    </section>
+  </main>
+
+<script id="levin-bank" type="application/json">[["Talk focus Levin often sets up…","Inspiration across substrates + free lunches / diverse intelligence",["Classical neuroscience of mammalian cortex only","Gene-editing protocols for clinical morphogenesis","Single-substrate machine-learning benchmark design"]],["His continuous “free lunch” metric is…","Delta between outcome richness and effort invested",["Absolute competency score ignoring effort cost","Ratio of genome size to phenotype complexity","Binary label: evolved versus designed systems"]],["Three conventional effort sources he lists…","Design, evolution, and training/learning",["Mutation, selection, and drift alone","Design, fabrication, and metabolic upkeep","Evolution, homeostasis, and regeneration"]],["Paley and Darwin both held that…","Order is rare and takes extraordinary effort",["Order spontaneously fills Platonic pattern space","Order is cheap once genomes exist at all","Order needs only thermodynamic free energy"]],["Braitenberg-style vehicles tempt psychological language because…","Those tools actually work for the behaviors",["The vehicles contain latent neural precursors","Psychological language is always literally true of them","Their sensors implement full cognitive light cones"]],["Braitenberg’s “capital error,” per Levin…","Assuming nothing is in them we didn’t put in physically",["Assuming all competence was explicitly engineered in","Treating vehicles as hosts for Platonic patterns","Denying that simple wiring can look goal-directed"]],["Xenobots are mainly made from…","Wild-type frog embryonic epithelial cells",["Adult human tracheal epithelial cells","Frog neural crest with CRISPR ion-channel edits","Planarian neoblasts reaggregated into bots"]],["How much genome engineering for basic xenobots?","Essentially none — separate epithelia; they self-assemble",["Targeted ion-channel edits required first","Mandatory neural-progenitor add-ins before motility","Synthetic gap-junction circuits must be installed"]],["Xenobot kinematic self-replication…","Collect loose cells and polish them into next-gen bots",["Mitotic fission of the whole bot body","Molecular self-templating like viral genomes","Spontaneous budding from epithelial cysts"]],["Unexpected xenobot competence he cites…","Respond to sound (hearing-related genes differ)",["Navigate by bioelectric compass alone","Form anthrobot-like tracheal spheroids","Retain maze memory after full regeneration"]],["Anthrobots are made from…","Adult human tracheal epithelial cells (no genome edit)",["Wild-type frog embryonic epithelial cells","Human iPS cells with synthetic ion channels","Planarian neoblasts without gene edits"]],["Anthrobot healing demo he highlights…","Knit across a scratched human neuron gap (superbot cluster)",["Induce stable two-headed planarian regenerates","Restore a frog limb via Vmem repatterning","Close wounds by tissue-wide depolarization alone"]],["Neurobots, in his shorthand…","Xenobots with neural precursors added (not pre-wired circuits)",["Anthrobots with extra tracheal cilia layers","Xenobots with CRISPR-defined reflex arcs","Planaria reconstituted using frog neurons"]],["Key puzzle: when was cost paid for xeno/anthrobot skills?","Not via evolutionary history of those forms — they didn’t exist",["Via ancestral selection for frog locomotion alone","Via supervised training on robot morphologies","Via Platonic-space design invoices at the Big Bang"]],["What “free lunch” content he generalizes to…","Patterns navigating anatomical / behavioral / physiological spaces",["Genomes encoding fixed anatomical blueprints only","Passive morphogen gradients with no goal states","Neural spike codes as the sole navigation medium"]],["Spectrum of patterns runs from…","Passive static → protocognition → rich navigation / metacognition",["Genome → transcriptome → proteome layers only","Xenobot → anthrobot → neurobot taxonomy","Design → evolution → learning effort invoices"]],["He rejects “emergence” as…","A defeatist grab-bag for weird facts in one physical realm",["A synonym for Platonic pattern readout","The mechanism behind bioelectric prepatterns","Equivalent to his scale-free cognition claim"]],["Math analogy for where patterns live…","A structured Platonic space of patterns (like mathematicians investigate)",["An unstructured latent bag with no invariants","Only the genome’s combinatorial sequence space","Only anatomical morphospace of extant species"]],["Physical constants vs number-theory facts…","Number-theory patterns aren’t fixed by tweaking Big Bang constants",["Morphogenetic outcomes rewrite when G changes slightly","Bioelectric set-points are fixed by cosmological constants","Platonic pattern space collapses if Planck’s constant shifts"]],["On making minds, his slant is closer to…","We don’t make intelligence so much as interface / host patterns",["We manufacture minds by assembling genomes from scratch","Intelligence equals synaptic wiring diagrams alone","Only evolutionary selection can host any mind-like pattern"]],["In Levin’s framing, bioelectricity mainly means…","Endogenous voltage patterns across cell groups (not just neurons)",["Only action potentials in excitable neurons","Only applied electric fields used for wound healing","Only mitochondrial membrane potentials in metabolism"]],["Morphogenesis, as he stresses it, is…","Reliable construction of anatomy from cell collectives",["Random aggregation without anatomical goal states","Gene-expression lists without spatial control layers","Regeneration limited to scar-forming repair programs"]],["“Anatomical interpreter” points to…","Machinery that reads bioelectric/chemical cues into form decisions",["The genome as a literal 3D blueprint reader","A neural decoder of sensory spike trains only","Gap junctions that only shuttle metabolic waste"]],["Target morphology (his usage) is…","The anatomical goal state a tissue collective navigates toward",["The genome’s encoded parts list taken alone","A fixed morphogen gradient map with no feedback","The species-typical adult size chart only"]],["A core claim: cells don’t just execute a hardwired parts list; they…","Solve for anatomical goals with feedback and plasticity",["Follow morphogen gradients with no error correction","Execute a hardwired genomic parts list only","Copy neighbor genomes after every injury event"]],["Restoring a correct bioelectric pattern can…","Rewrite anatomical outcomes without editing the DNA sequence",["Only work if CRISPR edits accompany the voltage change","Only alter neural firing without body-plan effects","Only reset mitochondrial potentials, not anatomy"]],["Gap junctions matter because they…","Allow cells to share ions/small signals and form electrical networks",["Only mechanically couple cells without ion flow","Only pass large proteins between neighboring nuclei","Only set resting potential inside isolated single cells"]],["Ion channels in non-neural cells help…","Set resting potentials that encode patterning information",["Only fire regenerative action potentials in epithelia","Only transport morphogens across gap junctions","Only sense Vmem patterns without helping set them"]],["Vmem (membrane voltage) patterns can act as…","A pre-pattern / instructional layer for morphogenesis",["Only a downstream readout of gene expression","Only a metabolic side-effect of ion leak currents","Only a neural code transplanted onto somatic tissues"]],["Depolarization vs hyperpolarization in patterning…","Can switch proliferative / identity / morphogenetic decisions",["Only changes synaptic release probability in neurons","Only encodes left–right asymmetry with no other roles","Only marks apoptotic cells for clearance programs"]],["Planaria are a favorite model because they…","Can regenerate a whole body from tiny fragments with high fidelity",["Regenerate only after CRISPR-restored neoblast pools","Form xenobots when epithelial cells are dissociated","Heal solely by scarring without anatomical pattern memory"]],["Classic planarian puzzle Levin leans on…","Same genome, many stable anatomical outcomes (heads, tails, etc.)",["Each fragment rewrites its genome during regeneration","Only one anatomical attractor exists per genotype","Bioelectric state cannot alter head number or polarity"]],["Bioelectric manipulation in planaria can…","Induce two-headed worms or rewrite axial decisions",["Only speed regeneration without changing final form","Only erase trained behavioral memories permanently","Force neoblasts to adopt frog epithelial identities"]],["Neoblasts in planaria are…","Adult pluripotent stem cells enabling regeneration",["Differentiated neurons that store axial polarity memory","Bioelectric organizer cells that never divide","Germline-restricted stem cells only, not somatic"]],["After cutting, planarian fragments must…","Re-establish polarity and scale a body plan to fragment size",["Wait for zygotic genome reactivation to begin repair","Import a new target morphology from intact neighbors","Rely only on morphogen diffusion without Vmem resets"]],["Memory-like findings in regenerating planaria suggest…","Some learned information can persist through brain regeneration",["All learned preferences erase when the brain regenerates","Memory is stored only inside the regenerated brain tissue","Cutting always resets both Vmem set-points and memory"]],["Cancer-as-dissociation (Levin-ish framing) treats tumors as…","Cells that stop participating in the multicellular cognitive goal",["Cells explained solely by accumulated oncogene hits","Tissues that still share intact gap-junction networks","Cells locked into the correct tissue target morphology"]],["A bioelectric angle on cancer he discusses…","Disrupting tissue-level voltage networks can free cells from anatomical constraints",["Cancer is only DNA damage unrelated to membrane voltage","Hyperpolarization alone always drives metastasis","Gap junctions never contribute to tumor suppression"]],["Reconnecting cells to the body plan (conceptually) would…","Pull them back into cooperative morphogenetic goals",["Require deleting oncogenes before any effect appears","Work only by killing dissociated cells outright","Force cells into a xenobot-like free-living state"]],["He often contrasts gene-centric reduction with…","Multiscale competency architectures of cells/tissues/organs",["Strict one-gene–one-phenotype mapping forever","Purely neural explanations of all intelligence","Treating genomes as the sole anatomical interpreters"]],["“Cognitive light cone” roughly means…","The spatiotemporal scale of goals an agent can represent and pursue",["The conduction speed of bioelectric signals alone","The anatomical size of a regenerating fragment","A fixed IQ-like score assigned per species"]],["TAME (his research program acronym angle) emphasizes…","Technological Approach to Mind Everywhere — agnostic scales of mind",["Targeted Ablation of Morphogenetic Ensembles","Tissue-level Analysis of Membrane Electrics","Training Algorithms for Multicellular Embryos"]],["Diverse intelligence, for Levin, includes…","Problem-solving at many scales: cells, tissues, swarms, machines, etc.",["Only aneural basal cognition in single cells","Only brains above a neuron-count threshold","Only evolved biological systems, never machines"]],["Basal cognition refers to…","Cognitive-like capacities in aneural or simple systems",["Only cortical planning capacities in mammals","Proto-cognition limited to xenobots and anthrobots","Minimal cognition requiring at least simple ganglia"]],["A key methodological stance of TAME…","Use behavioral/cognitive tools wherever they buy predictive leverage",["Never apply cognitive language below neurons","Only sequence genomes and map ion-channel genomes","Restrict models to Newtonian cell mechanics alone"]],["Intelligence as navigation metaphor…","Agents navigate problem spaces (anatomical, physiological, behavioral)",["Intelligence is only synaptic weight optimization","Navigation applies only to motile whole organisms","Problem spaces reduce to genome-sequence search"]],["Scale-free cognition claim (simplified)…","Similar competency motifs recur from molecular networks up to brains",["Cognition begins only once neural networks exist","Molecular networks lack any goal-directed competency","Only tissues with gap junctions show real competency"]],["Platonic space of patterns (his analogy) holds…","Invariant pattern contents that physical pointers can interface with",["Only evolved morphological attractors in niche space","An unstructured bag of randomly shuffled phenotypes","Patterns fully fixed by Big Bang physical constants"]],["“Pointers into latent space” talk means…","Embodiments that read out / host patterns from a larger possibility space",["Genomes that literally contain all future behaviors","Sensors that detect morphogens and nothing else","Neural codes as the only valid pattern pointers"]],["Free lunch relative to design/evolution/learning means…","Competencies not paid for by those three conventional invoices",["Competencies paid entirely by evolutionary selection","Outcomes that require zero physical embodiment","Skills that appear only after supervised training"]],["Why xenobot skills feel like a free lunch…","Forms/behaviors weren’t selected as that robot morphology historically",["Frog genomes lack any prior epithelial competencies","The AI shape-design loop alone paid the full cost","Ancestral selection already optimized kinematic replication"]],["He likens math objects’ independence from physics to…","Certain high-level patterns not being rewriteable by Big Bang tweaks",["Morphogenetic outcomes fixed solely by physical constants","Number theory rewriting when ion-channel kinetics change","Platonic patterns collapsing under tissue depolarization"]],["“We don’t create minds; we provide interfaces” implies…","Engineering is about better hosts/pointers for latent competencies",["Engineering must hard-code every competence into parts","Hosts cannot reveal competencies beyond the design invoice","Only evolution may interface with Platonic pattern space"]],["Xenobots’ locomotion often comes from…","Coordinated cilia on epithelial surfaces",["Muscle-driven peristalsis of the bot body","Neural-circuit command of limb-like appendages","Gap-junction calcium waves pushing the aggregate"]],["A striking xenobot design loop he describes…","AI proposes shapes; biologists sculpt aggregates; behavior is tested",["CRISPR-first editing then spontaneous self-assembly","Pure in-silico evolution of shapes with no wet tests","Manual sculpting with no closed behavioral feedback"]],["Anthrobots form from…","Patient-derived airway epithelia that self-organize into motile spheroids",["Frog embryonic epithelia sculpted via AI shape search","Human neural progenitors assembled into neurobots","Planarian fragments reaggregating as motile spheroids"]],["Why anthrobots excite medicine talk…","Same-patient cells → potential therapeutic bots without gene edits",["They require xenobot frog cells as carrier chassis","Gene edits are mandatory before any motility appears","Only embryonic donors avoid immune rejection risks"]],["Neurobots differ from plain xenobots by…","Including neural progenitors that can wire novel internal dynamics",["Replacing all epithelia with contractile muscle cells","Adding only CRISPR-defined hardwired reflex arcs","Substituting anthrobot tracheal cells into frog bots"]],["Self-replication he emphasizes for xenobots is…","Kinematic (assemble others from cells), not classical molecular fission alone",["Classical binary fission of each cell in the bot","Viral-style genome packaging into daughter bots","Budding of epithelial cysts without collecting cells"]],["Blocking gap junctions experimentally often…","Fractures tissue-level electrical networks and alters patterning",["Only blocks chemical synapses between neurons","Only prevents morphogen gene transcription","Permanently strengthens bioelectric prepatterns"]],["Pharmacologically opening/closing ion channels can…","Induce ectopic organs or rewrite axial identity in model systems",["Only change firing rates in adult brains","Only erase planarian behavioral memories","Only slow regeneration without altering form"]],["Braitenberg vehicles illustrate…","Simple sensorimotor wiring can look purposeful / cognitive",["Complex brains are required for any tropism","Psychological language never predicts vehicle behavior","Vehicles already host full Platonic pattern libraries"]],["Why Braitenberg is a cautionary tale for Levin…","Don’t assume observed competence equals what you explicitly engineered in",["Assume all competence was in the wiring diagram","Treat the construction story as the system’s full ontology","Deny that simple circuits can appear goal-directed"]],["“Don’t confuse your construction story with the system’s ontology” means…","What you put in ≠ the full set of latent behaviors that appear",["Blueprints list every future competency exhaustively","Latent behaviors equal the engineered parts list","Emergence fully explains all free-lunch competencies"]],["Multicellularity as collective intelligence frames tissues as…","Societies of cells negotiating anatomical goals",["Piles of cells without a shared target morphology","Single giant cells with one shared Vmem set-point","Neural tissue as the only cognitive cell collective"]],["Anatomical homeostasis (set-point idea) means…","Systems detect deviation from target morphology and work to restore it",["Systems ignore injury and continue default growth","Homeostasis applies only to physiological set-points like pH","Target morphology resets randomly after each injury"]],["Left-right asymmetry research often ties to…","Early bioelectric / ion-flux asymmetries biasing later organ placement",["Only nodal cilia flow with no voltage contribution","Only Hox-gene expression timing along the axis","Only adult behavioral handedness training effects"]],["Eye induction / ectopic eye demos (related lineage) suggest…","Patterning cues can open organ programs in atypical locations",["Organs only form at genome-specified coordinates","Ectopic eyes require full CNS tissue transplants","Voltage patterns cannot trigger organ identity programs"]],["Why “just sequence the genome” is incomplete for him…","Same genotype can support multiple anatomical/behavioral attractors",["Genomes contain no morphogenetic information at all","Sequence fully determines every anatomical outcome","Only proteomics can reveal the target morphology"]],["Competency of cell collectives shows up as…","Problem-solving toward anatomical goals under novel conditions",["Rigid replay of embryonic programs only","Competency limited to neural cell collectives","Zero error correction after novel injury states"]],["A practical upshot of diverse-intelligence framing…","New therapy ideas: rewrite tissue goals/bioelectric states, not just kill cells",["Abandon molecular targets for purely cognitive talk therapy","Only enlarge cognitive light cones via surgery","Kill aberrant cells faster without changing tissue goals"]],["“Software” layer over cellular hardware (metaphor) is…","Physiological/bioelectric control policies steering gene-expression hardware",["The genome treated as the only software layer","Gap junctions as hardware with no policy layer","Neural spike codes as tissue software exclusively"]],["Why hard near-miss distractors fit his teaching style…","Concepts are subtle: goals, latent patterns, and conventional effort invoices blur",["Every Levin claim is operationally equivalent","Free-lunch metrics collapse to genome-size ratios","Platonic-space talk is only metaphorical flourish"]],["Planarian heads as “decisions” emphasizes…","Axial identity is an active, revisable physiological computation",["Head vs tail is fixed solely by genome sequence","Polarity is set only by morphogen source/sink geometry","Axial identity cannot be rewritten after cutting"]],["Anthrobot “superbot” clusters illustrate…","Collective higher-order assemblies with new healing-relevant behaviors",["Solo anthrobots that never form higher assemblies","Clusters that appear only after CRISPR editing","Superbots that lose motility once they aggregate"]],["Diverse intelligence resists anthropocentrism by…","Scoring problem-solving competence without requiring human language",["Equating every competent system with adult human minds","Restricting intelligence scores to verbal IQ tests","Denying that brains implement problem-solving at all"]],["A Levin-friendly reading of regeneration is…","Goal-directed anatomical navigation after novel injury states",["Pure replay of the embryonic program identically","Scar-only repair with no anatomical goal states","Random cell proliferation without morphological set-points"]]]</script>
+<script id="drill-core">
+/* ===== Drill core: deck generators + Levin rotation (no DOM access) ===== */
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function randInt(lo, hi) { return lo + Math.floor(Math.random() * (hi - lo + 1)); }
+function pickOne(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+/* ---- Multiply: 2-digit x 2-digit (port of regen_decks.py) ---- */
+function randFactor() {
+  while (true) {
+    const x = randInt(12, 99);
+    if (x % 10 !== 0) return x;
+  }
+}
+
+function digitSlips(n, add) {
+  const s = String(n);
+  for (let i = 0; i < s.length; i++) {
+    for (const d of "0123456789") {
+      if (d !== s[i]) add(parseInt(s.slice(0, i) + d + s.slice(i + 1), 10));
+    }
+  }
+}
+
+function fillDistractors(candidates, correct) {
+  const pool = shuffle([...candidates]);
+  const out = [];
+  for (const v of pool) {
+    const sv = String(v);
+    if (!out.includes(sv) && sv !== String(correct)) out.push(sv);
+    if (out.length === 3) break;
+  }
+  let k = 1;
+  while (out.length < 3) {
+    for (const delta of [k, -k]) {
+      const v = correct + delta;
+      const sv = String(v);
+      if (sv !== String(correct) && !out.includes(sv) && v > 0) out.push(sv);
+      if (out.length === 3) break;
+    }
+    k += 1;
+  }
+  return out.slice(0, 3);
+}
+
+function nearMissProducts(a, b, correct) {
+  const candidates = new Set();
+  const lenC = String(correct).length;
+  const add = (v) => {
+    if (v > 0 && v !== correct && Math.abs(v - correct) <= Math.max(200, Math.floor(correct / 2))) {
+      if (Math.abs(String(v).length - lenC) <= 1) candidates.add(v);
+    }
+  };
+  for (const da of [-1, 1, -2, 2]) {
+    for (const db of [0, -1, 1]) {
+      add((a + da) * (b + db));
+      add(a * (b + da));
+      add((a + db) * b);
+    }
+  }
+  const aT = Math.floor(a / 10) * 10 + (b % 10);
+  const bT = Math.floor(b / 10) * 10 + (a % 10);
+  if (aT >= 12 && aT <= 99 && aT % 10 !== 0) add(aT * b);
+  if (bT >= 12 && bT <= 99 && bT % 10 !== 0) add(a * bT);
+  add(correct + 1); add(correct - 1);
+  add(correct + 10); add(correct - 10);
+  add(correct + a); add(correct - a);
+  add(correct + b); add(correct - b);
+  add((a + 1) * b); add(a * (b + 1));
+  add((a - 1) * b); add(a * (b - 1));
+  digitSlips(correct, add);
+  return fillDistractors(candidates, correct);
+}
+
+function genMath2digit(n) {
+  const items = [];
+  const seen = new Set();
+  let guard = 0;
+  while (items.length < n && guard < 5000) {
+    guard += 1;
+    const a = randFactor(), b = randFactor();
+    const key = Math.min(a, b) + "x" + Math.max(a, b);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const correct = a * b;
+    items.push([a + " × " + b, String(correct), nearMissProducts(a, b, correct)]);
+  }
+  return items;
+}
+
+/* ---- Add: 3-digit + 2-digit + 2-digit, vertical (port of regen_decks.py) ---- */
+function formatVertical(a, b, c) {
+  const order = [a, b, c];
+  const lastIdx = pickOne([1, 2, 0]);          // which number goes on the "+" line
+  const last = order[lastIdx];
+  const rest = shuffle(order.filter((_, i) => i !== lastIdx));  // by index, so equal b/c is safe
+  const l1 = rest[0], l2 = rest[1];
+  const w = Math.max(String(l1).length, String(l2).length, String(last).length + 2);
+  return String(l1).padStart(w) + "\n" + String(l2).padStart(w) + "\n" + ("+ " + last).padStart(w);
+}
+
+function nearMissSums(total) {
+  const candidates = new Set();
+  const lenT = String(total).length;
+  const add = (v) => {
+    if (v > 0 && v !== total && Math.abs(v - total) <= Math.max(120, Math.floor(total / 5))) {
+      if (Math.abs(String(v).length - lenT) <= 1) candidates.add(v);
+    }
+  };
+  for (const d of [1, -1, 10, -10, 2, -2, 20, -20, 100, -100, 9, -9, 11, -11]) add(total + d);
+  digitSlips(total, add);
+  return fillDistractors(candidates, total);
+}
+
+function genAdd3mix(n) {
+  const items = [];
+  const seen = new Set();
+  let guard = 0;
+  while (items.length < n && guard < 5000) {
+    guard += 1;
+    const a = randInt(100, 999), b = randInt(10, 99), c = randInt(10, 99);
+    const key = a + "," + b + "," + c;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const total = a + b + c;
+    items.push([formatVertical(a, b, c), String(total), nearMissSums(total)]);
+  }
+  return items;
+}
+
+/* ---- Levin rotation (per-item last-seen kept in localStorage) ----
+   Stored record per prompt: { r: round last shown, c: cycle last shown, t: ms timestamp, miss: bool }
+   - "Fresh" = never shown, or last shown in an earlier cycle.
+   - Each round: up to floor(20% of n) reinforcement cards from already-seen items
+     (missed ones first, then least-recently seen; never the previous round if avoidable),
+     the rest fresh. When fresh runs out, the cycle advances and the least-recently-seen
+     items fill the gap, so the whole bank is covered before heavy repeats. */
+const LEVIN_STORE_KEY = "speedDrill.levinRotation.v1";
+const REUSE_FRAC = 0.2;
+
+function makeStorage(ls) {
+  const mem = {};
+  return {
+    get(k) { try { if (ls) return ls.getItem(k); } catch (e) {} return k in mem ? mem[k] : null; },
+    set(k, v) { try { if (ls) { ls.setItem(k, v); return; } } catch (e) {} mem[k] = v; }
+  };
+}
+
+function createLevinRotation(bank, ls) {
+  const store = makeStorage(ls);
+  const inBank = new Set(bank.map(it => it[0]));
+  function load() {
+    let s = null;
+    try { s = JSON.parse(store.get(LEVIN_STORE_KEY) || "null"); } catch (e) { s = null; }
+    if (!s || typeof s !== "object" || typeof s.items !== "object" || s.items === null) {
+      s = { round: 0, cycle: 1, items: {} };
+    }
+    s.round = Number(s.round) || 0;
+    s.cycle = Number(s.cycle) || 1;
+    return s;
+  }
+  function save(s) {
+    for (const p of Object.keys(s.items)) if (!inBank.has(p)) delete s.items[p];  // drop retired questions
+    store.set(LEVIN_STORE_KEY, JSON.stringify(s));
+  }
+  let st = load();
+
+  function isFresh(it) {
+    const rec = st.items[it[0]];
+    return !rec || rec.c < st.cycle;
+  }
+  // oldest-first ordering with random tie-break
+  function byOldest(list) {
+    return shuffle(list).sort((x, y) => {
+      const rx = st.items[x[0]], ry = st.items[y[0]];
+      return (rx ? rx.r : -1) - (ry ? ry.r : -1);
+    });
+  }
+
+  function selectRound(n) {
+    st = load();
+    n = Math.max(0, Math.min(n, bank.length));
+    st.round += 1;
+    const round = st.round;
+    const chosen = [];
+    const taken = new Set();
+    const take = (it) => { chosen.push(it); taken.add(it[0]); };
+
+    // fresh pool: never-shown items first (e.g. questions newly added to the bank), then the rest, random order
+    const freshAll = shuffle(bank.filter(isFresh));
+    const fresh = freshAll.filter(it => !st.items[it[0]]).concat(freshAll.filter(it => st.items[it[0]]));
+    const seen = bank.filter(it => st.items[it[0]]);
+    const maxReuse = Math.floor(n * REUSE_FRAC);
+
+    // 1) reinforcement: previously seen, missed first, then oldest; avoid last round's cards
+    //    (only items already shown in the CURRENT cycle, so fresh items are never "spent" as reuse)
+    let reusePool = seen.filter(it => !isFresh(it) && st.items[it[0]].r < round - 1);
+    reusePool = byOldest(reusePool).sort((x, y) =>
+      (st.items[y[0]].miss ? 1 : 0) - (st.items[x[0]].miss ? 1 : 0));   // stable: missed first
+    const reuseN = Math.min(maxReuse, reusePool.length);
+    for (let i = 0; i < reuseN; i++) take(reusePool[i]);
+
+    // 2) fresh items (not yet shown this cycle)
+    for (const it of fresh) {
+      if (chosen.length >= n) break;
+      if (!taken.has(it[0])) take(it);
+    }
+
+    // 3) cycle exhausted: start a new cycle, fill with least-recently-seen items
+    if (chosen.length < n) {
+      st.cycle += 1;
+      const filler = byOldest(bank.filter(it => !taken.has(it[0])));
+      for (const it of filler) {
+        if (chosen.length >= n) break;
+        take(it);
+      }
+    }
+    const out = shuffle(chosen);
+    save(st);   // persists round/cycle counters; per-item marks happen when a card is shown
+    return out;
+  }
+
+  function markShown(prompt) {
+    if (!inBank.has(prompt)) return;
+    st = load();
+    const prev = st.items[prompt] || {};
+    st.items[prompt] = { r: st.round, c: st.cycle, t: Date.now(), miss: !!prev.miss, n: (prev.n || 0) + 1 };
+    save(st);
+  }
+
+  function markResult(prompt, ok) {
+    st = load();
+    const rec = st.items[prompt];
+    if (!rec) return;
+    rec.miss = !ok;
+    save(st);
+  }
+
+  function snapshot() { return load(); }
+  function reset() { store.set(LEVIN_STORE_KEY, "null"); st = load(); }
+
+  return { selectRound, markShown, markResult, snapshot, reset };
+}
+</script>
+<script>
+const LEVIN_BANK = JSON.parse(document.getElementById("levin-bank").textContent);
+let lsHandle = null;
+try { lsHandle = window.localStorage; } catch (e) { lsHandle = null; }
+const LEVIN = createLevinRotation(LEVIN_BANK, lsHandle);
+
+const DECKS = {
+  levin: {
+    label: "Michael Levin (rotated)",
+    promptLabel: "Answer is…",
+    items: [],
+    generate: (n) => LEVIN.selectRound(n)
+  },
+  math_2digit: {
+    label: "Multiply: 2-digit × 2-digit",
+    promptLabel: "Product is…",
+    items: [],
+    generate: (n) => genMath2digit(n)
+  },
+  add_3mix: {
+    label: "Add: 3-digit + 2-digit + 2-digit",
+    promptLabel: "Sum is…",
+    vertical: true,
+    items: [],
+    generate: (n) => genAdd3mix(n)
+  }
+};
+
+const el = (id) => document.getElementById(id);
+const screens = {
+  home: el("screen-home"),
+  drill: el("screen-drill"),
+  result: el("screen-result")
+};
+
+let state = {
+  deckKey: "levin",
+  seconds: 5,
+  total: 8,
+  queue: [],
+  score: 0,
+  asked: 0,
+  streak: 0,
+  bestStreak: 0,
+  timeouts: 0,
+  times: [],
+  log: [],
+  locked: false,
+  timerId: null,
+  rafId: null,
+  startedAt: 0,
+  deadline: 0
+};
+
+function show(name) {
+  Object.values(screens).forEach(s => s.classList.remove("active"));
+  screens[name].classList.add("active");
+}
+
+function updateHud() {
+  el("streak").textContent = state.streak;
+  el("score").textContent = state.score;
+  el("asked").textContent = state.asked;
+}
+
+function stopTimer() {
+  if (state.timerId) clearTimeout(state.timerId);
+  if (state.rafId) cancelAnimationFrame(state.rafId);
+  state.timerId = null;
+  state.rafId = null;
+}
+
+function paintTimer() {
+  const bar = el("timer-bar");
+  const left = Math.max(0, state.deadline - performance.now());
+  const pct = left / (state.seconds * 1000);
+  bar.style.transform = `scaleX(${pct})`;
+  bar.classList.remove("warn", "danger");
+  if (pct < 0.25) bar.classList.add("danger");
+  else if (pct < 0.5) bar.classList.add("warn");
+  if (left > 0 && !state.locked) {
+    state.rafId = requestAnimationFrame(paintTimer);
+  }
+}
+
+function startTimer() {
+  stopTimer();
+  state.startedAt = performance.now();
+  state.deadline = state.startedAt + state.seconds * 1000;
+  el("timer-bar").style.transform = "scaleX(1)";
+  paintTimer();
+  state.timerId = setTimeout(() => onTimeout(), state.seconds * 1000);
+}
+
+function wrongChoices(correct, allAnswers, n = 3) {
+  const pool = shuffle(allAnswers.filter(a => a !== correct));
+  return pool.slice(0, n);
+}
+
+function cardOptions(item, deck) {
+  const prompt = item[0];
+  const answer = item[1];
+  const crafted = Array.isArray(item[2]) ? item[2].slice(0, 3) : null;
+  if (crafted && crafted.length === 3) {
+    return shuffle([answer, ...crafted]);
+  }
+  const allAnswers = deck.items.map(i => i[1]);
+  return shuffle([answer, ...wrongChoices(answer, allAnswers)]);
+}
+
+function nextCard() {
+  if (state.queue.length === 0) {
+    finishRound();
+    return;
+  }
+  state.locked = false;
+  el("feedback").textContent = "";
+  const item = state.queue.shift();
+  const prompt = item[0];
+  const answer = item[1];
+  state.current = { prompt, answer };
+  const deck = DECKS[state.deckKey];
+  if (state.deckKey === "levin") LEVIN.markShown(prompt);
+  const options = cardOptions(item, deck);
+
+  el("prompt-label").textContent = deck.promptLabel;
+  const promptEl = el("prompt");
+  promptEl.classList.toggle("vertical", !!deck.vertical);
+  promptEl.textContent = prompt;
+  const box = el("choices");
+  box.innerHTML = "";
+  options.forEach(opt => {
+    const b = document.createElement("button");
+    b.className = "choice";
+    b.textContent = opt;
+    b.addEventListener("click", () => onPick(opt, b));
+    box.appendChild(b);
+  });
+  startTimer();
+}
+
+function lockChoices(pickedBtn, correct) {
+  state.locked = true;
+  stopTimer();
+  [...el("choices").children].forEach(btn => {
+    btn.disabled = true;
+    if (btn.textContent === correct) btn.classList.add("correct");
+    if (btn === pickedBtn && btn.textContent !== correct) btn.classList.add("wrong");
+  });
+}
+
+function record(ok, timedOut, chosen) {
+  const ms = performance.now() - state.startedAt;
+  state.asked += 1;
+  state.log.push({
+    prompt: state.current.prompt,
+    correct: state.current.answer,
+    chosen: timedOut ? null : chosen,
+    timedOut: !!timedOut,
+    ok: !!ok,
+    ms: Math.round(ms)
+  });
+  if (state.deckKey === "levin") LEVIN.markResult(state.current.prompt, ok);
+  if (ok) {
+    state.score += 1;
+    state.streak += 1;
+    state.bestStreak = Math.max(state.bestStreak, state.streak);
+    state.times.push(ms);
+  } else {
+    state.streak = 0;
+    if (timedOut) state.timeouts += 1;
+  }
+  updateHud();
+}
+
+function onPick(opt, btn) {
+  if (state.locked) return;
+  const correct = state.current.answer;
+  const ok = opt === correct;
+  lockChoices(btn, correct);
+  record(ok, false, opt);
+  el("feedback").textContent = ok
+    ? `Nice — ${(performance.now() - state.startedAt).toFixed(0)} ms`
+    : `Answer: ${correct}`;
+  setTimeout(nextCard, ok ? 450 : 900);
+}
+
+function onTimeout() {
+  if (state.locked) return;
+  lockChoices(null, state.current.answer);
+  record(false, true, null);
+  el("feedback").textContent = `Time — ${state.current.answer}`;
+  setTimeout(nextCard, 900);
+}
+
+function startRound() {
+  state.deckKey = el("deck").value;
+  state.seconds = Number(el("seconds").value);
+  state.total = Number(el("rounds").value);
+  const deck = DECKS[state.deckKey];
+  deck.items = deck.generate(state.total);   // fresh questions every round
+  state.queue = deck.items.slice(0, Math.min(state.total, deck.items.length));
+  state.score = 0;
+  state.asked = 0;
+  state.streak = 0;
+  state.bestStreak = 0;
+  state.timeouts = 0;
+  state.times = [];
+  state.log = [];
+  updateHud();
+  show("drill");
+  nextCard();
+}
+
+function finishRound() {
+  stopTimer();
+  el("timer-bar").style.transform = "scaleX(0)";
+  const pct = state.asked ? Math.round((state.score / state.asked) * 100) : 0;
+  el("result-pct").textContent = pct + "%";
+  el("result-sub").textContent = pct >= 80 ? "Sharp. Ready for a harder deck?" : "Good reps. Run it again while it’s warm.";
+  el("r-correct").textContent = `${state.score}/${state.asked}`;
+  el("r-streak").textContent = state.bestStreak;
+  el("r-timeout").textContent = state.timeouts;
+  if (state.log.length) {
+    const avgMs = state.log.reduce((a, row) => a + row.ms, 0) / state.log.length;
+    const avgSec = avgMs / 1000;
+    el("r-avg").textContent = avgSec.toFixed(1) + "s";
+  } else {
+    el("r-avg").textContent = "—";
+  }
+  const review = el("review");
+  review.innerHTML = "";
+  if (!state.log.length) {
+    const empty = document.createElement("div");
+    empty.className = "review-card";
+    empty.textContent = "No card history for this round.";
+    review.appendChild(empty);
+  }
+  state.log.forEach((row, i) => {
+    const card = document.createElement("div");
+    card.className = "review-card " + (row.ok ? "ok" : "bad");
+    const q = document.createElement("div");
+    q.className = "review-q";
+    q.textContent = (i + 1) + ". " + row.prompt;
+    const yours = document.createElement("div");
+    yours.className = "review-row" + (row.ok ? " right" : " wrong");
+    const yoursVal = row.timedOut ? "(timed out)" : row.chosen;
+    yours.innerHTML = "Your answer: <strong></strong>";
+    yours.querySelector("strong").textContent = yoursVal;
+    const ans = document.createElement("div");
+    ans.className = "review-row right";
+    ans.innerHTML = "Correct: <strong></strong>";
+    ans.querySelector("strong").textContent = row.correct;
+    const time = document.createElement("div");
+    time.className = "review-row";
+    time.textContent = row.timedOut ? "Time: timed out" : ("Time: " + (row.ms / 1000).toFixed(1) + "s");
+    card.appendChild(q);
+    card.appendChild(yours);
+    card.appendChild(ans);
+    card.appendChild(time);
+    review.appendChild(card);
+  });
+  show("result");
+}
+
+el("btn-start").addEventListener("click", startRound);
+el("btn-again").addEventListener("click", startRound);
+el("btn-home").addEventListener("click", () => {
+  stopTimer();
+  show("home");
+});
+</script>
+</body>
+</html>
