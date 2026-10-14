@@ -313,18 +313,18 @@
           <label for="seconds">Seconds per card</label>
           <select id="seconds">
             <option value="3">3s</option>
-            <option value="5" selected>5s</option>
+            <option value="5">5s</option>
             <option value="8">8s</option>
             <option value="12">12s</option>
-            <option value="20">20s</option>
+            <option value="20" selected>20s</option>
           </select>
         </div>
         <div class="setting">
           <label for="rounds">Cards this round</label>
           <select id="rounds">
-            <option value="8" selected>8</option>
+            <option value="8">8</option>
             <option value="12">12</option>
-            <option value="20">20</option>
+            <option value="20" selected>20</option>
           </select>
         </div>
       </div>
@@ -668,8 +668,8 @@ const screens = {
 
 let state = {
   deckKey: "levin",
-  seconds: 5,
-  total: 8,
+  seconds: 20,
+  total: 20,
   queue: [],
   score: 0,
   asked: 0,
