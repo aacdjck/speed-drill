@@ -120,6 +120,17 @@
     text-align: center;
     white-space: nowrap;
   }
+  .fill { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+  .fill[hidden] { display: none; }
+  #fill-input {
+    flex: 1 1 100%; font-size: 1.8rem; padding: 14px 16px; border-radius: 14px;
+    border: 2px solid rgba(255,255,255,0.25); background: rgba(0,0,0,0.25); color: inherit;
+    font-family: inherit; min-width: 0;
+  }
+  #fill-input:focus { outline: none; border-color: #7cc4ff; }
+  .fill-submit { flex: 1 1 100%; font-size: 1.3rem; padding: 14px; border-radius: 14px; border: 0; background: #2f7de1; color: #fff; font-weight: 700; }
+  .fill-submit:disabled { opacity: 0.5; }
+  .fill-hint { flex: 1 1 100%; min-height: 1.4em; font-size: 1.05rem; opacity: 0.85; text-align: center; }
   .choices {
     display: grid;
     gap: 10px;
@@ -323,6 +334,7 @@
             <option value="math_2digit">Multiply: 2-digit × 2-digit</option>
             <option value="add_3mix">Add: 3-digit + 2-digit + 2-digit</option>
             <option value="fractions">Fractions (× and +)</option>
+            <option value="fractions_fill">Fractions — fill in (dictate)</option>
           </select>
         </div>
         <div class="setting">
@@ -355,6 +367,11 @@
       </div>
       <div class="feedback" id="feedback"></div>
       <div class="choices" id="choices"></div>
+      <form class="fill" id="fill" hidden autocomplete="off">
+        <input id="fill-input" type="text" inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="go" placeholder="say or type, e.g. five sixths" aria-label="Your answer">
+        <button type="submit" class="fill-submit" id="fill-submit">Submit</button>
+        <div class="fill-hint" id="fill-hint"></div>
+      </form>
     </section>
 
     <section id="screen-result">
@@ -600,6 +617,113 @@ function genFractions(n) {
   return items;                                  // multiplication block first, then addition
 }
 
+/* ---- Fill-in answers: parse typed or dictated fractions ("5/6", "five sixths", "1 1/4", "one and one quarter"...) ---- */
+const FW_UNITS = {zero:0, oh:0, one:1, won:1, two:2, too:2, three:3, four:4, five:5, six:6, seven:7, eight:8, nine:9, ten:10,
+  eleven:11, twelve:12, thirteen:13, fourteen:14, fifteen:15, sixteen:16, seventeen:17, eighteen:18, nineteen:19};
+const FW_TENS = {twenty:20, thirty:30, forty:40, fourty:40, fifty:50, sixty:60, seventy:70, eighty:80, ninety:90};
+const FW_ORD = {half:2, halves:2, halfs:2, third:3, fourth:4, quarter:4, fifth:5, sixth:6, seventh:7, eighth:8, eigth:8, ninth:9, nineth:9,
+  tenth:10, eleventh:11, twelfth:12, twelveth:12, thirteenth:13, fourteenth:14, fifteenth:15, sixteenth:16, seventeenth:17,
+  eighteenth:18, nineteenth:19, twentieth:20, thirtieth:30, fortieth:40, fiftieth:50, sixtieth:60, seventieth:70, eightieth:80,
+  ninetieth:90, hundredth:100, first:1, second:2};
+// plural cardinals that dictation sometimes produces instead of ordinals ("five sixes", "three fours")
+const FW_PLURAL = {twos:2, threes:3, fours:4, fives:5, sixes:6, sevens:7, eights:8, nines:9, tens:10, elevens:11, twelves:12};
+function fwOrd(w) {
+  if (Object.prototype.hasOwnProperty.call(FW_ORD, w)) return FW_ORD[w];
+  if (w.endsWith("s") && Object.prototype.hasOwnProperty.call(FW_ORD, w.slice(0, -1))) return FW_ORD[w.slice(0, -1)];
+  return null;
+}
+function parseFraction(raw) {
+  let s = String(raw || "").toLowerCase();
+  s = s.replace(/[⁄∕÷]/g, "/").replace(/(\d),(\d)/g, "$1$2");
+  s = s.replace(/['’`]/g, "").replace(/[“”".,!?;:()]+/g, " ").replace(/-/g, " ");
+  s = s.replace(/\b(divided by|divide by|out of|over|slash)\b/g, " / ");
+  s = s.replace(/(\d)\s*(st|nd|rd|th)s?\b/g, "$1 #ord");        // "6ths" -> ordinal 6
+  s = s.replace(/\//g, " / ");
+  const FILLER = new Set(["the","answer","is","its","it","equals","equal","to","that","thats","i","think","um","uh","umm","er","my","would","be","guess","maybe","so","okay","ok","like","well","final","result"]);
+  const words = s.split(/\s+/).filter(Boolean);
+  const toks = [];  // {t:'n'|'o'|'/'|'and', v}
+  for (let i = 0; i < words.length; i++) {
+    const w = words[i];
+    if (w === "#ord") { const last = toks[toks.length - 1]; if (last && last.t === "n") last.t = "o"; else return null; continue; }
+    if (/^\d+$/.test(w)) { toks.push({t: "n", v: parseInt(w, 10), digits: true}); continue; }
+    if (w === "/") { toks.push({t: "/"}); continue; }
+    if (w === "and" || w === "plus" || w === "&") { toks.push({t: "and"}); continue; }
+    if (w === "a" || w === "an") { toks.push({t: "n", v: 1, article: true}); continue; }
+    if (w === "hundred" || w === "hundreds") {
+      const last = toks[toks.length - 1];
+      if (last && last.t === "n" && !last.digits && last.v < 10) { last.v *= 100; last.big = true; } else toks.push({t: "n", v: 100, big: true});
+      continue;
+    }
+    const last = toks[toks.length - 1];
+    const tensBefore = last && last.t === "n" && last.tens;   // e.g. "twenty" waiting for a unit
+    if (Object.prototype.hasOwnProperty.call(FW_UNITS, w)) {
+      const v = FW_UNITS[w];
+      if (tensBefore && v > 0 && v < 10) { last.v += v; last.tens = false; }
+      else if (last && last.t === "n" && last.big && v < 100 && !last.digits) { last.v += v; last.big = false; }
+      else toks.push({t: "n", v});
+      continue;
+    }
+    if (Object.prototype.hasOwnProperty.call(FW_TENS, w)) {
+      const v = FW_TENS[w];
+      if (last && last.t === "n" && last.big && !last.digits) { last.v += v; last.big = false; last.tens = true; }
+      else toks.push({t: "n", v, tens: true});
+      continue;
+    }
+    const o = fwOrd(w);
+    const pl = Object.prototype.hasOwnProperty.call(FW_PLURAL, w) ? FW_PLURAL[w] : null;
+    if (o !== null || pl !== null) {
+      const v = o !== null ? o : pl;
+      if (tensBefore && v < 10) { last.v += v; last.t = "o"; last.tens = false; continue; }  // "twenty eighths"
+      if (last && last.t === "n" && last.big && !last.digits && v < 100) { last.v += v; last.t = "o"; continue; }
+      if (pl !== null && !(last && last.t === "n")) { toks.push({t: "n", v: pl}); continue; }
+      toks.push({t: "o", v});
+      continue;
+    }
+    if (FILLER.has(w)) continue;
+    return null;                                   // unknown word
+  }
+  // strip a leading "and"/trailing "and"
+  while (toks.length && toks[0].t === "and") toks.shift();
+  while (toks.length && toks[toks.length - 1].t === "and") toks.pop();
+  const sig = toks.map(t => t.t).join(" ");
+  const V = i => toks[i].v;
+  let w = 0, n, d;
+  const frac = (k) => {           // parse a simple fraction starting at token k; returns [n,d] or null
+    const rest = toks.slice(k).map(t => t.t).join(" ");
+    if (rest === "n /" + " n") return [V(k), V(k + 2)];
+    if (rest === "n / o") return [V(k), V(k + 2)];       // "5/6th"
+    if (rest === "n o") return [V(k), V(k + 1)];
+    if (rest === "o") return [1, V(k)];            // "half", "quarter"
+    if (rest === "n n" && !toks[k].article) return [V(k), V(k + 1)];   // "5 6"
+    return null;
+  };
+  let f = frac(0);
+  if (!f && toks.length && toks[0].t === "n") {
+    // mixed number: whole [and] fraction
+    const k = toks[1] && toks[1].t === "and" ? 2 : 1;
+    const g = frac(k);
+    if (g && !(k === 1 && toks[1].t === "n" && toks[2] && toks[2].t === "n" && sig.split(" ").length === 3)) { w = V(0); f = g; }
+    else if (g && k === 2) { w = V(0); f = g; }
+  }
+  if (!f && sig === "n" && !toks[0].article) f = [V(0), 1];
+  if (!f) return null;
+  [n, d] = f;
+  if (!(d > 0) || !(n >= 0) || !Number.isInteger(n) || !Number.isInteger(d)) return null;
+  if (w) {
+    if (n >= d) return null;                       // "1 5/4" is not a mixed number
+    n = w * d + n;
+  }
+  return [n, d];
+}
+function fracEqualsText(parsed, answerText) {
+  if (!parsed) return false;
+  const m = String(answerText).match(/^(\d+)(?:\/(\d+))?$/);
+  if (!m) return false;
+  const an = Number(m[1]), ad = Number(m[2] || 1);
+  return parsed[0] * ad === an * parsed[1];
+}
+function fracShow(p) { return p[1] === 1 ? String(p[0]) : p[0] + "/" + p[1]; }
+
 /* ---- Quiz-bank rotation, reused per bank (per-item last-seen kept in localStorage) ----
    Stored record per prompt: { r: round last shown, c: cycle last shown, t: ms timestamp, miss: bool }
    - "Fresh" = never shown, or last shown in an earlier cycle.
@@ -777,6 +901,14 @@ const DECKS = {
     fraction: true,
     items: [],
     generate: (n) => genFractions(n)
+  },
+  fractions_fill: {
+    label: "Fractions — fill in (dictate)",
+    promptLabel: "Say or type it…",
+    fraction: true,
+    fill: true,
+    items: [],
+    generate: (n) => genFractions(n)
   }
 };
 
@@ -877,6 +1009,27 @@ function nextCard() {
   if (state.deckKey === "frontier") FRONTIER.markShown(prompt);
   else if (state.deckKey === "musk") MUSK.markShown(prompt);
   else if (state.deckKey === "health") HEALTH.markShown(prompt);
+  const fillForm = el("fill");
+  if (deck.fill) {
+    el("prompt-label").textContent = deck.promptLabel;
+    const promptEl = el("prompt");
+    promptEl.classList.remove("vertical");
+    promptEl.classList.toggle("fraction", !!deck.fraction);
+    promptEl.textContent = prompt;
+    el("choices").innerHTML = "";
+    el("choices").hidden = true;
+    fillForm.hidden = false;
+    const inp = el("fill-input");
+    inp.value = "";
+    inp.disabled = false;
+    el("fill-submit").disabled = false;
+    el("fill-hint").textContent = "";
+    inp.focus();
+    startTimer();
+    return;
+  }
+  fillForm.hidden = true;
+  el("choices").hidden = false;
   const options = cardOptions(item, deck);
 
   el("prompt-label").textContent = deck.promptLabel;
@@ -912,6 +1065,32 @@ function explainFor(deckKey, prompt) {
   return typeof w === "string" ? w : "";
 }
 
+function lockFill() {
+  state.locked = true;
+  stopTimer();
+  el("fill-submit").disabled = true;
+}
+function onFillSubmit(ev) {
+  if (ev) ev.preventDefault();
+  if (state.locked || !DECKS[state.deckKey].fill) return;
+  const inp = el("fill-input");
+  const raw = inp.value.trim();
+  if (!raw) { inp.focus(); return; }
+  const parsed = parseFraction(raw);
+  const correct = state.current.answer;
+  const ok = fracEqualsText(parsed, correct);
+  lockFill();
+  state.pendingFill = { raw, parsed: parsed ? fracShow(parsed) : null };
+  record(ok, false, raw);
+  const heard = parsed ? `→ ${fracShow(parsed)}` : "couldn't read";
+  el("fill-hint").textContent = `“${raw}” ${heard}`;
+  el("feedback").textContent = ok
+    ? `Nice — ${(performance.now() - state.startedAt).toFixed(0)} ms`
+    : `Answer: ${correct}`;
+  setTimeout(nextCard, ok ? 700 : 1600);
+}
+el("fill").addEventListener("submit", onFillSubmit);
+
 function record(ok, timedOut, chosen) {
   const ms = performance.now() - state.startedAt;
   state.asked += 1;
@@ -922,8 +1101,11 @@ function record(ok, timedOut, chosen) {
     timedOut: !!timedOut,
     ok: !!ok,
     ms: Math.round(ms),
-    why: explainFor(state.deckKey, state.current.prompt)
+    why: explainFor(state.deckKey, state.current.prompt),
+    fill: !!DECKS[state.deckKey].fill,
+    parsed: state.pendingFill ? state.pendingFill.parsed : null
   });
+  state.pendingFill = null;
   if (state.deckKey === "frontier") FRONTIER.markResult(state.current.prompt, ok);
   else if (state.deckKey === "musk") MUSK.markResult(state.current.prompt, ok);
   else if (state.deckKey === "health") HEALTH.markResult(state.current.prompt, ok);
@@ -953,7 +1135,8 @@ function onPick(opt, btn) {
 
 function onTimeout() {
   if (state.locked) return;
-  lockChoices(null, state.current.answer);
+  if (DECKS[state.deckKey].fill) { lockFill(); el("fill-input").disabled = false; }
+  else lockChoices(null, state.current.answer);
   record(false, true, null);
   el("feedback").textContent = `Time — ${state.current.answer}`;
   setTimeout(nextCard, 900);
@@ -1010,7 +1193,9 @@ function finishRound() {
     q.textContent = (i + 1) + ". " + row.prompt;
     const yours = document.createElement("div");
     yours.className = "review-row" + (row.ok ? " right" : " wrong");
-    const yoursVal = row.timedOut ? "(timed out)" : row.chosen;
+    const yoursVal = row.timedOut ? "(timed out)"
+      : row.fill ? `“${row.chosen}” ${row.parsed ? "→ " + row.parsed : "→ couldn't read"}`
+      : row.chosen;
     yours.innerHTML = "Your answer: <strong></strong>";
     yours.querySelector("strong").textContent = yoursVal;
     const ans = document.createElement("div");
@@ -1041,6 +1226,8 @@ el("btn-start").addEventListener("click", startRound);
 el("btn-again").addEventListener("click", startRound);
 el("btn-home").addEventListener("click", () => {
   stopTimer();
+  el("fill").hidden = true;
+  el("choices").hidden = false;
   show("home");
 });
 </script>
