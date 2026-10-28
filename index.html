@@ -113,6 +113,13 @@
     font-size: 1.55rem;
     letter-spacing: 0;
   }
+  #prompt.fraction {
+    font-size: 2.1rem;
+    font-variant-numeric: tabular-nums;
+    word-spacing: 0.15em;
+    text-align: center;
+    white-space: nowrap;
+  }
   .choices {
     display: grid;
     gap: 10px;
@@ -315,6 +322,7 @@
             <option value="health">My Heart &amp; Health (rotated)</option>
             <option value="math_2digit">Multiply: 2-digit × 2-digit</option>
             <option value="add_3mix">Add: 3-digit + 2-digit + 2-digit</option>
+            <option value="fractions">Fractions (× and +)</option>
           </select>
         </div>
         <div class="setting">
@@ -507,6 +515,91 @@ function genAdd3mix(n) {
   return items;
 }
 
+/* ---- Fractions (× and +): random each round. Answers in lowest terms as improper a/b.
+   Distractors are other VALUES from typical mistakes (never an unreduced equivalent of the answer). ---- */
+function fgcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { [a, b] = [b, a % b]; } return a; }
+function flcm(a, b) { return a / fgcd(a, b) * b; }
+function fred(n, d) { const g = fgcd(n, d) || 1; return [n / g, d / g]; }
+function ffmt(n, d) { const [a, b] = fred(n, d); return b === 1 ? String(a) : a + "/" + b; }
+function fracDistractors(N, D, cands) {
+  const [cn, cd] = fred(N, D);
+  const out = [], seen = new Set([cn + "/" + cd]);
+  const add = (n, d) => {
+    if (out.length >= 3 || !(n > 0) || !(d > 0) || !Number.isInteger(n) || !Number.isInteger(d)) return;
+    const [a, b] = fred(n, d);
+    if (b === 1 || b > 100) return;            // keep options as plain fractions
+    const k = a + "/" + b;
+    if (seen.has(k)) return;
+    seen.add(k); out.push(ffmt(a, b));
+  };
+  cands.forEach(([n, d]) => add(n, d));
+  // backstops: off-by-one numerator/denominator on the reduced answer
+  [[cn + 1, cd], [cn - 1, cd], [cn, cd + 1], [cn, cd - 1], [cn + 2, cd], [cn, cd + 2], [cn * 2 + 1, cd * 2], [cn * 2 - 1, cd * 2]]
+    .forEach(([n, d]) => add(n, d));
+  return out;
+}
+function genFracMul(seen) {
+  for (let g = 0; g < 500; g++) {
+    const d1 = randInt(2, 10), d2 = randInt(2, 10);
+    const n1 = randInt(1, d1 - 1), n2 = randInt(1, d2 - 1);
+    const key = "m" + [n1 + "/" + d1, n2 + "/" + d2].sort().join("*");
+    if (seen.has(key)) continue;
+    const N = n1 * n2, D = d1 * d2;
+    if (fred(N, D)[1] === 1) continue;
+    const [rn, rd] = fred(N, D);
+    const ds = fracDistractors(N, D, shuffle([
+      [n1 * n2, d1], [n1 * n2, d2],           // multiplied numerators only, kept one denominator
+      [n1 + n2, d1 + d2],                     // added across instead of multiplying
+      [n1 * d2, d1 * n2],                     // cross-multiplied (division mix-up)
+      [rn + 1, rd], [rn - 1, rd],             // off-by-one after reducing
+      [N + 1, D], [N - 1, D]                  // slip in the numerator product
+    ]).slice(0, 5));
+    if (ds.length < 3) continue;
+    seen.add(key);
+    return [n1 + "/" + d1 + " × " + n2 + "/" + d2, ffmt(N, D), ds];
+  }
+  return null;
+}
+function genFracAdd(seen) {
+  for (let g = 0; g < 500; g++) {
+    const d1 = randInt(2, 10), d2 = randInt(2, 10);
+    if (d1 === d2) continue;
+    const L = flcm(d1, d2);
+    if (L > 30) continue;                       // keep the common denominator small
+    const n1 = randInt(1, d1 - 1), n2 = randInt(1, d2 - 1);
+    if (fgcd(n1, d1) !== 1 || fgcd(n2, d2) !== 1) continue;   // addends already in lowest terms
+    const N = n1 * (L / d1) + n2 * (L / d2);
+    if (N > 2 * L) continue;                    // sum stays at most 2
+    if (N > L && Math.random() < 0.6) continue; // sums over 1 only occasionally
+    const [rn, rd] = fred(N, L);
+    if (rd === 1) continue;
+    const key = "a" + [n1 + "/" + d1, n2 + "/" + d2].sort().join("+");
+    if (seen.has(key)) continue;
+    const ds = fracDistractors(N, L, [
+      [n1 + n2, d1 + d2],                       // added numerators and denominators
+      [n1 + n2, L],                             // common denominator but numerators not scaled
+      [n1 * (L / d1) + n2, L],                  // scaled only the first numerator
+      [n1 + n2 * (L / d2), L],                  // scaled only the second numerator
+      [n1 + n2, Math.max(d1, d2)],              // kept the bigger denominator
+      [n1 * (L / d2) + n2 * (L / d1), L],       // scaled each numerator by the wrong factor
+      [n1 * n2, L],                             // multiplied numerators over the common denominator
+      [N + 1, L], [N - 1, L]
+    ].sort(() => Math.random() - 0.5).slice(0, 5));
+    if (ds.length < 3) continue;
+    seen.add(key);
+    return [n1 + "/" + d1 + " + " + n2 + "/" + d2, ffmt(N, L), ds];
+  }
+  return null;
+}
+function genFractions(n) {
+  const nMul = Math.ceil(n / 2), seen = new Set(), items = [];
+  for (let i = 0; i < n; i++) {
+    const it = i < nMul ? genFracMul(seen) : genFracAdd(seen);
+    if (it) items.push(it);
+  }
+  return items;                                  // multiplication block first, then addition
+}
+
 /* ---- Quiz-bank rotation, reused per bank (per-item last-seen kept in localStorage) ----
    Stored record per prompt: { r: round last shown, c: cycle last shown, t: ms timestamp, miss: bool }
    - "Fresh" = never shown, or last shown in an earlier cycle.
@@ -677,6 +770,13 @@ const DECKS = {
     vertical: true,
     items: [],
     generate: (n) => genAdd3mix(n)
+  },
+  fractions: {
+    label: "Fractions (× and +)",
+    promptLabel: "Lowest terms…",
+    fraction: true,
+    items: [],
+    generate: (n) => genFractions(n)
   }
 };
 
@@ -782,6 +882,7 @@ function nextCard() {
   el("prompt-label").textContent = deck.promptLabel;
   const promptEl = el("prompt");
   promptEl.classList.toggle("vertical", !!deck.vertical);
+  promptEl.classList.toggle("fraction", !!deck.fraction);
   promptEl.textContent = prompt;
   const box = el("choices");
   box.innerHTML = "";
