@@ -69,7 +69,7 @@
   #timer-bar.warn { background: var(--warn); }
   #timer-bar.danger { background: var(--bad); }
   main { flex: 1; display: flex; flex-direction: column; }
-  #screen-home, #screen-drill, #screen-result {
+  #screen-home, #screen-drill, #screen-result, #screen-flip, #screen-flipdone {
     flex: 1; display: none; flex-direction: column;
     min-height: 0;
   }
@@ -308,6 +308,17 @@
     min-height: 1.2em;
     margin-bottom: 8px;
   }
+  #screen-flip, #screen-flipdone { font-size: 1.15rem; overflow-y: auto; gap: 12px; padding-bottom: 12px; }
+  .flip-progress { text-align:center; color: var(--muted); margin: 6px 0 12px; font-size: 1.05rem; }
+  .flip-card { background: var(--card); border-radius: 16px; padding: 28px 20px; min-height: 260px; display:flex; flex-direction:column; justify-content:center; text-align:center; cursor:pointer; border: 2px solid #2a3a52; }
+  .flip-term { font-size: 1.8rem; font-weight: 700; line-height: 1.25; }
+  .flip-who { font-size: 1.2rem; color: var(--muted); margin-top: 10px; }
+  .flip-back { font-size: 1.35rem; line-height: 1.5; margin-top: 18px; padding-top: 16px; border-top: 1px solid #2a3a52; }
+  .flip-tap { color: var(--muted); font-size: 1rem; margin-top: 16px; }
+  .flip-grade { display:flex; gap:12px; margin-top:16px; }
+  .flip-grade button { flex:1; font-size: 1.35rem; padding: 20px 8px; border-radius: 14px; border:none; font-weight:700; color:#0f1419; }
+  #flip-got { background: var(--good); } #flip-not { background: var(--warn); }
+  .flip-list { margin: 14px 0; font-size: 1.15rem; line-height: 1.6; }
 </style>
 </head>
 <body>
@@ -335,6 +346,7 @@
             <option value="add_3mix">Add: 3-digit + 2-digit + 2-digit</option>
             <option value="fractions">Fractions (× and +)</option>
             <option value="fractions_fill">Fractions — fill in (dictate)</option>
+            <option value="flip">Frontier definitions (flip cards)</option>
           </select>
         </div>
         <div class="setting">
@@ -387,6 +399,29 @@
       <div id="review"></div>
       <button class="btn" id="btn-again">Drill again</button>
       <button class="btn secondary" id="btn-home">Change settings</button>
+    </section>
+    <section id="screen-flip">
+      <div class="flip-progress" id="flip-progress"></div>
+      <div class="flip-card" id="flip-card" role="button" aria-label="Flip card">
+        <div class="flip-term" id="flip-term"></div>
+        <div class="flip-who" id="flip-who"></div>
+        <div class="flip-back" id="flip-back" hidden></div>
+        <div class="flip-tap" id="flip-tap">Say your definition, then tap to flip</div>
+      </div>
+      <button class="btn" id="flip-flip">Flip</button>
+      <div class="flip-grade" id="flip-grade" hidden>
+        <button id="flip-got">Got it</button>
+        <button id="flip-not">Not yet</button>
+      </div>
+      <button class="btn secondary" id="flip-quit">Stop</button>
+    </section>
+
+    <section id="screen-flipdone">
+      <div class="result-big" id="flipdone-big">—</div>
+      <div class="result-sub">first try out of <span id="flipdone-total">10</span></div>
+      <div class="flip-list" id="flipdone-list"></div>
+      <button class="btn" id="flip-again">Go again (new order)</button>
+      <button class="btn secondary" id="flip-home">Change deck</button>
     </section>
   </main>
 
@@ -1143,6 +1178,7 @@ function onTimeout() {
 }
 
 function startRound() {
+  if (el("deck").value === "flip") return startFlip();
   state.deckKey = el("deck").value;
   state.seconds = Number(el("seconds").value);
   state.total = Number(el("rounds").value);
@@ -1230,6 +1266,87 @@ el("btn-home").addEventListener("click", () => {
   el("choices").hidden = false;
   show("home");
 });
+// ---- Flip cards (separate, untimed mode; not part of DECKS) ----
+const FLIP_CARDS = [
+ ["Markov blanket","Karl Friston","The boundary that separates a thing's inside from the outside world. All contact passes through it, as sensing coming in and actions going out."],
+ ["Cognitive light cone","Michael Levin","How big and how far ahead the goals an agent can pursue are. A cell's is tiny, and a person's is huge."],
+ ["Amplituhedron","Nima Arkani-Hamed","A geometric shape whose volume gives the results of particle collisions, without starting from space and time."],
+ ["Fitness beats truth","Donald Hoffman","Evolution rewards seeing what helps you survive, not seeing reality as it is."],
+ ["Bioelectricity","Michael Levin","Voltage patterns across cells that tell the body what shape to build and repair."],
+ ["Free energy principle","Karl Friston","Living things stay alive by keeping surprise low, constantly predicting what they'll sense and correcting when they're wrong."],
+ ["Xenobots","Michael Levin","Tiny living robots built from frog cells that can move and gather loose cells into new xenobots."],
+ ["Conscious agents","Donald Hoffman","A network of interacting minds that he says is the basic reality, with spacetime arising from it."],
+ ["Cosmological bootstrap","Nima Arkani-Hamed","Working out the universe's earliest moments from the patterns left in the sky today, without tracing time forward."],
+ ["Interface theory of perception","Donald Hoffman","What we perceive is like a desktop screen, which hides reality to keep us alive."]
+];
+screens.flip = el("screen-flip");
+screens.flipdone = el("screen-flipdone");
+const flip = { queue: [], tries: {}, cur: null, flipped: false };
+function startFlip() {
+  stopTimer();
+  el("timer-bar").style.transform = "scaleX(0)";
+  flip.queue = shuffle(FLIP_CARDS.slice());
+  flip.tries = {};
+  showFlipCard();
+  show("flip");
+}
+function showFlipCard() {
+  if (!flip.queue.length) return finishFlip();
+  flip.cur = flip.queue[0];
+  flip.flipped = false;
+  const done = FLIP_CARDS.length - new Set(flip.queue.map(c => c[0])).size;
+  el("flip-progress").textContent = `Got ${done} of ${FLIP_CARDS.length} · ${flip.queue.length} left in pile`;
+  el("flip-term").textContent = flip.cur[0];
+  el("flip-who").textContent = flip.cur[1];
+  el("flip-back").textContent = flip.cur[2];
+  el("flip-back").hidden = true;
+  el("flip-tap").hidden = false;
+  el("flip-flip").hidden = false;
+  el("flip-grade").hidden = true;
+}
+function doFlip() {
+  if (flip.flipped) return;
+  flip.flipped = true;
+  el("flip-back").hidden = false;
+  el("flip-tap").hidden = true;
+  el("flip-flip").hidden = true;
+  el("flip-grade").hidden = false;
+}
+function gradeFlip(got) {
+  if (!flip.flipped) return;
+  const c = flip.queue.shift();
+  flip.tries[c[0]] = (flip.tries[c[0]] || 0) + 1;
+  if (!got) {
+    // send it back a few cards later (or to the end if the pile is small)
+    const pos = Math.min(flip.queue.length, 3);
+    flip.queue.splice(pos, 0, c);
+  }
+  showFlipCard();
+}
+function finishFlip() {
+  const first = FLIP_CARDS.filter(c => flip.tries[c[0]] === 1).length;
+  el("flipdone-big").textContent = first;
+  el("flipdone-total").textContent = FLIP_CARDS.length;
+  const list = el("flipdone-list");
+  list.innerHTML = "";
+  const rep = FLIP_CARDS.filter(c => flip.tries[c[0]] > 1);
+  const head = document.createElement("div");
+  head.textContent = rep.length ? "Needed another look:" : "Every card on the first try.";
+  list.appendChild(head);
+  rep.forEach(c => {
+    const d = document.createElement("div");
+    d.textContent = `• ${c[0]} (${flip.tries[c[0]]} tries)`;
+    list.appendChild(d);
+  });
+  show("flipdone");
+}
+el("flip-card").addEventListener("click", doFlip);
+el("flip-flip").addEventListener("click", doFlip);
+el("flip-got").addEventListener("click", () => gradeFlip(true));
+el("flip-not").addEventListener("click", () => gradeFlip(false));
+el("flip-again").addEventListener("click", startFlip);
+el("flip-quit").addEventListener("click", () => show("home"));
+el("flip-home").addEventListener("click", () => show("home"));
 </script>
 </body>
 </html>
