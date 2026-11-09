@@ -1,0 +1,1058 @@
+{
+  "category_id": "ai-compute-earth-orbit",
+  "category_title": "AI Compute: Earth & Orbit",
+  "answer_index_base": 0,
+  "question_count": 75,
+  "questions": [
+    {
+      "id": "ai-compute-015",
+      "topic": "Build speed and power",
+      "question": "Why isn't temporary generation equivalent to permanent firm power?",
+      "options": [
+        "Battery storage supplies indefinite firm power without replenishment",
+        "Once equipment is energized, its permit duration no longer affects availability",
+        "Nameplate turbine output proves uninterrupted long-term delivery",
+        "Permits, fuel, reliability, and operating duration can limit it"
+      ],
+      "answer_index": 3,
+      "correct_answer": "Permits, fuel, reliability, and operating duration can limit it",
+      "why": "Getting a cluster online quickly and sustaining it reliably are different accomplishments."
+    },
+    {
+      "id": "ai-compute-010",
+      "topic": "Build speed and power",
+      "question": "Why should a reported 122-day deployment and a 19-day installation milestone not be treated as contradictory?",
+      "options": [
+        "Both figures necessarily measure groundbreaking to full commercial utilization",
+        "The shorter figure proves every prerequisite was completed in that same period",
+        "They can measure different start points in the same deployment",
+        "The shorter figure measures the entire project and the longer one only rack installation"
+      ],
+      "answer_index": 2,
+      "correct_answer": "They can measure different start points in the same deployment",
+      "why": "NVIDIA reported 122 days for the supporting facility and system, and 19 days from first rack to training."
+    },
+    {
+      "id": "ai-compute-008",
+      "topic": "Compute and capacity",
+      "question": "How do megawatts and gigawatts relate?",
+      "options": [
+        "A gigawatt measures energy while a megawatt measures power",
+        "One megawatt equals 1,000 gigawatts",
+        "One gigawatt equals 1,000 megawatts",
+        "One gigawatt equals 100 megawatts"
+      ],
+      "answer_index": 2,
+      "correct_answer": "One gigawatt equals 1,000 megawatts",
+      "why": "Both are units of power; the prefix changes the scale."
+    },
+    {
+      "id": "ai-compute-027",
+      "topic": "Contracts and leverage",
+      "question": "What is the supplier-competitor or frenemy problem?",
+      "options": [
+        "A supplier agrees never to develop any model",
+        "Two companies use the same accounting software",
+        "A customer buys from several suppliers that never compete with it",
+        "A firm provides infrastructure while also competing in AI products"
+      ],
+      "answer_index": 3,
+      "correct_answer": "A firm provides infrastructure while also competing in AI products",
+      "why": "The relationship can combine mutual benefit with conflicting incentives."
+    },
+    {
+      "id": "ai-compute-034",
+      "topic": "Google and alternatives",
+      "question": "What would an outside-capacity purchase by Google show most directly?",
+      "options": [
+        "That Google lacks any internal capacity suitable for AI",
+        "That Anthropic’s contracted alternatives have ceased to exist",
+        "That the supplier’s current pricing power must persist for the entire contract term",
+        "That Google valued the offered capacity on the offered timeline and terms"
+      ],
+      "answer_index": 3,
+      "correct_answer": "That Google valued the offered capacity on the offered timeline and terms",
+      "why": "One deal can validate timely supply without proving universal dependence."
+    },
+    {
+      "id": "ai-compute-057",
+      "topic": "Orbital computing",
+      "question": "Why is reusability alone insufficient to guarantee very low launch costs?",
+      "options": [
+        "Recovering hardware once proves it can be reused cheaply at high frequency",
+        "A high design payload guarantees low cost per kilogram at any load factor",
+        "Turnaround, refurbishment, reliability, payload, and launch frequency also matter",
+        "Reusing a booster removes upper-stage and payload-integration costs"
+      ],
+      "answer_index": 2,
+      "correct_answer": "Turnaround, refurbishment, reliability, payload, and launch frequency also matter",
+      "why": "Economics depend on the whole operating system, not a single recovery demonstration."
+    },
+    {
+      "id": "ai-compute-063",
+      "topic": "Scale and competition",
+      "question": "What is vertical integration?",
+      "options": [
+        "Controlling one bottleneck while outsourcing every other value-chain stage",
+        "Buying from multiple vendors to avoid dependence on any one stage",
+        "Control of multiple stages of a value chain within one organization",
+        "Expanding output at one stage without changing control of other stages"
+      ],
+      "answer_index": 2,
+      "correct_answer": "Control of multiple stages of a value chain within one organization",
+      "why": "Launch, satellite manufacture, and compute services illustrate different stages; integration does not remove all risks."
+    },
+    {
+      "id": "ai-compute-035",
+      "topic": "Google and alternatives",
+      "question": "Why does a shortage of NVIDIA GPUs not by itself prove all TPU capacity is unavailable?",
+      "options": [
+        "Different chip architectures guarantee unrelated supply conditions in every respect",
+        "Chip contracts eliminate any shared constraints in power, construction, or networking",
+        "The resources and commitments overlap only partly and are not identical",
+        "A GPU purchase reveals the exact remaining availability of every TPU allocation"
+      ],
+      "answer_index": 2,
+      "correct_answer": "The resources and commitments overlap only partly and are not identical",
+      "why": "Chip-specific scarcity and industry-wide power scarcity must be distinguished."
+    },
+    {
+      "id": "ai-compute-018",
+      "topic": "Contracts and leverage",
+      "question": "What does a mutual termination right mean?",
+      "options": [
+        "Both parties may exit under the contract's specified conditions",
+        "Both parties may exit immediately without complying with notice requirements",
+        "Both parties must agree again each time either wants to exercise the right",
+        "Only the customer may exit because it pays for the service"
+      ],
+      "answer_index": 0,
+      "correct_answer": "Both parties may exit under the contract's specified conditions",
+      "why": "Mutual describes who holds the right; timing and conditions still matter."
+    },
+    {
+      "id": "ai-compute-004",
+      "topic": "Compute and capacity",
+      "question": "Why can a popular, high-quality model still fail to realize all its potential revenue?",
+      "options": [
+        "Strong model quality ensures that capacity automatically expands with demand",
+        "Its available serving capacity may not meet user demand",
+        "Serving constraints affect costs but cannot limit realized sales",
+        "Future contracted capacity is sufficient even before it is delivered"
+      ],
+      "answer_index": 1,
+      "correct_answer": "Its available serving capacity may not meet user demand",
+      "why": "Demand, model quality, and capacity to serve requests are distinct."
+    },
+    {
+      "id": "ai-compute-068",
+      "topic": "Scale and competition",
+      "question": "Which risk remains even if competitors cannot match a company's launch capability?",
+      "options": [
+        "A moat guarantees the required launch cost even if refurbishment remains expensive",
+        "An FCC filing transfers performance risk from the company to the regulator",
+        "Competition is the only source of risk once the basic concept is proposed",
+        "The company may still fail to achieve the required cost, reliability, or cadence"
+      ],
+      "answer_index": 3,
+      "correct_answer": "The company may still fail to achieve the required cost, reliability, or cadence",
+      "why": "Protection from rivals is not protection from physics, engineering, financing, or operating failures."
+    },
+    {
+      "id": "ai-compute-064",
+      "topic": "Scale and competition",
+      "question": "What is margin stacking?",
+      "options": [
+        "The gross profit of one integrated company measured before depreciation",
+        "The extra cost caused solely by financing successive construction phases",
+        "Successive independent suppliers each adding their own profit margin",
+        "The difference between a customer’s revenue and its infrastructure spending"
+      ],
+      "answer_index": 2,
+      "correct_answer": "Successive independent suppliers each adding their own profit margin",
+      "why": "Integration may reduce some external markups but still requires capital and efficient operations."
+    },
+    {
+      "id": "ai-compute-019",
+      "topic": "Contracts and leverage",
+      "question": "Why does an initial non-cancellable period matter in a deal with 90-day notice rights?",
+      "options": [
+        "It prevents either party from ever terminating before the scheduled final date",
+        "It guarantees unchanged pricing even after a valid termination and new negotiation",
+        "The notice right may apply only after that protected period",
+        "It makes the notice period optional after the customer starts using capacity"
+      ],
+      "answer_index": 2,
+      "correct_answer": "The notice right may apply only after that protected period",
+      "why": "The existence of an exit clause does not tell you when it becomes exercisable."
+    },
+    {
+      "id": "ai-compute-047",
+      "topic": "Orbital computing",
+      "question": "What is Google's Project Suncatcher exploring?",
+      "options": [
+        "Solar-powered satellite networks for machine-learning compute in space",
+        "A plan to run ordinary satellites without any communications links",
+        "A replacement for all terrestrial internet traffic already operating commercially",
+        "A ground-based solar installation that manufactures CPUs"
+      ],
+      "answer_index": 0,
+      "correct_answer": "Solar-powered satellite networks for machine-learning compute in space",
+      "why": "Google describes it as a research moonshot, not proven commercial-scale infrastructure."
+    },
+    {
+      "id": "ai-compute-066",
+      "topic": "Scale and competition",
+      "question": "What is an economic moat?",
+      "options": [
+        "A competitive advantage that can make entry or imitation difficult",
+        "A first-mover lead that guarantees permanent market power",
+        "A large capital budget independent of execution or barriers to entry",
+        "A high current profit margin even when entry is easy"
+      ],
+      "answer_index": 0,
+      "correct_answer": "A competitive advantage that can make entry or imitation difficult",
+      "why": "Barriers such as expertise, capital, infrastructure, and operating experience can support a moat."
+    },
+    {
+      "id": "ai-compute-046",
+      "topic": "Financial interpretation",
+      "question": "What is a stock lock-up expiration?",
+      "options": [
+        "The end of restrictions on sales by specified holders",
+        "An automatic issue of new shares by the company",
+        "The point at which insiders must sell their eligible shares",
+        "The expiry of a customer’s minimum compute commitment"
+      ],
+      "answer_index": 0,
+      "correct_answer": "The end of restrictions on sales by specified holders",
+      "why": "More shares may become eligible for sale, but the price effect is not predetermined."
+    },
+    {
+      "id": "ai-compute-054",
+      "topic": "Orbital computing",
+      "question": "Why are high-bandwidth inter-satellite links important to distributed orbital AI?",
+      "options": [
+        "More satellites eliminate the need for high-performance links between them",
+        "Their role is only to downlink final answers and cannot affect distributed computation",
+        "Cooperating processors must exchange large amounts of data efficiently",
+        "High bandwidth alone removes all formation-control and latency requirements"
+      ],
+      "answer_index": 2,
+      "correct_answer": "Cooperating processors must exchange large amounts of data efficiently",
+      "why": "A collection of accelerators needs networking to work as a useful distributed system."
+    },
+    {
+      "id": "ai-compute-040",
+      "topic": "Financial interpretation",
+      "question": "Why can't a single stock-price move identify the market's exact reasoning?",
+      "options": [
+        "The size of a price change reveals the exact weight assigned to each risk",
+        "A flat price proves new positive and negative developments were identical in size",
+        "Many expectations, risks, and trading forces can move prices simultaneously",
+        "A decline after a disclosure proves that disclosure was the sole cause"
+      ],
+      "answer_index": 2,
+      "correct_answer": "Many expectations, risks, and trading forces can move prices simultaneously",
+      "why": "Price action alone is not a controlled test of one explanation."
+    },
+    {
+      "id": "ai-compute-033",
+      "topic": "Google and alternatives",
+      "question": "How is an infrastructure-owning hyperscaler different from a model lab that largely buys compute?",
+      "options": [
+        "Its internal capacity is always less costly than external capacity for every workload",
+        "It controls all relevant power and hardware supply and therefore has no counterparty risk",
+        "It controls more of its own physical supply and investment pipeline",
+        "It only provides infrastructure and cannot compete in AI models"
+      ],
+      "answer_index": 2,
+      "correct_answer": "It controls more of its own physical supply and investment pipeline",
+      "why": "Ownership changes options and risks without eliminating bottlenecks."
+    },
+    {
+      "id": "ai-compute-016",
+      "topic": "Build speed and power",
+      "question": "What is redundancy intended to improve?",
+      "options": [
+        "Reduced need for maintenance through a larger primary power feed",
+        "Resilience when equipment or a power path fails",
+        "Higher productive utilization under every workload",
+        "Lower construction time by eliminating backup equipment"
+      ],
+      "answer_index": 1,
+      "correct_answer": "Resilience when equipment or a power path fails",
+      "why": "Backup paths and equipment reduce single-point failures, often at added cost and time."
+    },
+    {
+      "id": "ai-compute-009",
+      "topic": "Build speed and power",
+      "question": "Why can faster time-to-online create economic value during scarcity?",
+      "options": [
+        "Faster construction permanently protects the supplier from lower rental prices",
+        "Earlier online capacity guarantees higher returns even if utilization is low",
+        "Useful capacity can earn revenue or run workloads sooner",
+        "Speed creates value only when the company uses the capacity internally"
+      ],
+      "answer_index": 2,
+      "correct_answer": "Useful capacity can earn revenue or run workloads sooner",
+      "why": "Earlier availability has value when customers would otherwise wait."
+    },
+    {
+      "id": "ai-compute-070",
+      "topic": "Scale and competition",
+      "question": "What is the careful meaning of an asymmetric opportunity here?",
+      "options": [
+        "Large potential upside if execution succeeds, alongside meaningful concentrated downside",
+        "A market lead limits downside while leaving all upside uncapped",
+        "A large upside proves that the probability-weighted return is attractive",
+        "A technically feasible project cannot have concentrated financial losses"
+      ],
+      "answer_index": 0,
+      "correct_answer": "Large potential upside if execution succeeds, alongside meaningful concentrated downside",
+      "why": "Asymmetry describes possible outcomes, not a conclusion that the bet is safe or attractively priced."
+    },
+    {
+      "id": "ai-compute-041",
+      "topic": "Financial interpretation",
+      "question": "What is the key caution about an annualized monthly revenue run rate?",
+      "options": [
+        "Multiplying one month by twelve is not the same as revenue actually earned over a year",
+        "An annualized month is equivalent to a full year of recognized revenue",
+        "A monthly revenue run rate automatically represents non-cancellable recurring contracts",
+        "Annualizing a high-growth month establishes the next year’s cash collections"
+      ],
+      "answer_index": 0,
+      "correct_answer": "Multiplying one month by twelve is not the same as revenue actually earned over a year",
+      "why": "A snapshot extrapolation depends on whether the monthly level persists; it is not automatically contracted recurring revenue either."
+    },
+    {
+      "id": "ai-compute-052",
+      "topic": "Orbital computing",
+      "question": "Why is vacuum cooling a challenge rather than an automatic benefit?",
+      "options": [
+        "Cold surroundings remove heat without requiring sufficient radiator area",
+        "Vacuum improves ordinary air-cooled heat sinks by increasing convection",
+        "There is no ambient air for convection, so heat must ultimately be radiated away",
+        "Thermal management matters during launch but not after stable orbit is reached"
+      ],
+      "answer_index": 2,
+      "correct_answer": "There is no ambient air for convection, so heat must ultimately be radiated away",
+      "why": "Radiators and thermal pathways are essential even with a cold space background."
+    },
+    {
+      "id": "ai-compute-023",
+      "topic": "Contracts and leverage",
+      "question": "How do spot rates differ from prices fixed in an existing contract?",
+      "options": [
+        "Spot rates reflect current market terms; contract prices follow the agreement",
+        "A rising spot rate automatically raises every fixed contract fee",
+        "Contract prices become spot prices whenever the supplier has a waiting list",
+        "Spot rates are the average price across every existing long-term contract"
+      ],
+      "answer_index": 0,
+      "correct_answer": "Spot rates reflect current market terms; contract prices follow the agreement",
+      "why": "A changed market can affect renewal or new deals without automatically rewriting existing terms."
+    },
+    {
+      "id": "ai-compute-031",
+      "topic": "Google and alternatives",
+      "question": "What is bridge capacity?",
+      "options": [
+        "An emergency purchase that cannot have a multi-year contractual end date",
+        "Temporary external capacity covering a gap while longer-term supply catches up",
+        "Permanent replacement for the buyer’s own infrastructure strategy",
+        "Capacity already owned internally but temporarily unused"
+      ],
+      "answer_index": 1,
+      "correct_answer": "Temporary external capacity covering a gap while longer-term supply catches up",
+      "why": "Bridge purchases address timing mismatches rather than necessarily replacing a long-term strategy."
+    },
+    {
+      "id": "ai-compute-036",
+      "topic": "Google and alternatives",
+      "question": "What does a pro-rata fee reduction do when less capacity is delivered?",
+      "options": [
+        "Adjusts the fee in proportion to the relevant delivered quantity",
+        "Keeps the full contracted fee while shortening the contract term proportionally",
+        "Reduces the fee by a fixed amount independent of delivered capacity",
+        "Requires immediate termination rather than permitting reduced service"
+      ],
+      "answer_index": 0,
+      "correct_answer": "Adjusts the fee in proportion to the relevant delivered quantity",
+      "why": "Delivery remedies can distinguish paying for partial service from terminating it."
+    },
+    {
+      "id": "ai-compute-072",
+      "topic": "Evidence and synthesis",
+      "question": "How should a claim that a customer has no choice be tested?",
+      "options": [
+        "A mutual notice clause proves both parties have equally good alternatives",
+        "A list of supplier names proves immediate equivalent replacement capacity",
+        "Examine workable substitutes, timing, contractual rights, and switching costs",
+        "A large contract demonstrates unlimited pricing power for its entire life"
+      ],
+      "answer_index": 2,
+      "correct_answer": "Examine workable substitutes, timing, contractual rights, and switching costs",
+      "why": "The discussion itself distinguishes constrained alternatives from literally no alternatives."
+    },
+    {
+      "id": "ai-compute-003",
+      "topic": "Compute and capacity",
+      "question": "What is a binding constraint?",
+      "options": [
+        "The contractual obligation with the longest remaining term",
+        "The bottleneck currently limiting an achievable outcome",
+        "The largest cost item, whether or not it limits output",
+        "The slowest resource to expand, even when there is surplus available"
+      ],
+      "answer_index": 1,
+      "correct_answer": "The bottleneck currently limiting an achievable outcome",
+      "why": "If usable compute is the bottleneck, better demand alone cannot remove it."
+    },
+    {
+      "id": "ai-compute-056",
+      "topic": "Orbital computing",
+      "question": "What is launch cadence?",
+      "options": [
+        "How frequently launches can be performed",
+        "The time required for one launch to reach orbit",
+        "The percentage of launched satellites that become operational",
+        "The payload mass carried per launch"
+      ],
+      "answer_index": 0,
+      "correct_answer": "How frequently launches can be performed",
+      "why": "High frequency must be operationally sustainable, not just an announced target."
+    },
+    {
+      "id": "ai-compute-021",
+      "topic": "Contracts and leverage",
+      "question": "How can scarce capacity strengthen a supplier's bargaining position?",
+      "options": [
+        "Customers may find equivalent timely alternatives difficult to obtain",
+        "Scarcity removes the supplier’s own incentive to retain major customers",
+        "Scarcity automatically rewrites the price of existing non-cancellable service",
+        "A shortage proves the customer has no alternatives at any price or timeline"
+      ],
+      "answer_index": 0,
+      "correct_answer": "Customers may find equivalent timely alternatives difficult to obtain",
+      "why": "Leverage depends on outside options and timing, not an unlimited legal right to reprice."
+    },
+    {
+      "id": "ai-compute-025",
+      "topic": "Contracts and leverage",
+      "question": "Why is multi-provider diversification useful but incomplete protection?",
+      "options": [
+        "It guarantees equivalent performance across vendors without software changes",
+        "It reduces single-supplier exposure without ensuring instant equivalent replacement",
+        "It removes shared power bottlenecks because different suppliers have different names",
+        "It ensures contracted future capacity can replace current service immediately"
+      ],
+      "answer_index": 1,
+      "correct_answer": "It reduces single-supplier exposure without ensuring instant equivalent replacement",
+      "why": "Diversification reduces some risks while shared bottlenecks and switching costs remain."
+    },
+    {
+      "id": "ai-compute-005",
+      "topic": "Compute and capacity",
+      "question": "Which sequence best separates stages of a data-center project?",
+      "options": [
+        "Contracted capacity, then full utilization, then power connection",
+        "Installed, energized, and fully used capacity are equivalent if chips are present",
+        "Planned and contracted capacity are equivalent once financing is announced",
+        "Planned, contracted, installed, energized, then productively used capacity"
+      ],
+      "answer_index": 3,
+      "correct_answer": "Planned, contracted, installed, energized, then productively used capacity",
+      "why": "Physical completion, power availability, contracts, and actual use must not be conflated."
+    },
+    {
+      "id": "ai-compute-038",
+      "topic": "Financial interpretation",
+      "question": "How does an IPO price differ from a later market price?",
+      "options": [
+        "The IPO price is an audited estimate of intrinsic business value",
+        "IPO pricing sets the offering price; later trading reflects subsequent bids and offers",
+        "A later price near the IPO price means no new information has arrived",
+        "The IPO price guarantees later investors pay for the same expectations"
+      ],
+      "answer_index": 1,
+      "correct_answer": "IPO pricing sets the offering price; later trading reflects subsequent bids and offers",
+      "why": "Neither price alone proves whether a business is fairly valued."
+    },
+    {
+      "id": "ai-compute-059",
+      "topic": "Orbital computing",
+      "question": "How should a roughly $200-per-kilogram launch benchmark be used?",
+      "options": [
+        "As an assumption-dependent research scenario, not a universal break-even guarantee",
+        "As proof that launch cost is the only remaining orbital-compute expense",
+        "As an observed market-wide price already available for sustained deployment",
+        "As a universal cost-parity threshold independent of mission assumptions"
+      ],
+      "answer_index": 0,
+      "correct_answer": "As an assumption-dependent research scenario, not a universal break-even guarantee",
+      "why": "Full economics also depend on hardware, lifetime, thermal systems, utilization, and other costs."
+    },
+    {
+      "id": "ai-compute-073",
+      "topic": "Evidence and synthesis",
+      "question": "Why doesn't agreement between a chatbot and a video independently verify a claim?",
+      "options": [
+        "Both may rely on the same source or repeat the same unsupported assumption",
+        "Two agreeing summaries are independent if they use different wording",
+        "Agreement is sufficient unless another commentator explicitly disputes the claim",
+        "A confident chatbot assessment counts as verification of the video it summarizes"
+      ],
+      "answer_index": 0,
+      "correct_answer": "Both may rely on the same source or repeat the same unsupported assumption",
+      "why": "Source independence and primary evidence matter more than repeated confidence."
+    },
+    {
+      "id": "ai-compute-007",
+      "topic": "Compute and capacity",
+      "question": "Why is a gigawatt figure alone insufficient to compare two AI clusters?",
+      "options": [
+        "Equal power implies equal throughput when both clusters are called AI data centers",
+        "Power alone is enough if the companies publish the same utilization target",
+        "Equal power implies equal GPU counts even across different generations",
+        "Chip efficiency, networking, workload, and utilization also matter"
+      ],
+      "answer_index": 3,
+      "correct_answer": "Chip efficiency, networking, workload, and utilization also matter",
+      "why": "A GW measures power, not a fixed quantity of AI work."
+    },
+    {
+      "id": "ai-compute-062",
+      "topic": "Scale and competition",
+      "question": "What does an FCC application establish most directly?",
+      "options": [
+        "Independent certification that the proposed system is technically and financially viable",
+        "Proof that all manufacturing and launch capacity has already been secured",
+        "That an applicant is requesting regulatory authority for a specified system",
+        "Regulatory authorization for the complete proposed constellation"
+      ],
+      "answer_index": 2,
+      "correct_answer": "That an applicant is requesting regulatory authority for a specified system",
+      "why": "Application, authorization, deployment, and commercial success are separate stages."
+    },
+    {
+      "id": "ai-compute-044",
+      "topic": "Financial interpretation",
+      "question": "Why is a claimed short payback period not guaranteed lifetime profitability?",
+      "options": [
+        "Payback includes all future financing costs and hardware replacements by definition",
+        "It depends on assumptions about cash flows, utilization, prices, costs, and asset life",
+        "A payback estimate removes sensitivity to future rental prices after the first year",
+        "An initial payback claim proves the same returns on later expansion phases"
+      ],
+      "answer_index": 1,
+      "correct_answer": "It depends on assumptions about cash flows, utilization, prices, costs, and asset life",
+      "why": "A simple payback claim omits important parts of a full investment analysis."
+    },
+    {
+      "id": "ai-compute-071",
+      "topic": "Evidence and synthesis",
+      "question": "Which statement best distinguishes a target from a realized result?",
+      "options": [
+        "A target is an intended future outcome; a result is an observed outcome with evidence",
+        "A contract’s maximum potential value is recognized revenue at signing",
+        "A planned power connection counts as fully utilized capacity once approved",
+        "A management target becomes a realized result once financing is arranged"
+      ],
+      "answer_index": 0,
+      "correct_answer": "A target is an intended future outcome; a result is an observed outcome with evidence",
+      "why": "Attribution, dates, and measurement definitions keep forecasts from being remembered as accomplished facts."
+    },
+    {
+      "id": "ai-compute-012",
+      "topic": "Build speed and power",
+      "question": "What is a retrofit advantage in the discussion?",
+      "options": [
+        "Reusing a shell means all power capacity is already secured",
+        "A retrofit has no commissioning or cooling-design requirements",
+        "A retrofit and a greenfield project have identical permitting prerequisites",
+        "Reusing an existing industrial shell can shorten parts of deployment"
+      ],
+      "answer_index": 3,
+      "correct_answer": "Reusing an existing industrial shell can shorten parts of deployment",
+      "why": "Existing buildings can save time without solving every infrastructure requirement."
+    },
+    {
+      "id": "ai-compute-075",
+      "topic": "Evidence and synthesis",
+      "question": "Which summary best preserves the discussion's central distinction?",
+      "options": [
+        "Long-term orbital targets should be valued as delivered capacity once formally filed",
+        "Near-term ground capacity may have value while orbital upside remains conditional on execution and economics",
+        "Ground build speed proves that large orbital clusters are only a volume problem",
+        "A launch moat makes commercial orbital computing inevitable at any cost"
+      ],
+      "answer_index": 1,
+      "correct_answer": "Near-term ground capacity may have value while orbital upside remains conditional on execution and economics",
+      "why": "The near-term business, long-term opportunity, and different kinds of risk should be assessed separately."
+    },
+    {
+      "id": "ai-compute-032",
+      "topic": "Google and alternatives",
+      "question": "Why might a hyperscaler buy outside compute despite owning substantial infrastructure?",
+      "options": [
+        "External purchases always mean the buyer lacks its own accelerator technology",
+        "A particular chip type, location, or delivery window may be scarce",
+        "Buying externally proves internal infrastructure is no longer economically useful",
+        "Total owned capacity is sufficient to rule out any short-term resource mismatch"
+      ],
+      "answer_index": 1,
+      "correct_answer": "A particular chip type, location, or delivery window may be scarce",
+      "why": "Aggregate size does not guarantee the right resource is available at the right time."
+    },
+    {
+      "id": "ai-compute-061",
+      "topic": "Scale and competition",
+      "question": "How does a scaling risk differ from an unresolved technology-and-operations risk?",
+      "options": [
+        "Any system that has flown once is beyond technology-and-operations risk",
+        "A working subsystem proves the integrated commercial system only needs more copies",
+        "Manufacturing scale eliminates the need to verify high-cadence operational reliability",
+        "Scaling expands a working system; unresolved risks concern whether required performance can be achieved reliably"
+      ],
+      "answer_index": 3,
+      "correct_answer": "Scaling expands a working system; unresolved risks concern whether required performance can be achieved reliably",
+      "why": "A promising component does not establish the cost and reliability of the fully integrated system."
+    },
+    {
+      "id": "ai-compute-049",
+      "topic": "Orbital computing",
+      "question": "Why distinguish Falcon 9 rideshare from Starship in discussing a prototype launch?",
+      "options": [
+        "A rideshare mission is not an actual orbital launch",
+        "A small prototype can be launched only by Starship",
+        "A test launched on one vehicle does not demonstrate the other's cost or cadence",
+        "All SpaceX launch vehicles have identical payload capacity"
+      ],
+      "answer_index": 2,
+      "correct_answer": "A test launched on one vehicle does not demonstrate the other's cost or cadence",
+      "why": "The discussion's prototype and the proposed large-scale deployment system involve different launch roles."
+    },
+    {
+      "id": "ai-compute-013",
+      "topic": "Build speed and power",
+      "question": "What is a grid-interconnection bottleneck?",
+      "options": [
+        "The period needed to connect individual GPUs through the cluster network",
+        "The period needed to commission cooling equipment after power is available",
+        "A shortage of chips even when ample electrical service is already secured",
+        "A delay in securing the electrical connection and upgrades needed for service"
+      ],
+      "answer_index": 3,
+      "correct_answer": "A delay in securing the electrical connection and upgrades needed for service",
+      "why": "A building can be ready before enough grid power is available."
+    },
+    {
+      "id": "ai-compute-022",
+      "topic": "Contracts and leverage",
+      "question": "What is optionality in the capacity discussion?",
+      "options": [
+        "An obligation to preserve the same allocation until the hardware is retired",
+        "The ability to choose among leasing, internal use, or other permitted allocations",
+        "The expected profit of one fixed allocation with no right to change it",
+        "A guarantee that internal use will always outperform external leasing"
+      ],
+      "answer_index": 1,
+      "correct_answer": "The ability to choose among leasing, internal use, or other permitted allocations",
+      "why": "Flexibility can have value as demand and internal needs change."
+    },
+    {
+      "id": "ai-compute-037",
+      "topic": "Google and alternatives",
+      "question": "Does renting compute necessarily transfer ownership of a customer's model or data?",
+      "options": [
+        "No; ownership and permitted use depend on contractual terms",
+        "Yes; renting servers is legally the same as selling all intellectual property",
+        "No; contracts can never address data or intellectual property",
+        "Yes; whoever owns the GPU always owns every output and model"
+      ],
+      "answer_index": 0,
+      "correct_answer": "No; ownership and permitted use depend on contractual terms",
+      "why": "Infrastructure access and intellectual-property ownership are separate issues."
+    },
+    {
+      "id": "ai-compute-067",
+      "topic": "Scale and competition",
+      "question": "Why isn't a strong competitive lead the same as a proven monopoly for the next decade?",
+      "options": [
+        "Potential entrants are irrelevant until they have already matched current launch cadence",
+        "A lead in launch automatically establishes monopoly in AI models and cloud computing",
+        "Market definition, substitutes, entrants, and future performance still matter",
+        "A large current share proves there are no substitutes for any customer"
+      ],
+      "answer_index": 2,
+      "correct_answer": "Market definition, substitutes, entrants, and future performance still matter",
+      "why": "Dominance in a particular capability does not prove permanent or economy-wide monopoly power."
+    },
+    {
+      "id": "ai-compute-065",
+      "topic": "Scale and competition",
+      "question": "What is meant by terrestrial compute as a cash-flow bridge to orbital ambitions?",
+      "options": [
+        "Proof that booked terrestrial revenue is fully available as free cash flow",
+        "Ground operations might generate funds while a riskier orbital system is developed",
+        "An assured funding source that makes further financing unnecessary",
+        "A requirement that all ground compute be replaced by orbital compute immediately"
+      ],
+      "answer_index": 1,
+      "correct_answer": "Ground operations might generate funds while a riskier orbital system is developed",
+      "why": "It is a proposed funding mechanism, contingent on actual cash generation and competing demands for capital."
+    },
+    {
+      "id": "ai-compute-028",
+      "topic": "Contracts and leverage",
+      "question": "How can large fixed spending commitments become dangerous?",
+      "options": [
+        "Large commitments are dangerous only if they are already recognized as debt",
+        "High fixed spending cannot pressure finances while reported revenue is growing",
+        "Unused capacity obligations disappear automatically when the customer forecasts less demand",
+        "Payments can remain due even if revenue growth disappoints"
+      ],
+      "answer_index": 3,
+      "correct_answer": "Payments can remain due even if revenue growth disappoints",
+      "why": "Obligations can amplify financial pressure when business forecasts miss."
+    },
+    {
+      "id": "ai-compute-045",
+      "topic": "Financial interpretation",
+      "question": "What could weaken today's scarcity-driven rental returns?",
+      "options": [
+        "All existing chips become more expensive to manufacture",
+        "More customers seek the same fixed supply",
+        "Power shortages delay all competing projects indefinitely",
+        "Competing capacity grows faster than demand and rental prices fall"
+      ],
+      "answer_index": 3,
+      "correct_answer": "Competing capacity grows faster than demand and rental prices fall",
+      "why": "Today's attractive pricing is not automatically a durable return forecast."
+    },
+    {
+      "id": "ai-compute-053",
+      "topic": "Orbital computing",
+      "question": "Why test AI accelerators for radiation effects?",
+      "options": [
+        "A total-dose test proves immunity to every single-particle error mechanism",
+        "Passing ground radiation tests establishes complete in-orbit mission reliability",
+        "Particles can cause errors or degradation that affect reliable computation",
+        "Radiation hardening only changes satellite lifetime, not correctness of computation"
+      ],
+      "answer_index": 2,
+      "correct_answer": "Particles can cause errors or degradation that affect reliable computation",
+      "why": "Survival and error behavior both matter; ground tests do not prove every mission condition."
+    },
+    {
+      "id": "ai-compute-024",
+      "topic": "Contracts and leverage",
+      "question": "What is counterparty risk in a compute arrangement?",
+      "options": [
+        "The risk that chip performance improves faster than expected",
+        "The risk that electricity costs rise despite both parties honoring their commitments",
+        "The risk that a workload runs inefficiently even when the supplier performs fully",
+        "Risk that the other party fails to perform or exercises rights that disrupt plans"
+      ],
+      "answer_index": 3,
+      "correct_answer": "Risk that the other party fails to perform or exercises rights that disrupt plans",
+      "why": "Dependence on another business introduces delivery and relationship risks."
+    },
+    {
+      "id": "ai-compute-060",
+      "topic": "Scale and competition",
+      "question": "What does a learning curve describe in this context?",
+      "options": [
+        "How unit cost may decline as cumulative production and operating experience increase",
+        "A forecast of lower unit cost that is already an observed operating result",
+        "A guaranteed cost reduction for each additional year, regardless of production",
+        "A cost decline that continues at the same rate without any achievable floor"
+      ],
+      "answer_index": 0,
+      "correct_answer": "How unit cost may decline as cumulative production and operating experience increase",
+      "why": "Learning can reduce cost, but the rate and achievable floor must be demonstrated."
+    },
+    {
+      "id": "ai-compute-017",
+      "topic": "Build speed and power",
+      "question": "Which assessment of community opposition is most careful?",
+      "options": [
+        "Assume opposition is irrational whenever a project promises tax revenue",
+        "Treat proposed economic benefits as guaranteed outcomes",
+        "Assume dry cooling eliminates every local impact",
+        "Evaluate water, noise, grid, land-use, and benefit claims on evidence"
+      ],
+      "answer_index": 3,
+      "correct_answer": "Evaluate water, noise, grid, land-use, and benefit claims on evidence",
+      "why": "Legitimate costs and benefits require project-specific evidence, not labels for opponents."
+    },
+    {
+      "id": "ai-compute-006",
+      "topic": "Compute and capacity",
+      "question": "What is nameplate capacity best understood as?",
+      "options": [
+        "The useful throughput guaranteed for any model at that power level",
+        "The portion of installed capacity currently sold to paying customers",
+        "The average measured electrical draw during production workloads",
+        "Rated or stated capacity, not a measurement of current productive use"
+      ],
+      "answer_index": 3,
+      "correct_answer": "Rated or stated capacity, not a measurement of current productive use",
+      "why": "Nameplate power is not the same as actual draw, utilization, or useful compute throughput."
+    },
+    {
+      "id": "ai-compute-074",
+      "topic": "Evidence and synthesis",
+      "question": "How should the later discussion of Terafab chipmaking ambitions be recalled?",
+      "options": [
+        "As evidence that owning launch removes semiconductor manufacturing risk",
+        "As an added vertical-integration proposal whose status and feasibility require separate evidence",
+        "As the same demonstrated milestone as operating a small TPU payload in orbit",
+        "As proof that the proposed chip process is already operating at commercial yield"
+      ],
+      "answer_index": 1,
+      "correct_answer": "As an added vertical-integration proposal whose status and feasibility require separate evidence",
+      "why": "An ambition to control another supply-chain stage is not proof of working high-volume semiconductor production."
+    },
+    {
+      "id": "ai-compute-030",
+      "topic": "Contracts and leverage",
+      "question": "What is customer concentration risk for a capacity supplier?",
+      "options": [
+        "A large share of revenue depends on relatively few buyers",
+        "A large fraction of the provider’s chips come from one manufacturer",
+        "A large fraction of the provider’s facilities are in one region",
+        "A large fraction of the provider’s power comes from one grid connection"
+      ],
+      "answer_index": 0,
+      "correct_answer": "A large share of revenue depends on relatively few buyers",
+      "why": "Losing or repricing one large customer can materially affect results."
+    },
+    {
+      "id": "ai-compute-051",
+      "topic": "Orbital computing",
+      "question": "What is the proposed solar-power attraction of suitable orbits?",
+      "options": [
+        "Long sunlight exposure can increase energy collected per panel area",
+        "Solar availability alone determines total computing cost per useful workload",
+        "All low Earth orbits provide identical sunlight exposure throughout the year",
+        "Higher sunlight yield removes the need to pay for panels and power electronics"
+      ],
+      "answer_index": 0,
+      "correct_answer": "Long sunlight exposure can increase energy collected per panel area",
+      "why": "Energy yield depends on orbit and system design; the power system is not free."
+    },
+    {
+      "id": "ai-compute-026",
+      "topic": "Contracts and leverage",
+      "question": "Why are GPUs, Google TPUs, and AWS Trainium not perfect substitutes?",
+      "options": [
+        "All accelerators have the same software environment but different brand names",
+        "Software stacks, workload fit, performance, and availability can differ",
+        "Contracting equivalent power across architectures guarantees equivalent workload throughput",
+        "Migration is instantaneous once a customer has a multi-vendor contract"
+      ],
+      "answer_index": 1,
+      "correct_answer": "Software stacks, workload fit, performance, and availability can differ",
+      "why": "Architectural diversity can improve resilience but migration is not frictionless."
+    },
+    {
+      "id": "ai-compute-043",
+      "topic": "Financial interpretation",
+      "question": "What is capex?",
+      "options": [
+        "The total of current-period operating and financing expenses",
+        "Capital expenditure on longer-lived assets such as infrastructure",
+        "The amount of future customer revenue contracted for the infrastructure",
+        "The depreciation expense charged during the current period"
+      ],
+      "answer_index": 1,
+      "correct_answer": "Capital expenditure on longer-lived assets such as infrastructure",
+      "why": "Large infrastructure investment uses cash and affects returns over time."
+    },
+    {
+      "id": "ai-compute-020",
+      "topic": "Contracts and leverage",
+      "question": "Why might the same mutual exit clause have unequal practical value to the two sides?",
+      "options": [
+        "The same legal right ensures equal replacement costs for both parties",
+        "Mutual notice automatically cancels scarcity-related bargaining advantages",
+        "The party receiving payments necessarily holds the stronger outside option",
+        "Their alternatives and replacement costs can differ"
+      ],
+      "answer_index": 3,
+      "correct_answer": "Their alternatives and replacement costs can differ",
+      "why": "Legal symmetry does not guarantee economic symmetry."
+    },
+    {
+      "id": "ai-compute-048",
+      "topic": "Orbital computing",
+      "question": "What does a successful small AI workload in orbit establish most directly?",
+      "options": [
+        "That the full satellite lifetime has been verified under actual radiation conditions",
+        "That a prototype can sustain data-center-scale workloads continuously",
+        "That distributed multi-satellite training is already commercially competitive",
+        "Some hardware and software can operate under those test conditions"
+      ],
+      "answer_index": 3,
+      "correct_answer": "Some hardware and software can operate under those test conditions",
+      "why": "A demonstration is evidence of a milestone, not proof of all future operating and economic requirements."
+    },
+    {
+      "id": "ai-compute-001",
+      "topic": "Compute and capacity",
+      "question": "What does compute mean in this discussion?",
+      "options": [
+        "The accelerators alone, excluding networking, storage, and software",
+        "Processing resources used to train and run AI models",
+        "The model weights and datasets, rather than the resources executing workloads",
+        "The electricity consumed, regardless of the useful work completed"
+      ],
+      "answer_index": 1,
+      "correct_answer": "Processing resources used to train and run AI models",
+      "why": "Compute includes accelerators and the supporting systems that make AI workloads possible."
+    },
+    {
+      "id": "ai-compute-014",
+      "topic": "Build speed and power",
+      "question": "What does behind-the-meter generation mean here?",
+      "options": [
+        "Generation bought from a utility but priced under a special tariff",
+        "Battery storage charged from the grid, regardless of where generation occurs",
+        "Any power supply dedicated by contract to a particular customer",
+        "Power generated on the customer side of the utility meter"
+      ],
+      "answer_index": 3,
+      "correct_answer": "Power generated on the customer side of the utility meter",
+      "why": "On-site generation can reduce reliance on grid delivery, but still faces costs and regulatory requirements."
+    },
+    {
+      "id": "ai-compute-069",
+      "topic": "Scale and competition",
+      "question": "What are economic rents in the discussion of a launch bottleneck?",
+      "options": [
+        "A guaranteed return equal to the supplier’s spending on scarce equipment",
+        "All revenue before deducting capital and operating costs",
+        "All payments customers make for leased infrastructure",
+        "Returns enabled by scarce or hard-to-replicate capability beyond a competitive baseline"
+      ],
+      "answer_index": 3,
+      "correct_answer": "Returns enabled by scarce or hard-to-replicate capability beyond a competitive baseline",
+      "why": "Control of a valuable bottleneck may support excess returns, but it does not guarantee them."
+    },
+    {
+      "id": "ai-compute-011",
+      "topic": "Build speed and power",
+      "question": "What makes an apples-to-apples build-speed comparison?",
+      "options": [
+        "Use matching chip counts but ignore whether power and networking were ready",
+        "Matching project scope, starting point, completion milestone, and power readiness",
+        "Compare announced nameplate capacity even when completion milestones differ",
+        "Use first-rack arrival for one project and land acquisition for the other"
+      ],
+      "answer_index": 1,
+      "correct_answer": "Matching project scope, starting point, completion milestone, and power readiness",
+      "why": "Retrofits and greenfield sites can face very different prerequisites."
+    },
+    {
+      "id": "ai-compute-055",
+      "topic": "Orbital computing",
+      "question": "What is latency, as distinct from bandwidth?",
+      "options": [
+        "Latency is delay; bandwidth is the rate at which data can be carried",
+        "Latency is average workload utilization; bandwidth is maximum chip power",
+        "Latency is the data rate; bandwidth is the delay before a message arrives",
+        "Low latency guarantees unlimited data transfer capacity"
+      ],
+      "answer_index": 0,
+      "correct_answer": "Latency is delay; bandwidth is the rate at which data can be carried",
+      "why": "Distributed workloads can be sensitive to both communication rate and delay."
+    },
+    {
+      "id": "ai-compute-002",
+      "topic": "Compute and capacity",
+      "question": "What is the key difference between training and inference?",
+      "options": [
+        "Training is compute-intensive; inference adds no material capacity requirement",
+        "Training builds new model versions; inference only measures their benchmark scores",
+        "Training means initial pretraining only; all later weight updates are inference",
+        "Training updates a model; inference uses it to produce outputs"
+      ],
+      "answer_index": 3,
+      "correct_answer": "Training updates a model; inference uses it to produce outputs",
+      "why": "Both require compute, but they use it for different stages of a model's life."
+    },
+    {
+      "id": "ai-compute-050",
+      "topic": "Orbital computing",
+      "question": "What is commissioning after a satellite launch?",
+      "options": [
+        "The transition from a test mission to profitable commercial service",
+        "Checking and bringing spacecraft and payload systems into service",
+        "Receipt of the first radio signal, with no additional checks required",
+        "The manufacturing qualification of future satellites on the ground"
+      ],
+      "answer_index": 1,
+      "correct_answer": "Checking and bringing spacecraft and payload systems into service",
+      "why": "Initial contact is not the same milestone as verified payload operation."
+    },
+    {
+      "id": "ai-compute-039",
+      "topic": "Financial interpretation",
+      "question": "Why separate information known at an IPO from later disclosures?",
+      "options": [
+        "A higher revenue figure proves the IPO price did not anticipate growth",
+        "To distinguish a new development from confirmation of an already-known plan",
+        "All later disclosures should be counted as unexpected improvements",
+        "A plan becomes new information every time management repeats it"
+      ],
+      "answer_index": 1,
+      "correct_answer": "To distinguish a new development from confirmation of an already-known plan",
+      "why": "A later announcement can add information, confirm expectations, or disappoint them."
+    },
+    {
+      "id": "ai-compute-029",
+      "topic": "Contracts and leverage",
+      "question": "Why should up-to amounts, minimum commitments, and conditional spending not simply be added as identical obligations?",
+      "options": [
+        "Adding all figures is accurate if they cover different providers, regardless of overlapping terms",
+        "They differ in certainty, cancellation rights, and delivery conditions",
+        "An up-to ceiling is the same as a guaranteed minimum because both are contract values",
+        "Conditional delivery spending must already have been paid when the agreement is announced"
+      ],
+      "answer_index": 1,
+      "correct_answer": "They differ in certainty, cancellation rights, and delivery conditions",
+      "why": "Contract labels and conditions determine what the figures actually represent."
+    },
+    {
+      "id": "ai-compute-058",
+      "topic": "Orbital computing",
+      "question": "What does a launch price expressed in dollars per kilogram compare?",
+      "options": [
+        "The charge per unit payload mass for specified launch conditions",
+        "The cost of satellite electrical capacity per kilowatt in orbit",
+        "The complete cost per useful unit of AI work over the mission lifetime",
+        "The cost of refurbishing one rocket independent of payload mass"
+      ],
+      "answer_index": 0,
+      "correct_answer": "The charge per unit payload mass for specified launch conditions",
+      "why": "Payload destination, load factor, and what costs are included affect the comparison."
+    },
+    {
+      "id": "ai-compute-042",
+      "topic": "Financial interpretation",
+      "question": "How do revenue, operating income, and net income differ?",
+      "options": [
+        "High revenue growth establishes profitability even without expense information",
+        "They describe sales, profit after operating costs, and profit after further items respectively",
+        "Operating income deducts all financing and tax items, while net income does not",
+        "Revenue and cash flow are interchangeable, but net income differs"
+      ],
+      "answer_index": 1,
+      "correct_answer": "They describe sales, profit after operating costs, and profit after further items respectively",
+      "why": "Growth in sales does not alone establish profitability or cash generation."
+    }
+  ]
+}
