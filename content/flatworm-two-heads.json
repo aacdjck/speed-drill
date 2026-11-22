@@ -1,0 +1,288 @@
+{
+  "category_id": "flatworm-two-heads",
+  "category_title": "Flatworm: two heads",
+  "answer_index_base": 0,
+  "question_count": 20,
+  "questions": [
+    {
+      "id": "flatworm-018",
+      "topic": "Related work",
+      "question": "Besides a brief octanol soak, what else produced two-headed planarians in related work?",
+      "options": [
+        "Knocking down three innexin gap-junction proteins",
+        "Blocking the H,K-ATPase proton-potassium pump",
+        "Soaking pieces in hexanol, an alcohol that does not close those doorways",
+        "Editing the head-polarity gene ndk"
+      ],
+      "answer_index": 0,
+      "correct_answer": "Knocking down three innexin gap-junction proteins",
+      "why": "In earlier work, blocking three innexins gave the same two-headed result, tying it to those doorways. Hexanol does not block gap junctions and did not make two-headed worms. The pump blocker was used later to push voltage the other way, not to make two heads."
+    },
+    {
+      "id": "flatworm-002",
+      "topic": "First outcome",
+      "question": "After about two days in octanol, roughly what share of middle pieces grew two heads right away?",
+      "options": [
+        "Nearly all",
+        "About a third",
+        "About a quarter",
+        "About half"
+      ],
+      "answer_index": 2,
+      "correct_answer": "About a quarter",
+      "why": "About one in four middle pieces grew a head at both ends. About a third is the later reset figure, not the first outcome."
+    },
+    {
+      "id": "flatworm-014",
+      "topic": "Planarian regeneration",
+      "question": "Cut your finger, and the skin closes up. What can a planarian do that you cannot?",
+      "options": [
+        "Each ordinary body piece can regrow a whole worm, with a head at the front and a tail at the back",
+        "It can grow a new hand-like limb, but never a new head",
+        "Only the head piece survives; middle pieces close the wound and stop",
+        "It scars over, just as skin does, and keeps the same cut shape"
+      ],
+      "answer_index": 0,
+      "correct_answer": "Each ordinary body piece can regrow a whole worm, with a head at the front and a tail at the back",
+      "why": "A planarian can be cut into pieces, and each ordinary body piece regrows a complete worm, head at the front and tail at the back. A cut finger heals, but you do not grow a new hand."
+    },
+    {
+      "id": "flatworm-004",
+      "topic": "Cryptic worms",
+      "question": "Cryptic worms matched normal worms on tissue structure, key polarity genes and stem cell layout. Where did they differ?",
+      "options": [
+        "Their body-wide pattern of resting voltage",
+        "Head-gene (ndk) activity at the tail",
+        "Neoblasts missing near the tail",
+        "Fewer gap junction proteins"
+      ],
+      "answer_index": 0,
+      "correct_answer": "Their body-wide pattern of resting voltage",
+      "why": "Cryptic worms looked normal, including on those gene and stem-cell checks. A voltage dye showed a second head-like region at the back, and that pattern predicted the later shape."
+    },
+    {
+      "id": "flatworm-012",
+      "topic": "Persistence",
+      "question": "For how long did two-headed worms keep growing two heads after recutting in plain water?",
+      "options": [
+        "Forever, in every generation with no limit",
+        "For months, until the worms were too small to cut",
+        "Only until the octanol washed out, about a day later",
+        "For about two days, the length of the original soak"
+      ],
+      "answer_index": 1,
+      "correct_answer": "For months, until the worms were too small to cut",
+      "why": "The lab followed recuts over months, until the worms were too small to cut. Saying the change lasts forever goes further than what this lesson claims."
+    },
+    {
+      "id": "flatworm-001",
+      "topic": "Octanol target",
+      "question": "In the two-headed experiments, what did octanol briefly block?",
+      "options": [
+        "The H,K-ATPase proton-potassium pump",
+        "Neoblast (stem cell) division",
+        "Gap junctions between neighboring cells",
+        "Voltage-gated sodium channels"
+      ],
+      "answer_index": 2,
+      "correct_answer": "Gap junctions between neighboring cells",
+      "why": "Octanol partly closes the doorways between cells. The pump blocker was a different drug, used later to push voltage the other way."
+    },
+    {
+      "id": "flatworm-008",
+      "topic": "Reset outcome",
+      "question": "What did the voltage-shifting reset achieve?",
+      "options": [
+        "About a third returned to one head and stayed one-headed through at least four more recuts",
+        "All returned to one head for good",
+        "About a third returned to one head but drifted back to two",
+        "About a quarter returned, and they became cryptic"
+      ],
+      "answer_index": 0,
+      "correct_answer": "About a third returned to one head and stayed one-headed through at least four more recuts",
+      "why": "The reset was partial: about a third of two-headed worms grew back with one head, and those worms stayed one-headed through later recuts. They looked like normal one-headed worms, not cryptic ones."
+    },
+    {
+      "id": "flatworm-p1",
+      "topic": "Pause and predict",
+      "question": "A piece is treated with octanol, but this piece still contains the worm's original head. Will it grow a second head?",
+      "options": [
+        "About one in four of the time, like middle pieces",
+        "Nearly always, because octanol rewrites the whole pattern",
+        "Only if the tail is also left in place",
+        "Almost never. The existing head's signals keep the other end a tail"
+      ],
+      "answer_index": 3,
+      "correct_answer": "Almost never. The existing head's signals keep the other end a tail",
+      "why": "In related work, more than nineteen in twenty pieces that still had the original head stayed single-headed even with octanol. The existing head's signals keep the other end a tail."
+    },
+    {
+      "id": "flatworm-010",
+      "topic": "Vocabulary",
+      "question": "In Levin's vocabulary, which term names the shape a body regenerates toward, rather than the signal that encodes it?",
+      "options": [
+        "Bioelectric prepattern",
+        "Pattern memory",
+        "Target morphology",
+        "Morphogenetic field"
+      ],
+      "answer_index": 2,
+      "correct_answer": "Target morphology",
+      "why": "Target morphology is the shape the body regenerates toward. A bioelectric prepattern is the voltage pattern; pattern memory is Levin's word for its storage."
+    },
+    {
+      "id": "flatworm-006",
+      "topic": "Cryptic worms",
+      "question": "After the octanol soak, what was true of most of the treated worms?",
+      "options": [
+        "They grew two heads right away",
+        "They looked normal, though some of those later grew two heads when cut again",
+        "About a third looked normal",
+        "Almost none looked normal"
+      ],
+      "answer_index": 1,
+      "correct_answer": "They looked normal, though some of those later grew two heads when cut again",
+      "why": "About one in four grew two heads right away. Most of the rest looked normal; the team called those cryptic, and some of them carried a hidden change."
+    },
+    {
+      "id": "flatworm-005",
+      "topic": "Voltage dye",
+      "question": "What did the voltage dye show in worms headed for two heads?",
+      "options": [
+        "A hyperpolarized head region",
+        "One even voltage across the body",
+        "The head-like region moved entirely to the tail",
+        "A second depolarized region at the tail end"
+      ],
+      "answer_index": 3,
+      "correct_answer": "A second depolarized region at the tail end",
+      "why": "Normal worms had one head-like, depolarized region at the front. Altered worms had a second one at the back, and that pattern predicted the shape."
+    },
+    {
+      "id": "flatworm-020",
+      "topic": "Analogy",
+      "question": "In this lesson, what is the thermostat comparison meant to illustrate?",
+      "options": [
+        "A measured lab result: the exact share of worms that grew two heads",
+        "Levin's proposal that the body works toward a target shape it remembers",
+        "How long to soak a middle piece in octanol",
+        "How the glowing voltage dye is mixed and applied"
+      ],
+      "answer_index": 1,
+      "correct_answer": "Levin's proposal that the body works toward a target shape it remembers",
+      "why": "The thermostat is an everyday picture of a remembered setting the system works back toward. It is used here to illustrate Levin's proposal, not as a lab measurement."
+    },
+    {
+      "id": "flatworm-009",
+      "topic": "Proposal versus results",
+      "question": "Which of these is Levin's proposal rather than a measured result?",
+      "options": [
+        "Two-headed pieces keep regrowing two heads in plain water",
+        "Altered worms show a second depolarized region",
+        "The voltage pattern is a stored target shape the body works toward, like a memory",
+        "Hyperpolarizing resets some worms to one head"
+      ],
+      "answer_index": 2,
+      "correct_answer": "The voltage pattern is a stored target shape the body works toward, like a memory",
+      "why": "The brief treatment, the returning two heads, the changed voltage pattern, and the partial reset were measured in the lab. The idea that the pattern is a stored target shape the body works toward is Levin's proposal."
+    },
+    {
+      "id": "flatworm-019",
+      "topic": "Experiment timing",
+      "question": "About how long were the middle pieces soaked in octanol?",
+      "options": [
+        "About two days",
+        "About one day, the time the chemical takes to wash out",
+        "About a week",
+        "Only a few hours"
+      ],
+      "answer_index": 0,
+      "correct_answer": "About two days",
+      "why": "The team soaked middle pieces for about two days, then moved them back into plain water. The one-day figure is how quickly the chemical later washes out, not the soak time."
+    },
+    {
+      "id": "flatworm-003",
+      "topic": "Cryptic worms",
+      "question": "What did the team call the treated worms that looked normal but grew two heads when cut again?",
+      "options": [
+        "Escapees",
+        "Bistable",
+        "Cryptic",
+        "Chimeric"
+      ],
+      "answer_index": 2,
+      "correct_answer": "Cryptic",
+      "why": "The team called them cryptic. \"Escapees\" was an early guess that turned out wrong. \"Bistable\" is a word the papers use for the pattern-memory switch, not the name of these worms."
+    },
+    {
+      "id": "flatworm-p2",
+      "topic": "Pause and predict",
+      "question": "A two-headed worm has both heads cut off and is left in plain water, with no chemical, weeks after treatment. What grows back?",
+      "options": [
+        "One head, because the drug has already washed out",
+        "Two heads again, in every worm in the recut group",
+        "About one in four grow two heads, like the first treatment",
+        "The piece stops regenerating"
+      ],
+      "answer_index": 1,
+      "correct_answer": "Two heads again, in every worm in the recut group",
+      "why": "In the recut group, every two-headed worm grew two heads again in plain water. The change outlasts the drug."
+    },
+    {
+      "id": "flatworm-016",
+      "topic": "Gap junctions",
+      "question": "Neighboring cells are linked by gap junctions. What do those doorways do in this story?",
+      "options": [
+        "They are the tiny batteries that create each cell's voltage",
+        "They are the proton-potassium pumps later used to reset two-headed worms",
+        "They let charged particles pass, so cells share their voltage and the body holds one connected electrical pattern",
+        "They carry the glowing dye from cell to cell so the pattern can be photographed"
+      ],
+      "answer_index": 2,
+      "correct_answer": "They let charged particles pass, so cells share their voltage and the body holds one connected electrical pattern",
+      "why": "Gap junctions are doorways between cells. Charge passes through them, so the body can hold one shared electrical pattern. The batteries and the reset pump are different parts of the story."
+    },
+    {
+      "id": "flatworm-007",
+      "topic": "Reset method",
+      "question": "How did the team return two-headed worms to one head?",
+      "options": [
+        "Simply waited for octanol to wash out",
+        "Knocked down three innexins with RNAi",
+        "Depolarized the tissue at both ends",
+        "Hyperpolarized the tissue with an H,K-ATPase blocker at recut"
+      ],
+      "answer_index": 3,
+      "correct_answer": "Hyperpolarized the tissue with an H,K-ATPase blocker at recut",
+      "why": "Waiting cannot work, because the change outlasts the drug. Knocking down innexins makes two heads; it does not fix them. The reset drug pushed voltage the other way."
+    },
+    {
+      "id": "flatworm-011",
+      "topic": "Genes",
+      "question": "What does this lesson claim about the worms' genes?",
+      "options": [
+        "The team sequenced the DNA and proved it was unchanged",
+        "Nobody edited their genes, and the chemical washes out within a day",
+        "The two-headed shape appeared only after a gene edit",
+        "Octanol permanently rewrites the genetic code"
+      ],
+      "answer_index": 1,
+      "correct_answer": "Nobody edited their genes, and the chemical washes out within a day",
+      "why": "The treatment was brief and washes out within a day. This lesson does not claim the DNA was sequenced or proven identical."
+    },
+    {
+      "id": "flatworm-013",
+      "topic": "Experiment timing",
+      "question": "Why does the brief timing of octanol matter to the argument?",
+      "options": [
+        "It washes out of the tissue within about a day, so later two-headed regrowth can't be the drug still acting",
+        "It only works on head genes",
+        "It makes more two-headed worms than innexin RNAi",
+        "It permanently removes gap junctions"
+      ],
+      "answer_index": 0,
+      "correct_answer": "It washes out of the tissue within about a day, so later two-headed regrowth can't be the drug still acting",
+      "why": "Because the chemical is gone within a day, two heads that keep coming back weeks and months later cannot be from the drug still sitting in the tissue."
+    }
+  ]
+}

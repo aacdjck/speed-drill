@@ -12,6 +12,9 @@ const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
 const content = JSON.parse(
   fs.readFileSync(path.join(root, "content/ai-compute-earth-orbit.json"), "utf8")
 );
+const flatworm = JSON.parse(
+  fs.readFileSync(path.join(root, "content/flatworm-two-heads.json"), "utf8")
+);
 
 const EXISTING_SHA256 = {
   "frontier-bank": "56b359215874b59dee8df00158c4c13b404664152b262d013b3f697f88737a27",
@@ -20,6 +23,8 @@ const EXISTING_SHA256 = {
   "frontier-explain": "cd6c21ce84fb310e086b7ff49405caf968128c846ef3c85d8a2e33b5fdba55b0",
   "musk-explain": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
   "health-explain": "5fd5c011b2c9f954a53a4cad182c7be33f55c7efd57eb16326859e66a6df4bfe",
+  "ai-compute-bank": "20baf654214af545e7ead0fcacd523bb111285ec6f5ad76101ed6dfd6fd1d0b4",
+  "ai-compute-explain": "33143d7d9cb1e1b93b7e464f5dd6ef9399f705afd207900063382654bcdcf3cb",
 };
 
 function scriptBody(id) {
@@ -206,6 +211,7 @@ test("new category is in the same list and Frontier stays the default", () => {
       "musk",
       "health",
       "ai_compute",
+      "flatworm",
       "math_2digit",
       "add_3mix",
       "fractions",
@@ -218,6 +224,7 @@ test("new category is in the same list and Frontier stays the default", () => {
     ["frontier"]
   );
   assert.equal(options.find((option) => option.value === "ai_compute").label, "AI Compute: Earth &amp; Orbit (rotated)");
+  assert.equal(options.find((option) => option.value === "flatworm").label, "Flatworm: two heads (rotated)");
   assert.match(html, /deckKey:\s*"frontier"/);
   assert.match(html, /<option value="20" selected>20s<\/option>/);
   assert.match(html, /<option value="20" selected>20<\/option>/);
@@ -225,7 +232,11 @@ test("new category is in the same list and Frontier stays the default", () => {
   assert.match(html, /AI_COMPUTE\.markShown\(prompt\)/);
   assert.match(html, /AI_COMPUTE\.markResult\(state\.current\.prompt, ok\)/);
   assert.match(html, /explain: loadExplain\("ai-compute-explain"\)/);
-  const storeKeys = ["FRONTIER_STORE_KEY", "MUSK_STORE_KEY", "HEALTH_STORE_KEY", "AI_COMPUTE_STORE_KEY"].map(
+  assert.match(html, /generate: \(n\) => FLATWORM\.selectRound\(n\)/);
+  assert.match(html, /FLATWORM\.markShown\(prompt\)/);
+  assert.match(html, /FLATWORM\.markResult\(state\.current\.prompt, ok\)/);
+  assert.match(html, /explain: loadExplain\("flatworm-explain"\)/);
+  const storeKeys = ["FRONTIER_STORE_KEY", "MUSK_STORE_KEY", "HEALTH_STORE_KEY", "AI_COMPUTE_STORE_KEY", "FLATWORM_STORE_KEY"].map(
     (name) => {
       const match = html.match(new RegExp(`const ${name} = "([^"]+)"`));
       assert.ok(match, name);
@@ -310,6 +321,174 @@ test("review Why uses the deck explanation for the new category", () => {
   const frontier = jsonScript("frontier-bank")[0][0];
   assert.equal(core.explainFor("frontier", frontier), jsonScript("frontier-explain")[frontier]);
   assert.equal(core.explainFor("musk", "missing"), "");
+});
+
+
+test("flatworm bank is 0-based, unique, and has hard four-choice items", () => {
+  assert.equal(flatworm.answer_index_base, 0);
+  assert.equal(flatworm.category_id, "flatworm-two-heads");
+  assert.equal(flatworm.category_title, "Flatworm: two heads");
+  assert.equal(flatworm.question_count, 20);
+  assert.equal(flatworm.questions.length, 20);
+  const ids = new Set();
+  const prompts = new Set();
+  const indexCounts = [0, 0, 0, 0];
+  for (const question of flatworm.questions) {
+    assert.equal(typeof question.id, "string");
+    assert.ok(question.id.startsWith("flatworm-"));
+    assert.ok(!ids.has(question.id), question.id);
+    ids.add(question.id);
+    assert.equal(typeof question.topic, "string");
+    assert.ok(question.topic.trim());
+    assert.equal(typeof question.question, "string");
+    assert.ok(question.question.trim());
+    assert.ok(!prompts.has(question.question), question.question);
+    prompts.add(question.question);
+    assert.ok(Array.isArray(question.options));
+    assert.equal(question.options.length, 4);
+    assert.equal(new Set(question.options).size, 4);
+    for (const option of question.options) {
+      assert.equal(typeof option, "string");
+      assert.ok(option.trim());
+    }
+    assert.equal(Number.isInteger(question.answer_index), true);
+    assert.ok(question.answer_index >= 0 && question.answer_index <= 3);
+    assert.equal(question.options[question.answer_index], question.correct_answer);
+    assert.equal(question.options.includes(question.correct_answer), true);
+    assert.equal(typeof question.why, "string");
+    assert.ok(question.why.trim());
+    assert.equal("source_turns" in question, false);
+    assert.equal("basis" in question, false);
+    assert.equal("verification_source" in question, false);
+    assert.equal("verification_sources" in question, false);
+    indexCounts[question.answer_index] += 1;
+  }
+  for (const count of indexCounts) assert.ok(count > 0);
+  const idList = flatworm.questions.map((question) => question.id);
+  assert.ok(idList.includes("flatworm-p1"));
+  assert.ok(idList.includes("flatworm-p2"));
+});
+
+test("published flatworm deck matches the 0-based answers and keeps softened claims", () => {
+  const bank = jsonScript("flatworm-bank");
+  const explain = jsonScript("flatworm-explain");
+  assert.equal(bank.length, 20);
+  assert.equal(Object.keys(explain).length, 20);
+  flatworm.questions.forEach((question, index) => {
+    const item = siteItem(question);
+    assert.deepEqual(bank[index], item);
+    assert.equal(bank[index][1], question.options[question.answer_index]);
+    assert.equal(bank[index][2].includes(bank[index][1]), false);
+    assert.equal(explain[question.question], question.why);
+  });
+
+  const byId = Object.fromEntries(flatworm.questions.map((question) => [question.id, question]));
+  assert.equal(byId["flatworm-002"].correct_answer, "About a quarter");
+  assert.equal(
+    byId["flatworm-008"].correct_answer,
+    "About a third returned to one head and stayed one-headed through at least four more recuts"
+  );
+  assert.equal(
+    byId["flatworm-012"].correct_answer,
+    "For months, until the worms were too small to cut"
+  );
+  assert.equal(
+    byId["flatworm-011"].correct_answer,
+    "Nobody edited their genes, and the chemical washes out within a day"
+  );
+  assert.match(byId["flatworm-011"].why, /does not claim the DNA was sequenced/);
+  assert.equal(
+    byId["flatworm-009"].correct_answer,
+    "The voltage pattern is a stored target shape the body works toward, like a memory"
+  );
+  assert.match(byId["flatworm-009"].why, /Levin's proposal/);
+  assert.match(byId["flatworm-020"].why, /illustrate Levin's proposal/);
+  assert.equal(
+    byId["flatworm-p1"].correct_answer,
+    "Almost never. The existing head's signals keep the other end a tail"
+  );
+  assert.equal(
+    byId["flatworm-p2"].correct_answer,
+    "Two heads again, in every worm in the recut group"
+  );
+});
+
+test("published flatworm category omits source-turn markers, transcript URLs, and private sidecars", () => {
+  const published = scriptBody("flatworm-bank") + scriptBody("flatworm-explain");
+  const dataset = fs.readFileSync(path.join(root, "content/flatworm-two-heads.json"), "utf8");
+  for (const blob of [published, dataset]) {
+    assert.equal(/source_turns/.test(blob), false);
+    assert.equal(/source turn/i.test(blob), false);
+    assert.equal(/drawn from the discussion/.test(blob), false);
+    assert.equal(/https?:\/\//.test(blob), false);
+    assert.equal(/transcript/i.test(blob), false);
+    assert.equal(/verification_source/.test(blob), false);
+  }
+});
+
+test("flatworm rotation covers the bank, shuffles questions, and keeps a separate memory", () => {
+  const bank = flatworm.questions.map(siteItem);
+  const seen = new Set();
+  const rotation = core.createFlatwormRotation(bank, memoryStorage());
+  const first = rotation.selectRound(8).map((item) => item[0]);
+  const again = core.createFlatwormRotation(bank, memoryStorage()).selectRound(8).map((item) => item[0]);
+  assert.equal(first.length, 8);
+  assert.equal(new Set(first).size, 8);
+  assert.notDeepEqual(first, again);
+  for (let round = 0; round < 6; round++) {
+    const items = rotation.selectRound(8);
+    assert.equal(items.length, 8);
+    const prompts = items.map((item) => item[0]);
+    assert.equal(new Set(prompts).size, 8);
+    for (const item of items) {
+      assert.equal(bank.some((entry) => entry[0] === item[0] && entry[1] === item[1]), true);
+      rotation.markShown(item[0]);
+      rotation.markResult(item[0], false);
+      seen.add(item[0]);
+    }
+  }
+  assert.equal(seen.size, 20);
+
+  const frontier = jsonScript("frontier-bank");
+  const frontierRound = core.createFrontierRotation(frontier, memoryStorage()).selectRound(20);
+  assert.equal(frontierRound.length, 20);
+  for (const item of frontierRound) {
+    assert.equal(frontier.some((entry) => entry[0] === item[0]), true);
+    assert.equal(bank.some((entry) => entry[0] === item[0]), false);
+  }
+
+  const compute = jsonScript("ai-compute-bank");
+  const computeRound = core.createAiComputeRotation(compute, memoryStorage()).selectRound(20);
+  for (const item of computeRound) {
+    assert.equal(bank.some((entry) => entry[0] === item[0]), false);
+  }
+});
+
+test("flatworm option order is shuffled and review Why uses the deck explanation", () => {
+  const bank = flatworm.questions.map(siteItem);
+  const orders = new Set();
+  for (let i = 0; i < 24; i++) {
+    const options = core.cardOptions(bank[0], { items: [] });
+    assert.equal(options.length, 4);
+    assert.deepEqual([...options].sort(), [bank[0][1], ...bank[0][2]].sort());
+    assert.equal(options.filter((option) => option === bank[0][1]).length, 1);
+    orders.add(options.join("\n"));
+  }
+  assert.ok(orders.size > 1);
+
+  const explain = jsonScript("flatworm-explain");
+  core.DECKS = {
+    flatworm: { explain },
+    frontier: { explain: jsonScript("frontier-explain") },
+  };
+  for (const question of flatworm.questions) {
+    const why = core.explainFor("flatworm", question.question);
+    assert.equal(why, question.why);
+    assert.equal(why.length > 0, true);
+  }
+  const frontier = jsonScript("frontier-bank")[0][0];
+  assert.equal(core.explainFor("frontier", frontier), jsonScript("frontier-explain")[frontier]);
+  assert.equal(core.explainFor("flatworm", "missing"), "");
 });
 
 test("generated math, addition, and fraction decks still have the right answer", () => {
