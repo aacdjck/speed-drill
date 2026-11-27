@@ -18,6 +18,9 @@ const flatworm = JSON.parse(
 const howDna = JSON.parse(
   fs.readFileSync(path.join(root, "content/how-dna-becomes-you.json"), "utf8")
 );
+const howFood = JSON.parse(
+  fs.readFileSync(path.join(root, "content/how-food-becomes-you.json"), "utf8")
+);
 
 const EXISTING_SHA256 = {
   "frontier-bank": "56b359215874b59dee8df00158c4c13b404664152b262d013b3f697f88737a27",
@@ -30,6 +33,8 @@ const EXISTING_SHA256 = {
   "ai-compute-explain": "33143d7d9cb1e1b93b7e464f5dd6ef9399f705afd207900063382654bcdcf3cb",
   "flatworm-bank": "6c38443952459f4594c058741fbf3bad3db35bb5c538e67bcaf2d48e6daae8eb",
   "flatworm-explain": "0b0d6b53d100d01b4c4ec6417ab55b663b157871c06b0b083f34d7166ce18120",
+  "how-dna-bank": "0c03897cbb188b502360ccb87fd6951925d1671d76fa948d4419df54d8166f2c",
+  "how-dna-explain": "eeed1d45a995ddf610007dfef5e7ea4c85fac37425e1b845f61994d640809904",
 };
 
 function scriptBody(id) {
@@ -218,6 +223,7 @@ test("new category is in the same list and Frontier stays the default", () => {
       "ai_compute",
       "flatworm",
       "how_dna",
+      "how_food",
       "math_2digit",
       "add_3mix",
       "fractions",
@@ -232,6 +238,7 @@ test("new category is in the same list and Frontier stays the default", () => {
   assert.equal(options.find((option) => option.value === "ai_compute").label, "AI Compute: Earth &amp; Orbit (rotated)");
   assert.equal(options.find((option) => option.value === "flatworm").label, "Flatworm: two heads (rotated)");
   assert.equal(options.find((option) => option.value === "how_dna").label, "How DNA becomes you (rotated)");
+  assert.equal(options.find((option) => option.value === "how_food").label, "How food becomes you (rotated)");
   assert.match(html, /deckKey:\s*"frontier"/);
   assert.match(html, /<option value="20" selected>20s<\/option>/);
   assert.match(html, /<option value="20" selected>20<\/option>/);
@@ -247,7 +254,11 @@ test("new category is in the same list and Frontier stays the default", () => {
   assert.match(html, /HOW_DNA\.markShown\(prompt\)/);
   assert.match(html, /HOW_DNA\.markResult\(state\.current\.prompt, ok\)/);
   assert.match(html, /explain: loadExplain\("how-dna-explain"\)/);
-  const storeKeys = ["FRONTIER_STORE_KEY", "MUSK_STORE_KEY", "HEALTH_STORE_KEY", "AI_COMPUTE_STORE_KEY", "FLATWORM_STORE_KEY", "HOW_DNA_STORE_KEY"].map(
+  assert.match(html, /generate: \(n\) => HOW_FOOD\.selectRound\(n\)/);
+  assert.match(html, /HOW_FOOD\.markShown\(prompt\)/);
+  assert.match(html, /HOW_FOOD\.markResult\(state\.current\.prompt, ok\)/);
+  assert.match(html, /explain: loadExplain\("how-food-explain"\)/);
+  const storeKeys = ["FRONTIER_STORE_KEY", "MUSK_STORE_KEY", "HEALTH_STORE_KEY", "AI_COMPUTE_STORE_KEY", "FLATWORM_STORE_KEY", "HOW_DNA_STORE_KEY", "HOW_FOOD_STORE_KEY"].map(
     (name) => {
       const match = html.match(new RegExp(`const ${name} = "([^"]+)"`));
       assert.ok(match, name);
@@ -691,6 +702,234 @@ test("how-dna option order is shuffled and review Why uses the deck explanation"
   const frontier = jsonScript("frontier-bank")[0][0];
   assert.equal(core.explainFor("frontier", frontier), jsonScript("frontier-explain")[frontier]);
   assert.equal(core.explainFor("how_dna", "missing"), "");
+});
+
+
+test("how-food bank is 0-based, unique, mixed, and has hard four-choice items", () => {
+  assert.equal(howFood.answer_index_base, 0);
+  assert.equal(howFood.category_id, "how-food-becomes-you");
+  assert.equal(howFood.category_title, "How food becomes you");
+  assert.equal(howFood.question_count, 16);
+  assert.equal(howFood.questions.length, 16);
+  const ids = new Set();
+  const prompts = new Set();
+  const indexCounts = [0, 0, 0, 0];
+  for (const question of howFood.questions) {
+    assert.equal(typeof question.id, "string");
+    assert.ok(question.id.startsWith("food-"));
+    assert.ok(!ids.has(question.id), question.id);
+    ids.add(question.id);
+    assert.equal(typeof question.topic, "string");
+    assert.ok(question.topic.trim());
+    assert.equal(typeof question.question, "string");
+    assert.ok(question.question.trim());
+    assert.ok(!prompts.has(question.question), question.question);
+    prompts.add(question.question);
+    assert.ok(Array.isArray(question.options));
+    assert.equal(question.options.length, 4);
+    assert.equal(new Set(question.options).size, 4);
+    for (const option of question.options) {
+      assert.equal(typeof option, "string");
+      assert.ok(option.trim());
+    }
+    assert.equal(Number.isInteger(question.answer_index), true);
+    assert.ok(question.answer_index >= 0 && question.answer_index <= 3);
+    assert.equal(question.options[question.answer_index], question.correct_answer);
+    assert.equal(question.options.includes(question.correct_answer), true);
+    assert.equal(typeof question.why, "string");
+    assert.ok(question.why.trim());
+    assert.equal("source_turns" in question, false);
+    assert.equal("basis" in question, false);
+    assert.equal("verification_source" in question, false);
+    assert.equal("verification_sources" in question, false);
+    indexCounts[question.answer_index] += 1;
+  }
+  for (const count of indexCounts) assert.ok(count > 0);
+  const idList = howFood.questions.map((question) => question.id);
+  assert.deepEqual(
+    [...idList].sort(),
+    [
+      "food-001",
+      "food-002",
+      "food-003",
+      "food-004",
+      "food-005",
+      "food-006",
+      "food-007",
+      "food-008",
+      "food-009",
+      "food-010",
+      "food-011",
+      "food-012",
+      "food-013",
+      "food-014",
+      "food-015",
+      "food-016",
+    ]
+  );
+  assert.notDeepEqual(idList, [
+    "food-001",
+    "food-002",
+    "food-003",
+    "food-004",
+    "food-005",
+    "food-006",
+    "food-007",
+    "food-008",
+    "food-009",
+    "food-010",
+    "food-011",
+    "food-012",
+    "food-013",
+    "food-014",
+    "food-015",
+    "food-016",
+  ]);
+});
+
+test("published how-food deck matches the 0-based answers and keeps the science corrections", () => {
+  const bank = jsonScript("how-food-bank");
+  const explain = jsonScript("how-food-explain");
+  assert.equal(bank.length, 16);
+  assert.equal(Object.keys(explain).length, 16);
+  howFood.questions.forEach((question, index) => {
+    const item = siteItem(question);
+    assert.deepEqual(bank[index], item);
+    assert.equal(bank[index][1], question.options[question.answer_index]);
+    assert.equal(bank[index][2].includes(bank[index][1]), false);
+    assert.equal(explain[question.question], question.why);
+  });
+
+  const byId = Object.fromEntries(howFood.questions.map((question) => [question.id, question]));
+  assert.equal(
+    byId["food-001"].correct_answer,
+    "The carbon in food that your cells took apart for fuel."
+  );
+  assert.equal(
+    byId["food-002"].correct_answer,
+    "Protein doors in the cell's skin, each shaped to open for only one kind of piece."
+  );
+  assert.equal(
+    byId["food-009"].correct_answer,
+    "A small rechargeable battery that carries energy to wherever work needs doing in the cell."
+  );
+  assert.match(
+    byId["food-006"].correct_answer,
+    /Enzymes cut the starch into sugars.*protein door shaped for sugar/
+  );
+  assert.match(byId["food-006"].why, /protein door that fits sugar/);
+  assert.match(
+    byId["food-011"].correct_answer,
+    /carbon from the food leaves as carbon dioxide/
+  );
+  assert.match(byId["food-015"].correct_answer, /pattern stays and the pieces change/);
+  assert.match(byId["food-016"].correct_answer, /material for building[\s\S]*fuel that is turned into power/);
+
+  const published = scriptBody("how-food-bank") + scriptBody("how-food-explain");
+  const dataset = fs.readFileSync(path.join(root, "content/how-food-becomes-you.json"), "utf8");
+  for (const blob of [published, dataset]) {
+    assert.equal(/many times a minute/i.test(blob), false);
+    assert.equal(/liver pour/i.test(blob), false);
+    assert.equal(/all the blood passes through the liver/i.test(blob), false);
+    assert.equal(/all the blood through the liver/i.test(blob), false);
+  }
+  const correctAndWhy = howFood.questions
+    .map((question) => `${question.correct_answer}\n${question.why}`)
+    .join("\n");
+  assert.equal(/snippers/.test(correctAndWhy) && /liver/.test(correctAndWhy) && /pancreas/.test(correctAndWhy), false);
+});
+
+test("published how-food category omits source-turn markers, transcript URLs, and private sidecars", () => {
+  const published = scriptBody("how-food-bank") + scriptBody("how-food-explain");
+  const dataset = fs.readFileSync(path.join(root, "content/how-food-becomes-you.json"), "utf8");
+  for (const blob of [published, dataset]) {
+    assert.equal(/source_turns/.test(blob), false);
+    assert.equal(/source turn/i.test(blob), false);
+    assert.equal(/drawn from the discussion/.test(blob), false);
+    assert.equal(/https?:\/\//.test(blob), false);
+    assert.equal(/transcript/i.test(blob), false);
+    assert.equal(/verification_source/.test(blob), false);
+  }
+});
+
+test("how-food rotation covers the bank, shuffles questions, and keeps a separate memory", () => {
+  const bank = howFood.questions.map(siteItem);
+  const seen = new Set();
+  const rotation = core.createHowFoodRotation(bank, memoryStorage());
+  const first = rotation.selectRound(8).map((item) => item[0]);
+  const again = core.createHowFoodRotation(bank, memoryStorage()).selectRound(8).map((item) => item[0]);
+  assert.equal(first.length, 8);
+  assert.equal(new Set(first).size, 8);
+  assert.notDeepEqual(first, again);
+  for (let round = 0; round < 6; round++) {
+    const items = rotation.selectRound(8);
+    assert.equal(items.length, 8);
+    const prompts = items.map((item) => item[0]);
+    assert.equal(new Set(prompts).size, 8);
+    for (const item of items) {
+      assert.equal(bank.some((entry) => entry[0] === item[0] && entry[1] === item[1]), true);
+      rotation.markShown(item[0]);
+      rotation.markResult(item[0], false);
+      seen.add(item[0]);
+    }
+  }
+  assert.equal(seen.size, 16);
+
+  const twenty = core.createHowFoodRotation(bank, memoryStorage()).selectRound(20);
+  assert.equal(twenty.length, 16);
+
+  const frontier = jsonScript("frontier-bank");
+  const frontierRound = core.createFrontierRotation(frontier, memoryStorage()).selectRound(20);
+  assert.equal(frontierRound.length, 20);
+  for (const item of frontierRound) {
+    assert.equal(frontier.some((entry) => entry[0] === item[0]), true);
+    assert.equal(bank.some((entry) => entry[0] === item[0]), false);
+  }
+
+  const compute = jsonScript("ai-compute-bank");
+  const computeRound = core.createAiComputeRotation(compute, memoryStorage()).selectRound(20);
+  for (const item of computeRound) {
+    assert.equal(bank.some((entry) => entry[0] === item[0]), false);
+  }
+
+  const worm = jsonScript("flatworm-bank");
+  const wormRound = core.createFlatwormRotation(worm, memoryStorage()).selectRound(8);
+  for (const item of wormRound) {
+    assert.equal(bank.some((entry) => entry[0] === item[0]), false);
+  }
+
+  const dna = jsonScript("how-dna-bank");
+  const dnaRound = core.createHowDnaRotation(dna, memoryStorage()).selectRound(8);
+  for (const item of dnaRound) {
+    assert.equal(bank.some((entry) => entry[0] === item[0]), false);
+  }
+});
+
+test("how-food option order is shuffled and review Why uses the deck explanation", () => {
+  const bank = howFood.questions.map(siteItem);
+  const orders = new Set();
+  for (let i = 0; i < 24; i++) {
+    const options = core.cardOptions(bank[0], { items: [] });
+    assert.equal(options.length, 4);
+    assert.deepEqual([...options].sort(), [bank[0][1], ...bank[0][2]].sort());
+    assert.equal(options.filter((option) => option === bank[0][1]).length, 1);
+    orders.add(options.join("\n"));
+  }
+  assert.ok(orders.size > 1);
+
+  const explain = jsonScript("how-food-explain");
+  core.DECKS = {
+    how_food: { explain },
+    frontier: { explain: jsonScript("frontier-explain") },
+  };
+  for (const question of howFood.questions) {
+    const why = core.explainFor("how_food", question.question);
+    assert.equal(why, question.why);
+    assert.equal(why.length > 0, true);
+  }
+  const frontier = jsonScript("frontier-bank")[0][0];
+  assert.equal(core.explainFor("frontier", frontier), jsonScript("frontier-explain")[frontier]);
+  assert.equal(core.explainFor("how_food", "missing"), "");
 });
 
 test("generated math, addition, and fraction decks still have the right answer", () => {
