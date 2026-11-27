@@ -1,0 +1,232 @@
+{
+  "category_id": "how-dna-becomes-you",
+  "category_title": "How DNA becomes you",
+  "answer_index_base": 0,
+  "question_count": 16,
+  "questions": [
+    {
+      "id": "dna-001",
+      "topic": "Same book, different cells",
+      "question": "A heart cell and a skin cell hold the same DNA. Which best explains why they behave so differently?",
+      "options": [
+        "Each one deleted the recipes it does not need, keeping only its own.",
+        "Each one reads the same genes, but in a different order.",
+        "Each uses a different set of genes, switched on while the rest stay closed.",
+        "Each one received a different copy of the book when the egg divided."
+      ],
+      "answer_index": 2,
+      "correct_answer": "Each uses a different set of genes, switched on while the rest stay closed.",
+      "why": "Nearly every cell keeps the whole book. What differs is which pages are open."
+    },
+    {
+      "id": "dna-002",
+      "topic": "Reading a recipe",
+      "question": "Which is the correct order of the path from recipe to worker?",
+      "options": [
+        "DNA is copied into RNA, and the RNA is read to make a protein.",
+        "DNA is read to make a protein, and the protein is copied into RNA.",
+        "RNA is copied into DNA, and the DNA is read to make a protein.",
+        "RNA is read to make DNA, and the DNA folds into a protein."
+      ],
+      "answer_index": 0,
+      "correct_answer": "DNA is copied into RNA, and the RNA is read to make a protein.",
+      "why": "DNA, then RNA, then protein."
+    },
+    {
+      "id": "dna-003",
+      "topic": "From cells to a body",
+      "question": "Fingers start out joined as a paddle. What frees them?",
+      "options": [
+        "Cells between the fingers stretch until the fingers pull apart.",
+        "Cells between the fingers die on schedule.",
+        "Extra cells grow between the fingers and push them apart.",
+        "Cells between the fingers turn into bone and separate the fingers."
+      ],
+      "answer_index": 1,
+      "correct_answer": "Cells between the fingers die on schedule.",
+      "why": "Making way is part of building shape, like a sculptor taking clay away."
+    },
+    {
+      "id": "dna-004",
+      "topic": "The recipe book",
+      "question": "What happens to the book just before a cell divides?",
+      "options": [
+        "The book is split in half, so each new cell gets half.",
+        "Only the recipes the new cells will need are copied.",
+        "A working RNA copy of every recipe is made and handed over in place of the book.",
+        "The whole book is copied, so each new cell gets a full set."
+      ],
+      "answer_index": 3,
+      "correct_answer": "The whole book is copied, so each new cell gets a full set.",
+      "why": "Each new cell needs the whole book."
+    },
+    {
+      "id": "dna-005",
+      "topic": "Same book, different cells",
+      "question": "Why does a signal that gets weaker with distance help a growing embryo?",
+      "options": [
+        "Each cell can read how strong the signal is, and so sense roughly where it stands.",
+        "Cells close to the source copy their DNA faster than far ones.",
+        "Only the nearest cell responds, and it tells the others what to do.",
+        "Cells that receive a weak signal switch off all of their genes."
+      ],
+      "answer_index": 0,
+      "correct_answer": "Each cell can read how strong the signal is, and so sense roughly where it stands.",
+      "why": "A smooth change in strength sorts identical cells into different jobs by position."
+    },
+    {
+      "id": "dna-006",
+      "topic": "Reading a recipe",
+      "question": "Which description of the path from one gene to a working protein fits the library and kitchen picture?",
+      "options": [
+        "The original book leaves the library and is read in the kitchen, then folds into a protein.",
+        "A working RNA copy of just that recipe leaves the library. A cook reads it three letters at a time, links the ingredients into a chain, and the chain folds into a shape that does the job.",
+        "A complete copy of the whole book is sent to the kitchen, and the cook copies it back into DNA.",
+        "The cook goes into the library, reads the original book there, and carries the finished protein back out."
+      ],
+      "answer_index": 1,
+      "correct_answer": "A working RNA copy of just that recipe leaves the library. A cook reads it three letters at a time, links the ingredients into a chain, and the chain folds into a shape that does the job.",
+      "why": "The original book stays in the library, the nucleus. A temporary RNA copy of just that recipe goes to the kitchen. A ribosome reads it three letters at a time, builds a chain, and the chain folds into a shape that does the job."
+    },
+    {
+      "id": "dna-007",
+      "topic": "The recipe book",
+      "question": "What is a gene?",
+      "options": [
+        "One of the four chemical letters that DNA is written in.",
+        "A stretch of DNA that holds one useful instruction, like one recipe.",
+        "A full copy of the book, kept in one cell.",
+        "A protein that reads the book and carries it out of the nucleus."
+      ],
+      "answer_index": 1,
+      "correct_answer": "A stretch of DNA that holds one useful instruction, like one recipe.",
+      "why": "Letters make the recipes, recipes make the book."
+    },
+    {
+      "id": "dna-008",
+      "topic": "From cells to a body",
+      "question": "Some genes act like foremen on a building site. Which description fits them best?",
+      "options": [
+        "They hold a detailed picture of each body part and hand it to the cells.",
+        "They do the building themselves, as proteins that become the part.",
+        "They are switches active in one stretch of the body, setting off whole sets of other genes that build the right kind of part there.",
+        "They switch on only after an injury, to rebuild what was lost."
+      ],
+      "answer_index": 2,
+      "correct_answer": "They are switches active in one stretch of the body, setting off whole sets of other genes that build the right kind of part there.",
+      "why": "They are switches, not pictures."
+    },
+    {
+      "id": "dna-009",
+      "topic": "Reading a recipe",
+      "question": "What mostly decides what job a protein can do?",
+      "options": [
+        "Which parent supplied the gene.",
+        "How fast the ribosome worked when it made the chain.",
+        "How many nuclei the cell has.",
+        "Its folded shape."
+      ],
+      "answer_index": 3,
+      "correct_answer": "Its folded shape.",
+      "why": "Shape is everything: a key for one lock, a rope, an oxygen carrier."
+    },
+    {
+      "id": "dna-010",
+      "topic": "Same book, different cells",
+      "question": "A skin cell divides, and both daughters are skin cells. What helps them stay that way?",
+      "options": [
+        "The daughters keep only the skin recipes and discard the rest.",
+        "Chemical tags on the DNA, like bookmarks, are copied along and keep the same pages open.",
+        "The neighboring skin cells rewrite the DNA of each daughter.",
+        "The old RNA copies are handed to the daughters and reused."
+      ],
+      "answer_index": 1,
+      "correct_answer": "Chemical tags on the DNA, like bookmarks, are copied along and keep the same pages open.",
+      "why": "The book is still whole; the notes about which pages to use are passed along."
+    },
+    {
+      "id": "dna-011",
+      "topic": "From cells to a body",
+      "question": "A salamander can regrow a lost leg, with the right bones in the right places. Which split is correct?",
+      "options": [
+        "Established: electrical patterns store the target shape in all animals. Open question: whether a salamander can regrow a lost leg.",
+        "Established: a salamander can regrow a lost leg with the right parts in the right places. That also settles how cells know the overall shape and when to stop.",
+        "Established: a salamander can regrow a lost leg with the right parts in the right places. Open question: how a group of cells knows the overall shape and when to stop. Levin's proposal, still being tested: electrical patterns across a tissue may act like a stored target shape.",
+        "Established: Levin has shown that electrical patterns are the stored target shape. Open question: whether genes play any part in building a leg."
+      ],
+      "answer_index": 2,
+      "correct_answer": "Established: a salamander can regrow a lost leg with the right parts in the right places. Open question: how a group of cells knows the overall shape and when to stop. Levin's proposal, still being tested: electrical patterns across a tissue may act like a stored target shape.",
+      "why": "The regrowth itself is well established. How a group of cells knows the overall shape and when to stop is still open. Levin's idea that electrical patterns may act like a stored target shape is a proposal, still being tested, not settled fact."
+    },
+    {
+      "id": "dna-012",
+      "topic": "The recipe book",
+      "question": "Brothers and sisters resemble each other but are not identical. Which explanation is closest?",
+      "options": [
+        "Each child gets half of its book from each parent, but a different mix.",
+        "Each child gets the whole book from just one parent, chosen differently.",
+        "Each child gets the same book, but the environment before birth changes the letters.",
+        "Each child gets the same book, but uses different pages at birth."
+      ],
+      "answer_index": 0,
+      "correct_answer": "Each child gets half of its book from each parent, but a different mix.",
+      "why": "Same two parent books, shuffled differently."
+    },
+    {
+      "id": "dna-013",
+      "topic": "Reading a recipe",
+      "question": "Why does the original DNA stay in the nucleus when a gene is used?",
+      "options": [
+        "The recipe is cut out of the book, carried out, and pasted back afterward.",
+        "A working copy of only that recipe is made, and the original stays safe.",
+        "A complete second copy of the book is made and carried out.",
+        "Ribosomes go into the nucleus, read the book there, and bring out the finished protein."
+      ],
+      "answer_index": 1,
+      "correct_answer": "A working copy of only that recipe is made, and the original stays safe.",
+      "why": "The original is precious, so a temporary copy goes to the kitchen."
+    },
+    {
+      "id": "dna-014",
+      "topic": "From cells to a body",
+      "question": "Which statement about Michael Levin's electrical idea is labeled correctly?",
+      "options": [
+        "It is established: electrical patterns store the target shape of the body in all animals.",
+        "It is a proposal: genes play no part in shaping the body, and electricity does all of it.",
+        "It is a proposal: patterns of electrical signals across tissue may help guide body shape beyond genes, and it is still being tested.",
+        "It is established: electrical signals replace chemical signals once the body is formed."
+      ],
+      "answer_index": 2,
+      "correct_answer": "It is a proposal: patterns of electrical signals across tissue may help guide body shape beyond genes, and it is still being tested.",
+      "why": "It adds to genes and chemical signals; it does not replace them."
+    },
+    {
+      "id": "dna-015",
+      "topic": "Same book, different cells",
+      "question": "Use the cookbook picture: how can two different cells hold the same book?",
+      "options": [
+        "One cookbook can sit in a bakery and a pizzeria. Each kitchen opens only the pages it needs, so the same book yields different meals.",
+        "Each kitchen keeps only the pages it needs and tears the rest out, so the books are no longer the same.",
+        "The two kitchens have different cookbooks, printed with different recipes from the start.",
+        "Both kitchens open every page, but they cook the recipes in a different order, and that alone makes them different."
+      ],
+      "answer_index": 0,
+      "correct_answer": "One cookbook can sit in a bakery and a pizzeria. Each kitchen opens only the pages it needs, so the same book yields different meals.",
+      "why": "One cookbook can sit in a bakery and a pizzeria. Each kitchen opens only the pages it needs. The book is the same; the pattern of open pages differs, so the cells make different proteins."
+    },
+    {
+      "id": "dna-016",
+      "topic": "From cells to a body",
+      "question": "No single cell holds the plan of the whole body. How can a whole body in the right proportions still come about?",
+      "options": [
+        "A master cell holds the full plan and tells every other cell exactly what to become.",
+        "Each cell follows a complete map of the finished body stored in its own DNA, so local clues are not needed.",
+        "Cells first grow as a uniform mass, then a later signal stamps the overall proportions onto the whole body at once.",
+        "Each cell follows local clues, such as the signals it receives and the neighbors it touches. Many small local actions add up to the overall pattern, a bit like a flock of birds turning together."
+      ],
+      "answer_index": 3,
+      "correct_answer": "Each cell follows local clues, such as the signals it receives and the neighbors it touches. Many small local actions add up to the overall pattern, a bit like a flock of birds turning together.",
+      "why": "No single cell holds the plan. Each cell follows local clues, and many small local actions add up to the overall pattern, a bit like a flock of birds turning together without a leader. Fading signals also give cells a sense of where they are."
+    }
+  ]
+}
