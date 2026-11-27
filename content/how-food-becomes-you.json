@@ -1,0 +1,232 @@
+{
+  "category_id": "how-food-becomes-you",
+  "category_title": "How food becomes you",
+  "answer_index_base": 0,
+  "question_count": 16,
+  "questions": [
+    {
+      "id": "food-009",
+      "topic": "The rechargeable battery",
+      "question": "In the battery picture, what is ATP?",
+      "options": [
+        "The fuel that the power plant uses up and breathes out as carbon dioxide.",
+        "A small rechargeable battery that carries energy to wherever work needs doing in the cell.",
+        "A protein door that lets sugar into the cell and keeps other pieces out.",
+        "A reserve of energy kept in the liver and muscles for use between meals."
+      ],
+      "answer_index": 1,
+      "why": "A used-up battery goes back to the power plant to be charged again, over and over.",
+      "correct_answer": "A small rechargeable battery that carries energy to wherever work needs doing in the cell."
+    },
+    {
+      "id": "food-004",
+      "topic": "Big packages become small pieces",
+      "question": "Proteins, starches and fats in a meal become which pieces, in that order?",
+      "options": [
+        "Sugars, amino acids and fatty acids.",
+        "Amino acids, fatty acids and sugars.",
+        "Fatty acids, sugars and amino acids.",
+        "Amino acids, sugars and fatty acids."
+      ],
+      "answer_index": 3,
+      "why": "Proteins become the cook's beads, starches become sugars, and fats become fatty acids.",
+      "correct_answer": "Amino acids, sugars and fatty acids."
+    },
+    {
+      "id": "food-013",
+      "topic": "A message at the door",
+      "question": "After a meal, a message in the blood tells many cells to open more of their sugar doors. How does a cell receive that message?",
+      "options": [
+        "The message travels through the protein doors, then reaches the nucleus.",
+        "The message is read by the power plants, which pass it on to the doors.",
+        "The message lands on a doorbell-like receiver on the cell's skin, and the cell responds.",
+        "The message enters the cell and rewrites the recipes for the doors in the book."
+      ],
+      "answer_index": 2,
+      "why": "A receiver on the skin, like the doorbells from the first video. The details are a story for another day.",
+      "correct_answer": "The message lands on a doorbell-like receiver on the cell's skin, and the cell responds."
+    },
+    {
+      "id": "food-001",
+      "topic": "Where exhaled carbon comes from",
+      "question": "Where does the carbon dioxide you breathe out mainly come from?",
+      "options": [
+        "The oxygen you breathed in, which is simply handed back out.",
+        "The carbon in food that your cells took apart for fuel.",
+        "Air that reached the lungs and was never used.",
+        "Waste from red blood cells as they wear out."
+      ],
+      "answer_index": 1,
+      "why": "Most of it comes from the food itself. The oxygen ends up in water, not in the carbon dioxide.",
+      "correct_answer": "The carbon in food that your cells took apart for fuel."
+    },
+    {
+      "id": "food-008",
+      "topic": "Same book, different doors",
+      "question": "Muscle cells and skin cells hold the same book. Why can muscle cells have many more sugar doors?",
+      "options": [
+        "Muscle cells keep extra copies of the sugar-door recipes in their book.",
+        "The blood hands muscle cells a ready-made supply of doors.",
+        "Their open pages include the recipes for more sugar doors, so they build more.",
+        "Muscle cells take doors from the skin cells beside them."
+      ],
+      "answer_index": 2,
+      "why": "Same book, different pages open. A cell builds the doors it needs from the recipes it uses.",
+      "correct_answer": "Their open pages include the recipes for more sugar doors, so they build more."
+    },
+    {
+      "id": "food-016",
+      "topic": "Two jobs of food",
+      "question": "Food does two jobs in the body. What are they, and what happens to the cook if either one is missing?",
+      "options": [
+        "Food supplies only fuel. The cook already has a lifetime stock of material, so missing food only cuts the power.",
+        "Food supplies only material. The cook gets power from oxygen alone, so missing food only leaves the chain short of beads.",
+        "Food supplies both the material for building, such as amino acids for proteins, and the fuel that is turned into power. Without material, the cook has nothing to link into a chain. Without power, the cook cannot link the beads, even with a full counter.",
+        "Food supplies material and power, but the cook can keep building without power as long as the material is on the counter, and can keep building without material by reusing worn-out proteins still folded in place."
+      ],
+      "answer_index": 2,
+      "why": "Food is both the material cells are built from and the fuel that is turned into power. Without material, the cook has nothing to link into a chain. Without power, the cook cannot link the beads at all.",
+      "correct_answer": "Food supplies both the material for building, such as amino acids for proteins, and the fuel that is turned into power. Without material, the cook has nothing to link into a chain. Without power, the cook cannot link the beads, even with a full counter."
+    },
+    {
+      "id": "food-005",
+      "topic": "When oxygen is cut off",
+      "question": "A cell is suddenly cut off from oxygen. What is the best description of what happens?",
+      "options": [
+        "It switches to fat, which gives the same power without oxygen.",
+        "It stops all work at once, because no batteries can be charged without oxygen.",
+        "It keeps charging batteries at the same rate, because the fuel can be taken apart without oxygen.",
+        "It can still charge a few batteries in the main room, but the big harvest stops."
+      ],
+      "answer_index": 3,
+      "why": "Without oxygen the power plants stall, though a small amount of charging still happens in the main room.",
+      "correct_answer": "It can still charge a few batteries in the main room, but the big harvest stops."
+    },
+    {
+      "id": "food-010",
+      "topic": "Taking a meal apart",
+      "question": "Which best describes what the stomach and small intestine do to a meal?",
+      "options": [
+        "They dissolve the meal into a liquid, so the big packages pass into the blood as they are.",
+        "They squeeze the meal into smaller lumps, which the cells then take apart.",
+        "They snip the big packages into small pieces, using enzymes that are themselves proteins.",
+        "They sort the meal, sending proteins to the muscles and fats to the liver unchanged."
+      ],
+      "answer_index": 2,
+      "why": "The goal is not to destroy food but to take it apart into pieces that can be used again. The snippers are proteins, the tools of the cell.",
+      "correct_answer": "They snip the big packages into small pieces, using enzymes that are themselves proteins."
+    },
+    {
+      "id": "food-002",
+      "topic": "Doors in the cell's skin",
+      "question": "What lets the right food pieces into a cell and keeps the wrong ones out?",
+      "options": [
+        "Protein doors in the cell's skin, each shaped to open for only one kind of piece.",
+        "Many small holes in the skin, sized so that only small pieces slip through.",
+        "The nucleus, which inspects each piece before the cell lets it in.",
+        "The wall of the blood vessel beside the cell, which releases only the pieces the cell needs."
+      ],
+      "answer_index": 0,
+      "why": "Key and lock again: a door shaped for sugar opens for sugar, a door shaped for amino acids opens for amino acids.",
+      "correct_answer": "Protein doors in the cell's skin, each shaped to open for only one kind of piece."
+    },
+    {
+      "id": "food-015",
+      "topic": "The pattern and the pieces",
+      "question": "Your body replaces many of its parts all the time. How can you still be the same person?",
+      "options": [
+        "The pattern stays and the pieces change. The book of recipes stays the same, and the cook keeps reading it while worn parts are taken apart and reused, like a house repaired board by board.",
+        "You stay the same because the original amino acids from birth are kept forever and never replaced.",
+        "You stay the same because every worn protein is folded back into shape and switched back on, so the pieces themselves never change.",
+        "You become a new person each time the parts are replaced, and only the name stays the same."
+      ],
+      "answer_index": 0,
+      "why": "The pattern stays and the pieces change. The book of recipes stays the same, and worn proteins are taken apart and reused, like a house repaired board by board.",
+      "correct_answer": "The pattern stays and the pieces change. The book of recipes stays the same, and the cook keeps reading it while worn parts are taken apart and reused, like a house repaired board by board."
+    },
+    {
+      "id": "food-007",
+      "topic": "Storing extra fuel",
+      "question": "Which statement about extra fuel after a big meal is closest?",
+      "options": [
+        "A little sugar is stored in the liver and muscles, and much more is stored as fat.",
+        "Extra sugar is kept in the blood, and extra fat is burned at once as warmth.",
+        "Extra fuel is stored mostly as protein in the muscles, ready to be turned back into fuel.",
+        "Extra fuel is stored in the mitochondria, which grow larger when they are full."
+      ],
+      "answer_index": 0,
+      "why": "A small quick pantry and a much bigger long-term one.",
+      "correct_answer": "A little sugar is stored in the liver and muscles, and much more is stored as fat."
+    },
+    {
+      "id": "food-011",
+      "topic": "Breathing and the power plants",
+      "question": "Why do you breathe in oxygen and breathe out carbon dioxide, in the power plant picture?",
+      "options": [
+        "The oxygen you breathe in is simply handed back out as carbon dioxide once the power plants have used it up.",
+        "The power plants burn oxygen as the fuel itself, and the carbon dioxide is waste from worn-out red blood cells.",
+        "Oxygen is needed only to carry carbon dioxide from the cells to the lungs, and is not used in the power plants.",
+        "The power plants need oxygen to finish taking fuel apart and recharging batteries. The carbon from the food leaves as carbon dioxide; the oxygen ends up in water."
+      ],
+      "answer_index": 3,
+      "why": "The power plants need oxygen to finish taking fuel apart and recharging the batteries. The carbon from the food leaves as carbon dioxide. The oxygen ends up in water.",
+      "correct_answer": "The power plants need oxygen to finish taking fuel apart and recharging batteries. The carbon from the food leaves as carbon dioxide; the oxygen ends up in water."
+    },
+    {
+      "id": "food-003",
+      "topic": "Amino acids the body cannot make",
+      "question": "The body can make some amino acids but not others. What follows from that?",
+      "options": [
+        "Cells make every protein from scratch, so food only provides the power.",
+        "A few amino acids must arrive ready-made in food, or the cook cannot finish proteins that need them.",
+        "Food amino acids are stronger than the ones the body makes, so cells prefer them.",
+        "Only amino acids that came from food can pass through the protein doors."
+      ],
+      "answer_index": 1,
+      "why": "Some ingredients have to come from what you eat. A missing ingredient stalls the dish.",
+      "correct_answer": "A few amino acids must arrive ready-made in food, or the cook cannot finish proteins that need them."
+    },
+    {
+      "id": "food-014",
+      "topic": "What mitochondria do",
+      "question": "What do mitochondria do?",
+      "options": [
+        "They store the extra fuel from a meal as fat, to use between meals.",
+        "They read RNA and link amino acids into a chain.",
+        "They copy the whole book before a cell divides.",
+        "They finish the harvest of energy from fuel, using oxygen, and recharge batteries."
+      ],
+      "answer_index": 3,
+      "why": "The power plants. A busy cell has many, and hard-working cells like muscle and heart have the most.",
+      "correct_answer": "They finish the harvest of energy from fuel, using oxygen, and recharge batteries."
+    },
+    {
+      "id": "food-006",
+      "topic": "From bread to a working cell",
+      "question": "Which description of the path from a bite of bread to a working cell fits the kitchen, road and door pictures?",
+      "options": [
+        "The whole starch package crosses the gut lining into the blood unchanged, then a protein door in the cell cuts it into sugar.",
+        "Enzymes cut the starch into sugars. The sugars cross the gut lining into the blood, ride to a cell, and enter through a protein door shaped for sugar, to be used as fuel.",
+        "Enzymes cut the starch into sugars, which stay in the gut until the cell reaches through the gut lining and pulls them in.",
+        "Enzymes cut the starch into amino acids, which ride the blood and slip through any open door in the cell's skin."
+      ],
+      "answer_index": 1,
+      "why": "In the mouth, and mainly the small intestine, enzymes cut the starch into sugars. The small pieces cross the gut lining into the blood and ride to a cell. A protein door that fits sugar opens, and the sugar is used as fuel.",
+      "correct_answer": "Enzymes cut the starch into sugars. The sugars cross the gut lining into the blood, ride to a cell, and enter through a protein door shaped for sugar, to be used as fuel."
+    },
+    {
+      "id": "food-012",
+      "topic": "Reusing worn-out proteins",
+      "question": "What happens to a worn-out protein?",
+      "options": [
+        "It is taken apart into amino acids that go back on the menu to be used again.",
+        "It is folded back into shape by helper proteins and used again.",
+        "It is kept folded in the cell and switched back on when the cell needs it again.",
+        "It is stored in the pantry as fat until the cell needs it."
+      ],
+      "answer_index": 0,
+      "why": "Amino acids are reused. Many parts of you are replaced again and again.",
+      "correct_answer": "It is taken apart into amino acids that go back on the menu to be used again."
+    }
+  ]
+}
