@@ -21,6 +21,12 @@ const howDna = JSON.parse(
 const howFood = JSON.parse(
   fs.readFileSync(path.join(root, "content/how-food-becomes-you.json"), "utf8")
 );
+const howCells = JSON.parse(
+  fs.readFileSync(path.join(root, "content/how-cells-talk-to-each-other.json"), "utf8")
+);
+const howDefends = JSON.parse(
+  fs.readFileSync(path.join(root, "content/how-the-body-defends-itself.json"), "utf8")
+);
 
 const EXISTING_SHA256 = {
   "frontier-bank": "56b359215874b59dee8df00158c4c13b404664152b262d013b3f697f88737a27",
@@ -35,6 +41,8 @@ const EXISTING_SHA256 = {
   "flatworm-explain": "0b0d6b53d100d01b4c4ec6417ab55b663b157871c06b0b083f34d7166ce18120",
   "how-dna-bank": "0c03897cbb188b502360ccb87fd6951925d1671d76fa948d4419df54d8166f2c",
   "how-dna-explain": "eeed1d45a995ddf610007dfef5e7ea4c85fac37425e1b845f61994d640809904",
+  "how-food-bank": "9467489a83221a4cde12015bd0f3f7517613a0fa3c19789b2f2ce6308ddfc197",
+  "how-food-explain": "825068a037ca5189c1afe1508c5560aeb699a9f58290682f99fcdc5aa44ca141",
 };
 
 function scriptBody(id) {
@@ -224,6 +232,8 @@ test("new category is in the same list and Frontier stays the default", () => {
       "flatworm",
       "how_dna",
       "how_food",
+      "how_cells",
+      "how_defends",
       "math_2digit",
       "add_3mix",
       "fractions",
@@ -239,6 +249,8 @@ test("new category is in the same list and Frontier stays the default", () => {
   assert.equal(options.find((option) => option.value === "flatworm").label, "Flatworm: two heads (rotated)");
   assert.equal(options.find((option) => option.value === "how_dna").label, "How DNA becomes you (rotated)");
   assert.equal(options.find((option) => option.value === "how_food").label, "How food becomes you (rotated)");
+  assert.equal(options.find((option) => option.value === "how_cells").label, "How cells talk to each other (rotated)");
+  assert.equal(options.find((option) => option.value === "how_defends").label, "How the body defends itself (rotated)");
   assert.match(html, /deckKey:\s*"frontier"/);
   assert.match(html, /<option value="20" selected>20s<\/option>/);
   assert.match(html, /<option value="20" selected>20<\/option>/);
@@ -258,7 +270,15 @@ test("new category is in the same list and Frontier stays the default", () => {
   assert.match(html, /HOW_FOOD\.markShown\(prompt\)/);
   assert.match(html, /HOW_FOOD\.markResult\(state\.current\.prompt, ok\)/);
   assert.match(html, /explain: loadExplain\("how-food-explain"\)/);
-  const storeKeys = ["FRONTIER_STORE_KEY", "MUSK_STORE_KEY", "HEALTH_STORE_KEY", "AI_COMPUTE_STORE_KEY", "FLATWORM_STORE_KEY", "HOW_DNA_STORE_KEY", "HOW_FOOD_STORE_KEY"].map(
+  assert.match(html, /generate: \(n\) => HOW_CELLS\.selectRound\(n\)/);
+  assert.match(html, /HOW_CELLS\.markShown\(prompt\)/);
+  assert.match(html, /HOW_CELLS\.markResult\(state\.current\.prompt, ok\)/);
+  assert.match(html, /explain: loadExplain\("how-cells-talk-explain"\)/);
+  assert.match(html, /generate: \(n\) => HOW_DEFENDS\.selectRound\(n\)/);
+  assert.match(html, /HOW_DEFENDS\.markShown\(prompt\)/);
+  assert.match(html, /HOW_DEFENDS\.markResult\(state\.current\.prompt, ok\)/);
+  assert.match(html, /explain: loadExplain\("how-defends-explain"\)/);
+  const storeKeys = ["FRONTIER_STORE_KEY", "MUSK_STORE_KEY", "HEALTH_STORE_KEY", "AI_COMPUTE_STORE_KEY", "FLATWORM_STORE_KEY", "HOW_DNA_STORE_KEY", "HOW_FOOD_STORE_KEY", "HOW_CELLS_STORE_KEY", "HOW_DEFENDS_STORE_KEY"].map(
     (name) => {
       const match = html.match(new RegExp(`const ${name} = "([^"]+)"`));
       assert.ok(match, name);
@@ -930,6 +950,317 @@ test("how-food option order is shuffled and review Why uses the deck explanation
   const frontier = jsonScript("frontier-bank")[0][0];
   assert.equal(core.explainFor("frontier", frontier), jsonScript("frontier-explain")[frontier]);
   assert.equal(core.explainFor("how_food", "missing"), "");
+});
+
+function assertBankShape(bank, categoryId, categoryTitle, idPrefix) {
+  assert.equal(bank.answer_index_base, 0);
+  assert.equal(bank.category_id, categoryId);
+  assert.equal(bank.category_title, categoryTitle);
+  assert.equal(bank.question_count, 16);
+  assert.equal(bank.questions.length, 16);
+  const ids = new Set();
+  const prompts = new Set();
+  const indexCounts = [0, 0, 0, 0];
+  for (const question of bank.questions) {
+    assert.equal(typeof question.id, "string");
+    assert.ok(question.id.startsWith(idPrefix));
+    assert.ok(!ids.has(question.id), question.id);
+    ids.add(question.id);
+    assert.equal(typeof question.topic, "string");
+    assert.ok(question.topic.trim());
+    assert.equal(typeof question.question, "string");
+    assert.ok(question.question.trim());
+    assert.ok(!prompts.has(question.question), question.question);
+    prompts.add(question.question);
+    assert.ok(Array.isArray(question.options));
+    assert.equal(question.options.length, 4);
+    assert.equal(new Set(question.options).size, 4);
+    for (const option of question.options) {
+      assert.equal(typeof option, "string");
+      assert.ok(option.trim());
+    }
+    assert.equal(Number.isInteger(question.answer_index), true);
+    assert.ok(question.answer_index >= 0 && question.answer_index <= 3);
+    assert.equal(question.options[question.answer_index], question.correct_answer);
+    assert.equal(question.options.includes(question.correct_answer), true);
+    assert.equal(typeof question.why, "string");
+    assert.ok(question.why.trim());
+    assert.equal("source_turns" in question, false);
+    assert.equal("basis" in question, false);
+    assert.equal("verification_source" in question, false);
+    assert.equal("verification_sources" in question, false);
+    indexCounts[question.answer_index] += 1;
+  }
+  for (const count of indexCounts) assert.ok(count > 0);
+  const expected = Array.from({ length: 16 }, (_, i) => `${idPrefix}${String(i + 1).padStart(3, "0")}`);
+  const idList = bank.questions.map((question) => question.id);
+  assert.deepEqual([...idList].sort(), expected);
+  assert.notDeepEqual(idList, expected);
+}
+
+test("how-cells bank is 0-based, unique, mixed, and has hard four-choice items", () => {
+  assertBankShape(howCells, "how-cells-talk-to-each-other", "How cells talk to each other", "talk-");
+});
+
+test("published how-cells deck matches the 0-based answers and keeps the science corrections", () => {
+  const bank = jsonScript("how-cells-talk-bank");
+  const explain = jsonScript("how-cells-talk-explain");
+  assert.equal(bank.length, 16);
+  assert.equal(Object.keys(explain).length, 16);
+  howCells.questions.forEach((question, index) => {
+    const item = siteItem(question);
+    assert.deepEqual(bank[index], item);
+    assert.equal(bank[index][1], question.options[question.answer_index]);
+    assert.equal(bank[index][2].includes(bank[index][1]), false);
+    assert.equal(explain[question.question], question.why);
+  });
+
+  const byId = Object.fromEntries(howCells.questions.map((question) => [question.id, question]));
+  assert.equal(
+    byId["talk-001"].correct_answer,
+    "A chemical message is handed over and heard by a doorbell on the next cell."
+  );
+  assert.equal(
+    byId["talk-002"].correct_answer,
+    "A message that travels in the blood and is heard only by cells with the matching doorbell."
+  );
+  assert.match(byId["talk-002"].why, /usually a slower broadcast/);
+  assert.match(
+    byId["talk-004"].correct_answer,
+    /pancreas releases insulin into the blood[\s\S]*doorbell on a muscle cell[\s\S]*more sugar doors/
+  );
+  assert.match(
+    byId["talk-008"].correct_answer,
+    /fits a doorbell[\s\S]*message can still be present/
+  );
+  assert.match(byId["talk-011"].correct_answer, /usually slower[\s\S]*Both are heard by doorbells/);
+  assert.match(byId["talk-011"].why, /usually slower/);
+  assert.match(byId["talk-013"].correct_answer, /proposal that is still being tested/);
+  assert.match(byId["talk-013"].why, /proposal/);
+  assert.match(
+    byId["talk-015"].correct_answer,
+    /a different message tells the liver to release[\s\S]*changes the situation/
+  );
+
+  const correctAndWhy = howCells.questions
+    .map((question) => `${question.correct_answer}\n${question.why}`)
+    .join("\n");
+  assert.equal(/is a slow broadcast/.test(correctAndWhy), false);
+  assert.match(correctAndWhy, /usually slower|usually a slower/);
+  assert.equal(/settled textbook fact/.test(byId["talk-013"].correct_answer), false);
+  assert.equal(/settled textbook fact/.test(byId["talk-013"].why), false);
+});
+
+test("published how-cells category omits source-turn markers, transcript URLs, and private sidecars", () => {
+  const published = scriptBody("how-cells-talk-bank") + scriptBody("how-cells-talk-explain");
+  const dataset = fs.readFileSync(path.join(root, "content/how-cells-talk-to-each-other.json"), "utf8");
+  for (const blob of [published, dataset]) {
+    assert.equal(/source_turns/.test(blob), false);
+    assert.equal(/source turn/i.test(blob), false);
+    assert.equal(/drawn from the discussion/.test(blob), false);
+    assert.equal(/https?:\/\//.test(blob), false);
+    assert.equal(/transcript/i.test(blob), false);
+    assert.equal(/verification_source/.test(blob), false);
+  }
+});
+
+test("how-cells rotation covers the bank, shuffles questions, and keeps a separate memory", () => {
+  const bank = howCells.questions.map(siteItem);
+  const seen = new Set();
+  const rotation = core.createHowCellsTalkRotation(bank, memoryStorage());
+  const first = rotation.selectRound(8).map((item) => item[0]);
+  const again = core.createHowCellsTalkRotation(bank, memoryStorage()).selectRound(8).map((item) => item[0]);
+  assert.equal(first.length, 8);
+  assert.equal(new Set(first).size, 8);
+  assert.notDeepEqual(first, again);
+  for (let round = 0; round < 6; round++) {
+    const items = rotation.selectRound(8);
+    assert.equal(items.length, 8);
+    const prompts = items.map((item) => item[0]);
+    assert.equal(new Set(prompts).size, 8);
+    for (const item of items) {
+      assert.equal(bank.some((entry) => entry[0] === item[0] && entry[1] === item[1]), true);
+      rotation.markShown(item[0]);
+      rotation.markResult(item[0], false);
+      seen.add(item[0]);
+    }
+  }
+  assert.equal(seen.size, 16);
+
+  const twenty = core.createHowCellsTalkRotation(bank, memoryStorage()).selectRound(20);
+  assert.equal(twenty.length, 16);
+
+  const otherBanks = [
+    jsonScript("frontier-bank"),
+    jsonScript("ai-compute-bank"),
+    jsonScript("flatworm-bank"),
+    jsonScript("how-dna-bank"),
+    jsonScript("how-food-bank"),
+    jsonScript("how-defends-bank"),
+  ];
+  const sample = core.createHowCellsTalkRotation(bank, memoryStorage()).selectRound(16);
+  for (const item of sample) {
+    for (const other of otherBanks) {
+      assert.equal(other.some((entry) => entry[0] === item[0]), false);
+    }
+  }
+});
+
+test("how-cells option order is shuffled and review Why uses the deck explanation", () => {
+  const bank = howCells.questions.map(siteItem);
+  const orders = new Set();
+  for (let i = 0; i < 24; i++) {
+    const options = core.cardOptions(bank[0], { items: [] });
+    assert.equal(options.length, 4);
+    assert.deepEqual([...options].sort(), [bank[0][1], ...bank[0][2]].sort());
+    assert.equal(options.filter((option) => option === bank[0][1]).length, 1);
+    orders.add(options.join("\n"));
+  }
+  assert.ok(orders.size > 1);
+
+  const explain = jsonScript("how-cells-talk-explain");
+  core.DECKS = {
+    how_cells: { explain },
+    how_food: { explain: jsonScript("how-food-explain") },
+  };
+  for (const question of howCells.questions) {
+    const why = core.explainFor("how_cells", question.question);
+    assert.equal(why, question.why);
+    assert.equal(why.length > 0, true);
+  }
+  const foodPrompt = jsonScript("how-food-bank")[0][0];
+  assert.equal(core.explainFor("how_food", foodPrompt), jsonScript("how-food-explain")[foodPrompt]);
+  assert.equal(core.explainFor("how_cells", "missing"), "");
+});
+
+test("how-defends bank is 0-based, unique, mixed, and has hard four-choice items", () => {
+  assertBankShape(howDefends, "how-the-body-defends-itself", "How the body defends itself", "defends-");
+});
+
+test("published how-defends deck matches the 0-based answers and keeps the science corrections", () => {
+  const bank = jsonScript("how-defends-bank");
+  const explain = jsonScript("how-defends-explain");
+  assert.equal(bank.length, 16);
+  assert.equal(Object.keys(explain).length, 16);
+  howDefends.questions.forEach((question, index) => {
+    const item = siteItem(question);
+    assert.deepEqual(bank[index], item);
+    assert.equal(bank[index][1], question.options[question.answer_index]);
+    assert.equal(bank[index][2].includes(bank[index][1]), false);
+    assert.equal(explain[question.question], question.why);
+  });
+
+  const byId = Object.fromEntries(howDefends.questions.map((question) => [question.id, question]));
+  assert.match(byId["defends-002"].correct_answer, /living wall, always being rebuilt/);
+  assert.match(byId["defends-002"].correct_answer, /outermost layer is dead cells/);
+  assert.match(byId["defends-002"].why, /outermost layer is dead cells/);
+  assert.match(
+    byId["defends-004"].correct_answer,
+    /tray of slightly different shapes[\s\S]*copied in large numbers/
+  );
+  assert.match(
+    byId["defends-008"].correct_answer,
+    /general "this doesn't belong" look[\s\S]*does not keep a lasting memory/
+  );
+  assert.match(
+    byId["defends-012"].correct_answer,
+    /living wall, always being rebuilt[\s\S]*poor home for many microbes/
+  );
+  assert.match(
+    byId["defends-015"].correct_answer,
+    /cells that learned that shape remain[\s\S]*practice run/
+  );
+  assert.match(byId["defends-015"].why, /kept cells/);
+
+  const correctAndWhy = howDefends.questions
+    .map((question) => `${question.correct_answer}\n${question.why}`)
+    .join("\n");
+  assert.equal(/not a dead shell/i.test(correctAndWhy), false);
+  assert.equal(/kept a copy of the tag/i.test(correctAndWhy), false);
+  assert.equal(/stored copy of the tag/i.test(correctAndWhy), false);
+  assert.equal(/stored inventory of tags/.test(byId["defends-015"].why), true);
+});
+
+test("published how-defends category omits source-turn markers, transcript URLs, and private sidecars", () => {
+  const published = scriptBody("how-defends-bank") + scriptBody("how-defends-explain");
+  const dataset = fs.readFileSync(path.join(root, "content/how-the-body-defends-itself.json"), "utf8");
+  for (const blob of [published, dataset]) {
+    assert.equal(/source_turns/.test(blob), false);
+    assert.equal(/source turn/i.test(blob), false);
+    assert.equal(/drawn from the discussion/.test(blob), false);
+    assert.equal(/https?:\/\//.test(blob), false);
+    assert.equal(/transcript/i.test(blob), false);
+    assert.equal(/verification_source/.test(blob), false);
+  }
+});
+
+test("how-defends rotation covers the bank, shuffles questions, and keeps a separate memory", () => {
+  const bank = howDefends.questions.map(siteItem);
+  const seen = new Set();
+  const rotation = core.createHowDefendsRotation(bank, memoryStorage());
+  const first = rotation.selectRound(8).map((item) => item[0]);
+  const again = core.createHowDefendsRotation(bank, memoryStorage()).selectRound(8).map((item) => item[0]);
+  assert.equal(first.length, 8);
+  assert.equal(new Set(first).size, 8);
+  assert.notDeepEqual(first, again);
+  for (let round = 0; round < 6; round++) {
+    const items = rotation.selectRound(8);
+    assert.equal(items.length, 8);
+    const prompts = items.map((item) => item[0]);
+    assert.equal(new Set(prompts).size, 8);
+    for (const item of items) {
+      assert.equal(bank.some((entry) => entry[0] === item[0] && entry[1] === item[1]), true);
+      rotation.markShown(item[0]);
+      rotation.markResult(item[0], false);
+      seen.add(item[0]);
+    }
+  }
+  assert.equal(seen.size, 16);
+
+  const twenty = core.createHowDefendsRotation(bank, memoryStorage()).selectRound(20);
+  assert.equal(twenty.length, 16);
+
+  const otherBanks = [
+    jsonScript("frontier-bank"),
+    jsonScript("ai-compute-bank"),
+    jsonScript("flatworm-bank"),
+    jsonScript("how-dna-bank"),
+    jsonScript("how-food-bank"),
+    jsonScript("how-cells-talk-bank"),
+  ];
+  const sample = core.createHowDefendsRotation(bank, memoryStorage()).selectRound(16);
+  for (const item of sample) {
+    for (const other of otherBanks) {
+      assert.equal(other.some((entry) => entry[0] === item[0]), false);
+    }
+  }
+});
+
+test("how-defends option order is shuffled and review Why uses the deck explanation", () => {
+  const bank = howDefends.questions.map(siteItem);
+  const orders = new Set();
+  for (let i = 0; i < 24; i++) {
+    const options = core.cardOptions(bank[0], { items: [] });
+    assert.equal(options.length, 4);
+    assert.deepEqual([...options].sort(), [bank[0][1], ...bank[0][2]].sort());
+    assert.equal(options.filter((option) => option === bank[0][1]).length, 1);
+    orders.add(options.join("\n"));
+  }
+  assert.ok(orders.size > 1);
+
+  const explain = jsonScript("how-defends-explain");
+  core.DECKS = {
+    how_defends: { explain },
+    how_cells: { explain: jsonScript("how-cells-talk-explain") },
+  };
+  for (const question of howDefends.questions) {
+    const why = core.explainFor("how_defends", question.question);
+    assert.equal(why, question.why);
+    assert.equal(why.length > 0, true);
+  }
+  const cellsPrompt = jsonScript("how-cells-talk-bank")[0][0];
+  assert.equal(core.explainFor("how_cells", cellsPrompt), jsonScript("how-cells-talk-explain")[cellsPrompt]);
+  assert.equal(core.explainFor("how_defends", "missing"), "");
 });
 
 test("generated math, addition, and fraction decks still have the right answer", () => {
