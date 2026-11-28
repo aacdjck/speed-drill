@@ -1,0 +1,232 @@
+{
+  "category_id": "how-cells-talk-to-each-other",
+  "category_title": "How cells talk to each other",
+  "answer_index_base": 0,
+  "question_count": 16,
+  "questions": [
+    {
+      "id": "talk-006",
+      "topic": "How a nerve message travels",
+      "question": "How does a message travel along a nerve cell?",
+      "options": [
+        "As a hormone drifting in the blood beside the nerve.",
+        "As a current running through the middle of the cell, like a household wire.",
+        "As a quick wave of electrical change in the cell's skin.",
+        "As a charged battery that slides from one end to the other."
+      ],
+      "answer_index": 2,
+      "why": "It is a wave along the skin, not a current through the middle, and not a molecule drifting beside the cell. Resetting the wire uses the batteries from the power plant.",
+      "correct_answer": "As a quick wave of electrical change in the cell's skin."
+    },
+    {
+      "id": "talk-014",
+      "topic": "The pancreas's two jobs",
+      "question": "The pancreas, in this video, has which pair of jobs?",
+      "options": [
+        "It only sends snippers into the gut, and the liver releases insulin.",
+        "It only releases insulin, and snippers come from the stomach alone.",
+        "It sends snippers into the gut, and it also releases messages, such as insulin, into the blood.",
+        "It stores sugar after a meal and releases it later, with no messages involved."
+      ],
+      "answer_index": 2,
+      "why": "The same organ that sent snippers into the gut in the food video also releases hormone messages into the blood. The liver is not the source of insulin in this story.",
+      "correct_answer": "It sends snippers into the gut, and it also releases messages, such as insulin, into the blood."
+    },
+    {
+      "id": "talk-002",
+      "topic": "What a hormone is",
+      "question": "What is a hormone in this video?",
+      "options": [
+        "A snipper sent from the pancreas into the gut.",
+        "A message that travels in the blood and is heard only by cells with the matching doorbell.",
+        "A fast electrical wave that runs along a nerve.",
+        "A protein door that lets sugar into a cell."
+      ],
+      "answer_index": 1,
+      "why": "A hormone is usually a slower broadcast on the blood roads. Only cells that wear the matching doorbell hear it.",
+      "correct_answer": "A message that travels in the blood and is heard only by cells with the matching doorbell."
+    },
+    {
+      "id": "talk-009",
+      "topic": "Running the body you already have",
+      "question": "In the first video, neighbor signals helped a cell become the right kind of cell. What is most of the talking in this video about?",
+      "options": [
+        "How a heart cell and a skin cell first get their different jobs.",
+        "How the body you already have is run, moment to moment.",
+        "How the recipe book itself is copied before a cell divides.",
+        "How food is taken apart in the gut."
+      ],
+      "answer_index": 1,
+      "why": "The first video's neighbor signals were mostly about becoming. This video is about running the body you already have: when to store, when to release, when to pull.",
+      "correct_answer": "How the body you already have is run, moment to moment."
+    },
+    {
+      "id": "talk-004",
+      "topic": "After-meal message to a muscle",
+      "question": "After a meal, which path follows the after-meal message from the pancreas to a muscle cell?",
+      "options": [
+        "The pancreas releases insulin into the gut, where it cuts sugar into smaller pieces, and then a muscle cell swallows the pieces.",
+        "The liver releases insulin into the blood, and every cell opens sugar doors whether or not it has a matching doorbell.",
+        "Sugar in the blood rises. The pancreas releases insulin into the blood. The message travels the blood roads and lands on a doorbell on a muscle cell, which moves more sugar doors into its skin so sugar can enter.",
+        "The pancreas releases insulin into the blood, and the message enters the muscle cell and rewrites the recipes for sugar doors in the book."
+      ],
+      "answer_index": 2,
+      "why": "The message rides the blood roads and is heard only by a matching doorbell. The muscle cell then moves more sugar doors into its skin, and sugar comes in to be used or stored.",
+      "correct_answer": "Sugar in the blood rises. The pancreas releases insulin into the blood. The message travels the blood roads and lands on a doorbell on a muscle cell, which moves more sugar doors into its skin so sugar can enter."
+    },
+    {
+      "id": "talk-012",
+      "topic": "When blood sugar has fallen",
+      "question": "Later, when sugar in the blood has fallen, what happens?",
+      "options": [
+        "Insulin tells the liver to release stored sugar.",
+        "A different message tells the liver to release some of what it stored.",
+        "Nerve cells carry the leftover sugar back to the liver.",
+        "The pantry opens by itself, with no message involved."
+      ],
+      "answer_index": 1,
+      "why": "Two messages, two doorbells. Insulin after a meal; a different message, called glucagon in the chapter, later on, when the pantry needs to open.",
+      "correct_answer": "A different message tells the liver to release some of what it stored."
+    },
+    {
+      "id": "talk-001",
+      "topic": "The gap between nerve cells",
+      "question": "At the gap between two nerve cells, what usually happens?",
+      "options": [
+        "A chemical message is handed over and heard by a doorbell on the next cell.",
+        "The electrical wave jumps the gap and continues.",
+        "The two cells fuse, so the wave has no gap to cross.",
+        "A charged battery is passed across and used as the next wave."
+      ],
+      "answer_index": 0,
+      "why": "Usually the electricity does not jump. A chemical note is handed across the synapse, and the next cell hears it on a receptor, the same kind of doorbell.",
+      "correct_answer": "A chemical message is handed over and heard by a doorbell on the next cell."
+    },
+    {
+      "id": "talk-016",
+      "topic": "A nearby message that fades",
+      "question": "A nearby message that drifts from one cell can be stronger close by and weaker farther away. Which picture from earlier in the series does that match?",
+      "options": [
+        "A rechargeable battery that is full, then empty, then full again.",
+        "A protein door that opens for sugar and stays shut for fat.",
+        "A sandwich that cannot walk through the door of a cell.",
+        "A pot of soup whose smell is strong beside the stove and faint at the far end of the house."
+      ],
+      "answer_index": 3,
+      "why": "The soup-smell picture from the first video, reused here for local talk in the body you already have.",
+      "correct_answer": "A pot of soup whose smell is strong beside the stove and faint at the far end of the house."
+    },
+    {
+      "id": "talk-008",
+      "topic": "Why a cell can stay quiet",
+      "question": "Why can a cell stay quiet even when a message is all around it?",
+      "options": [
+        "The blood only delivers messages to cells that will use them, so a quiet cell never meets the message.",
+        "A cell hears a message only when the message fits a doorbell on its skin. With no matching doorbell, the message can still be present, but the cell does not respond.",
+        "The nucleus rejects messages that are not already written in the book, so the message never reaches the skin.",
+        "The message must enter the power plant before a cell can hear it; if it stays outside, the cell stays quiet."
+      ],
+      "answer_index": 1,
+      "why": "A doorbell has to fit. If the cell has not put out the matching receptor, the message cannot knock, even if it is nearby or in the blood.",
+      "correct_answer": "A cell hears a message only when the message fits a doorbell on its skin. With no matching doorbell, the message can still be present, but the cell does not respond."
+    },
+    {
+      "id": "talk-003",
+      "topic": "Why a body needs messages",
+      "question": "Why does a body of many cells need messages?",
+      "options": [
+        "Each cell can already see the whole body through its copy of the book.",
+        "The blood delivers food and power, so no further news is needed.",
+        "Messages are only needed while a body is first being built.",
+        "No single cell can see the whole body, and many jobs need cells to act together."
+      ],
+      "answer_index": 3,
+      "why": "You are a house with many kitchens. After a meal, or when you stand up, many cells must act together.",
+      "correct_answer": "No single cell can see the whole body, and many jobs need cells to act together."
+    },
+    {
+      "id": "talk-011",
+      "topic": "Hormone and nerve compared",
+      "question": "How do a hormone and a nerve message differ, and what do they share?",
+      "options": [
+        "A hormone is a fast electrical wave aimed at one cell. A nerve message is a slower broadcast in the blood. Both rewrite the recipe book.",
+        "A hormone and a nerve message are the same thing: both are electrical waves that jump from cell to cell through the blood.",
+        "A hormone is usually slower and travels in the blood, heard by every cell it passes. A nerve message is a current through the middle of the cell, like a household wire. Only the nerve uses a doorbell.",
+        "A hormone is usually slower and travels in the blood to many cells, but only cells with the matching doorbell hear it. A nerve message is faster and more aimed: a wave of electrical change runs along a long thin cell, then a chemical is handed across a gap and heard by a doorbell. Both are heard by doorbells."
+      ],
+      "answer_index": 3,
+      "why": "Hormones are usually slower and wider, in the blood. Nerves are faster and more aimed, electrical then chemical at the gap. Both are heard by doorbells.",
+      "correct_answer": "A hormone is usually slower and travels in the blood to many cells, but only cells with the matching doorbell hear it. A nerve message is faster and more aimed: a wave of electrical change runs along a long thin cell, then a chemical is handed across a gap and heard by a doorbell. Both are heard by doorbells."
+    },
+    {
+      "id": "talk-007",
+      "topic": "What insulin does",
+      "question": "After a meal, what does insulin do?",
+      "options": [
+        "It tells every cell in the body to release stored sugar.",
+        "It acts as a snipper that cuts sugar into smaller pieces in the gut.",
+        "It opens amino-acid doors in the liver and nowhere else.",
+        "It lands on doorbells on many cells, especially muscle and fat, and those cells move more sugar doors into the skin."
+      ],
+      "answer_index": 3,
+      "why": "Muscle and fat cells move more sugar doors into the skin. The liver hears the same news but responds by storing sugar rather than by moving the same doors.",
+      "correct_answer": "It lands on doorbells on many cells, especially muscle and fat, and those cells move more sugar doors into the skin."
+    },
+    {
+      "id": "talk-015",
+      "topic": "The sugar loop",
+      "question": "Using the thermostat or pantry picture, which description of the loop that keeps sugar in a useful range is right?",
+      "options": [
+        "After a meal, sugar in the blood rises, insulin goes out, cells take sugar in, and the liver stores it. Later, a different message tells the liver to release some of what it stored. What cells do then changes the situation that caused the message.",
+        "After a meal, insulin tells the liver to release stored sugar. Later, a different message tells muscle cells to store fat. The two messages do not form a loop.",
+        "After a meal, insulin stays in the blood until sugar is gone, then the pantry opens by itself, with no later message.",
+        "After a meal, a nerve wave carries leftover sugar back to the liver. Insulin is used only later, when the pantry needs to open."
+      ],
+      "answer_index": 0,
+      "why": "Insulin after a meal leads cells to take up or store sugar. Later a different message tells the liver to release some of what it stored. That is a loop, like a thermostat or a pantry.",
+      "correct_answer": "After a meal, sugar in the blood rises, insulin goes out, cells take sugar in, and the liver stores it. Later, a different message tells the liver to release some of what it stored. What cells do then changes the situation that caused the message."
+    },
+    {
+      "id": "talk-005",
+      "topic": "A quiet cell",
+      "question": "A message is all around a cell, but the cell does not respond. What is the best explanation?",
+      "options": [
+        "The cell has no matching doorbell, so it cannot hear that message.",
+        "The nucleus has rejected the message.",
+        "The blood only delivers messages to cells that need them, so this cell never meets it.",
+        "Messages cannot affect a cell unless they enter the power plant."
+      ],
+      "answer_index": 0,
+      "why": "Hearing depends on a matching receptor on the cell's skin. Without that doorbell, the message can be all around and still not be heard.",
+      "correct_answer": "The cell has no matching doorbell, so it cannot hear that message."
+    },
+    {
+      "id": "talk-013",
+      "topic": "Levin's idea",
+      "question": "Michael Levin's idea that ordinary cells use patterns of electrical charge to talk about shape and healing is:",
+      "options": [
+        "Settled textbook fact, like the way a nerve signal travels.",
+        "A proposal that is still being tested, not settled fact.",
+        "A proof that only nerve cells can hold a charge across their skin.",
+        "A proof that electrical patterns are the body's only way to set a shape."
+      ],
+      "answer_index": 1,
+      "why": "Almost every cell does hold a charge across its skin, and that part is established. The step from that fact to a role in shape and healing is a proposal, still being tested, not settled fact.",
+      "correct_answer": "A proposal that is still being tested, not settled fact."
+    },
+    {
+      "id": "talk-010",
+      "topic": "What a receptor is",
+      "question": "What is a receptor in this video?",
+      "options": [
+        "A protein doorbell whose shape fits one kind of message.",
+        "A hole in the cell's skin, sized so that any small message can slip through.",
+        "A protein door that lets sugar or amino acids into the cell.",
+        "A recipe in the book that the message rewrites."
+      ],
+      "answer_index": 0,
+      "why": "Key and lock again, but this time it is a doorbell, not a food door. The message often stays on the doorbell, and the cell does the rest inside.",
+      "correct_answer": "A protein doorbell whose shape fits one kind of message."
+    }
+  ]
+}

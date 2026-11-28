@@ -1,0 +1,232 @@
+{
+  "category_id": "how-the-body-defends-itself",
+  "category_title": "How the body defends itself",
+  "answer_index_base": 0,
+  "question_count": 16,
+  "questions": [
+    {
+      "id": "defends-009",
+      "topic": "How first responders recognize an invader",
+      "question": "How do the first responders recognize an invader?",
+      "options": [
+        "They already know its exact name, and they wait for a matching tag before they act.",
+        "They recognize a general \"this doesn't belong\" look, without needing one exact name.",
+        "They read the invader's recipe book and copy a page.",
+        "They only act after memory cells have made a large number of tags."
+      ],
+      "answer_index": 1,
+      "why": "First help is general and fast. The exact-shape tool comes later, and takes longer to make.",
+      "correct_answer": "They recognize a general \"this doesn't belong\" look, without needing one exact name."
+    },
+    {
+      "id": "defends-014",
+      "topic": "What autoimmunity is",
+      "question": "In this video, what is autoimmunity?",
+      "options": [
+        "A strong reaction to something usually harmless, like a pollen grain.",
+        "The defense sometimes turning on the body's own pieces, which is not the normal rule.",
+        "The usual way the body weeds out cells that would attack the household.",
+        "A vaccine that always stops a germ from ever entering."
+      ],
+      "answer_index": 1,
+      "why": "Autoimmunity is a brief, careful beat: the defense can turn on the body's own pieces. It is real, and it is not the normal rule.",
+      "correct_answer": "The defense sometimes turning on the body's own pieces, which is not the normal rule."
+    },
+    {
+      "id": "defends-002",
+      "topic": "What skin is",
+      "question": "In this video, what is skin?",
+      "options": [
+        "A dead shell that never changes once you are grown.",
+        "A living wall, always being rebuilt. The outermost layer is dead cells, but the wall as a whole is living.",
+        "A wall of living cells all the way to the surface, with no dead layer.",
+        "A sticky mat of mucus that covers the whole outside of the body."
+      ],
+      "answer_index": 1,
+      "why": "Skin is a living wall, always being rebuilt. The outermost layer is dead cells, but the organ as a whole is living and is replaced all the time.",
+      "correct_answer": "A living wall, always being rebuilt. The outermost layer is dead cells, but the wall as a whole is living."
+    },
+    {
+      "id": "defends-016",
+      "topic": "How a call for more help travels",
+      "question": "When first responders call for more help, how does that call travel?",
+      "options": [
+        "As a new kind of hearing the body invents only for defense.",
+        "As an electrical wave that jumps from the cut to every cell in the body.",
+        "By rewriting the recipe book in nearby cells so they become tags.",
+        "With the same kind of doorbells and blood roads already used for messages."
+      ],
+      "answer_index": 3,
+      "why": "A damaged neighborhood sends messages that drift to neighbors or travel the blood roads. Only cells with the matching doorbell hear them. The house does not need a new kind of hearing for this job.",
+      "correct_answer": "With the same kind of doorbells and blood roads already used for messages."
+    },
+    {
+      "id": "defends-005",
+      "topic": "What a vaccine is",
+      "question": "What is a vaccine in this video?",
+      "options": [
+        "A product, named in the chapter, that always stops a germ from ever entering.",
+        "A practice run that shows the body a safe piece of the stranger, or a harmless stand-in, so memory can form without the full illness.",
+        "A first-help cell that swallows every stranger on the spot.",
+        "A reminder that memory lasts forever, so a later meeting is never needed."
+      ],
+      "answer_index": 1,
+      "why": "A vaccine is a practice run, not a named product, and not a claim that a germ can never enter. The next meeting is faster and stronger because the shape is already known.",
+      "correct_answer": "A practice run that shows the body a safe piece of the stranger, or a harmless stand-in, so memory can form without the full illness."
+    },
+    {
+      "id": "defends-011",
+      "topic": "Stomach acid and defense",
+      "question": "The acid in the stomach, already seen in the food video, also does what for defense?",
+      "options": [
+        "It kills every microbe that enters, with no exceptions.",
+        "It makes a poor home for many microbes, though not all of them.",
+        "It forms a dry living wall on the skin.",
+        "It writes a tag that fits one exact stranger."
+      ],
+      "answer_index": 1,
+      "why": "Stomach acid helps take a meal apart, and it also makes a poor home for many microbes. It does not kill everything that enters.",
+      "correct_answer": "It makes a poor home for many microbes, though not all of them."
+    },
+    {
+      "id": "defends-001",
+      "topic": "What an antibody is",
+      "question": "What is an antibody in this video?",
+      "options": [
+        "A protein whose shape fits a particular shape on an invader.",
+        "A hormone message that travels the blood roads and is heard by every cell.",
+        "A protein door that lets sugar into a muscle cell.",
+        "A patrol cell that swallows a stranger and takes it apart."
+      ],
+      "answer_index": 0,
+      "why": "An antibody is a protein, made by a B cell from the recipes in the book. Its shape is a key in a lock, used for defense.",
+      "correct_answer": "A protein whose shape fits a particular shape on an invader."
+    },
+    {
+      "id": "defends-008",
+      "topic": "First help at a cut",
+      "question": "A small cut lets a visitor in. In the first minutes and hours, how does first help work, and how does it call for more help?",
+      "options": [
+        "Patrol cells wait for a matching tag before they act, then they rewrite nearby cells' recipe books so the cut itself becomes a memory of that exact enemy.",
+        "First help is an electrical wave that jumps from the cut to every cell in the body, and the redness is the injury itself, a sign that the defense has already failed.",
+        "Stomach acid leaks out through the break and kills the visitor. No doorbells or blood roads are used, and this first help keeps a lasting memory of that exact enemy.",
+        "Patrol cells recognize a general \"this doesn't belong\" look, not one exact name. They can swallow a stranger and take it apart, and they call for more help with the same doorbells and blood roads used for other messages. The redness and puff are help arriving. This first help is fast and general, and it does not keep a lasting memory of one exact enemy."
+      ],
+      "answer_index": 3,
+      "why": "First help is general and fast: a \"doesn't belong\" look, swallowing, and a call for help on the familiar doorbells and blood roads. It does not keep a lasting memory of one exact enemy.",
+      "correct_answer": "Patrol cells recognize a general \"this doesn't belong\" look, not one exact name. They can swallow a stranger and take it apart, and they call for more help with the same doorbells and blood roads used for other messages. The redness and puff are help arriving. This first help is fast and general, and it does not keep a lasting memory of one exact enemy."
+    },
+    {
+      "id": "defends-013",
+      "topic": "Speed of learning an exact shape",
+      "question": "Compared with first help, learning the exact shape of one invader is:",
+      "options": [
+        "Faster, so first help is no longer needed once a stranger appears.",
+        "The same speed, because both keep a lasting memory of one exact enemy.",
+        "Slower; first help holds the line while the right shape is found and copied.",
+        "Only used for neighbors that already belong in the gut."
+      ],
+      "answer_index": 2,
+      "why": "The specific tool is powerful, and it is slow. That is why first help matters while the right shape is found.",
+      "correct_answer": "Slower; first help holds the line while the right shape is found and copied."
+    },
+    {
+      "id": "defends-003",
+      "topic": "Redness and puff after a scrape",
+      "question": "When a spot looks red, feels warm, and puffs up after a scrape, what is that picture in this video?",
+      "options": [
+        "The injury itself, which means the defense has already failed.",
+        "Help arriving, as the local blood roads open wider.",
+        "The body making a tag that fits one exact stranger.",
+        "Stomach acid leaking out through a break in the skin."
+      ],
+      "answer_index": 1,
+      "why": "Inflammation can look like a problem, but the redness and the puff are help arriving. If that swelling lasts too long it can cause trouble, but that is a caution, not the main story.",
+      "correct_answer": "Help arriving, as the local blood roads open wider."
+    },
+    {
+      "id": "defends-015",
+      "topic": "Memory and a vaccine",
+      "question": "After the first meeting, how does the body remember, and what is a vaccine in this story?",
+      "options": [
+        "After the first meeting, the house keeps a stored copy of the tag, and first help uses that same stored tag as its lasting memory of one exact enemy. A vaccine always stops a germ from ever entering, and the memory lasts forever.",
+        "Memory is only the first-help patrol, which keeps a lasting memory of one exact enemy. A vaccine is a named product that swallows every stranger on the spot.",
+        "After the first meeting, some of the cells that learned that shape remain as a memory, so a later meeting is faster and stronger. A vaccine is a practice run that shows the body a safe piece of the stranger, or a harmless stand-in, so memory can form without the full illness. The story does not claim that a vaccine always stops a germ from ever entering, or that memory lasts forever.",
+        "The body does not remember. Each later meeting starts from scratch, and a vaccine is only useful during the first illness."
+      ],
+      "answer_index": 2,
+      "why": "Memory is the kept cells, ready to copy the tag again, not a stored inventory of tags. A later meeting is faster and stronger. A vaccine is a practice run with a safe piece or stand-in, not a guarantee of no entry, and memory is not always forever.",
+      "correct_answer": "After the first meeting, some of the cells that learned that shape remain as a memory, so a later meeting is faster and stronger. A vaccine is a practice run that shows the body a safe piece of the stranger, or a harmless stand-in, so memory can form without the full illness. The story does not claim that a vaccine always stops a germ from ever entering, or that memory lasts forever."
+    },
+    {
+      "id": "defends-007",
+      "topic": "What antibodies usually do",
+      "question": "What do antibodies usually do to a stranger?",
+      "options": [
+        "They tag it, or cap a part it would use to get in, so first help can work more precisely.",
+        "They swallow it and take it apart themselves.",
+        "They rewrite the stranger's recipe book so it becomes a familiar cell.",
+        "They open sugar doors in the stranger's skin."
+      ],
+      "answer_index": 0,
+      "why": "Antibodies do not usually swallow the stranger. They tag it for the swallowing cells, or cap a docking part, like a fitted cover on a lock.",
+      "correct_answer": "They tag it, or cap a part it would use to get in, so first help can work more precisely."
+    },
+    {
+      "id": "defends-012",
+      "topic": "Walls that keep strangers out",
+      "question": "How does the body keep most strangers out before a fight even starts?",
+      "options": [
+        "The first defense is a set of walls. Skin is a living wall, always being rebuilt. In the nose, mouth, and gut, a slippery lining can trap tiny visitors in mucus, and tears or saliva can wash them away. Stomach acid makes a poor home for many microbes, though not all of them. Many tiny residents, especially in the gut, belong there.",
+        "Skin is a dead shell that never changes. The body attacks every tiny living thing, including helpful residents in the gut, before any can settle.",
+        "The only wall is stomach acid, which kills every microbe that enters, with no exceptions. Skin and mucus play no part.",
+        "The body has no walls; it waits until a stranger is inside, then learns its exact shape before any defense begins."
+      ],
+      "answer_index": 0,
+      "why": "Most strangers never get past the walls: living skin that is always being rebuilt, a sticky lining and a wash, and stomach acid that is a poor home for many, not all. Some residents belong.",
+      "correct_answer": "The first defense is a set of walls. Skin is a living wall, always being rebuilt. In the nose, mouth, and gut, a slippery lining can trap tiny visitors in mucus, and tears or saliva can wash them away. Stomach acid makes a poor home for many microbes, though not all of them. Many tiny residents, especially in the gut, belong there."
+    },
+    {
+      "id": "defends-006",
+      "topic": "Tiny living things",
+      "question": "The body lives among many tiny living things. What is the right picture?",
+      "options": [
+        "Every tiny living thing is an enemy, and the defense should attack all of them.",
+        "The body is meant to be empty of them, especially in the gut.",
+        "Tiny living things can live only on the skin, never in the gut.",
+        "Not all of them are a problem; many tiny residents, especially in the gut, belong there."
+      ],
+      "answer_index": 3,
+      "why": "Many residents belong, and some even help with taking food apart. The job of a defense is not to attack everything small.",
+      "correct_answer": "Not all of them are a problem; many tiny residents, especially in the gut, belong there."
+    },
+    {
+      "id": "defends-004",
+      "topic": "Learning one exact shape",
+      "question": "How does the body learn the exact shape of one invader?",
+      "options": [
+        "It already keeps one ready-made recipe for every germ in the world, and pulls out the matching one when that germ appears.",
+        "A patrol cell swallows the stranger, then writes a new recipe into the book so every cell can make that exact tag.",
+        "It keeps a tray of slightly different shapes on hand. The cell whose shape fits this stranger is copied in large numbers. Antibodies tag or cap the stranger; they do not usually swallow it, and the body does not keep one ready-made recipe for every germ.",
+        "The first responders already know the invader's exact name, and they wait for a matching tag before any cell is copied."
+      ],
+      "answer_index": 2,
+      "why": "The body keeps a huge variety of slightly different keys. The one that fits is copied. Antibodies tag or cap; they do not usually swallow the stranger themselves.",
+      "correct_answer": "It keeps a tray of slightly different shapes on hand. The cell whose shape fits this stranger is copied in large numbers. Antibodies tag or cap the stranger; they do not usually swallow it, and the body does not keep one ready-made recipe for every germ."
+    },
+    {
+      "id": "defends-010",
+      "topic": "What an allergy is",
+      "question": "In this video, what is an allergy?",
+      "options": [
+        "The normal rule, in which the defense always leaves the household alone.",
+        "The defense turning on the body's own pieces.",
+        "A strong reaction to something usually harmless, like a pollen grain.",
+        "A practice run that forms memory without the full illness."
+      ],
+      "answer_index": 2,
+      "why": "An allergy is a strong reaction to something usually harmless, like a pollen grain. It is not the normal rule.",
+      "correct_answer": "A strong reaction to something usually harmless, like a pollen grain."
+    }
+  ]
+}
